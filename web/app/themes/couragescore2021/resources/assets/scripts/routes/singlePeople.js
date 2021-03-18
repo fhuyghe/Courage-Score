@@ -3,13 +3,10 @@ export default {
         
     //Maps
     var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-    // const apiKey = 'AAPKa7b97dc92c594bbba698c60df8b8e5c3VIU75f9pinf3oI9NwLTbN-UpWfvTSqHR6Nln5_F3vnhQpkdjJ5kYqeGSQNQiCmgY';
-    // const basemapEnum = 'ArcGIS:Streets';
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiZnJpZW5kc29mZnJpZW5kcyIsImEiOiJjajlldnkwbDIyODJmMnlsZ2Z2MjJrZGplIn0.uSr8TFD1-mXrGRfjt1_h5Q';
     var map = new mapboxgl.Map({
     container: 'mapContainer',
-    // style: `https://basemaps-api.arcgis.com/arcgis/rest/services/styles/${basemapEnum}?type=style&apiKey=${apiKey}`,
     style: 'mapbox://styles/friendsoffriends/ckmf19pegd66m17p8xofezhuw',
     trackResize: true,
     center: [-119.8287148, 35.1651863],
