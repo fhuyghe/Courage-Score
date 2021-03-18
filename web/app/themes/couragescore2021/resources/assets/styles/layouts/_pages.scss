@@ -1,0 +1,43 @@
+// Home
+.page.home{
+    #top{
+        height: 100vh;
+        background: grey;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        .content{
+            width: 100%;
+            max-width: 800px;
+            background-color: theme-color(white);
+            border-radius: 5px;
+            padding: $grid-gutter;
+            text-align: center;
+        }
+    }
+}
+
+// All Legislators
+.page.all-legislators{
+    tr.assembly{
+        display: none;
+    }
+}
+
+//Legislator Blocks
+.legislator-block{
+    border-radius: 5px;
+    border: 1px solid theme-color(black);
+    padding: $grid-gutter;
+    margin-bottom: $grid-gutter;
+
+    .portrait{
+        margin-bottom: $grid-gutter;
+
+        img{
+            max-width: 100%;
+            height: auto;
+        }
+    }
+}

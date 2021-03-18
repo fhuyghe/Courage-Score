@@ -1,0 +1,18 @@
+$headerHeight: 75px;
+
+header.banner{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: $headerHeight;
+    z-index: 99;
+    background-color: theme-color(white);
+    border-bottom: 1px solid theme-color(black);
+}
+
+.wrap{
+    min-height: 100vh;
+    margin-top: $headerHeight;
+    padding-top: $grid-gutter;
+}
