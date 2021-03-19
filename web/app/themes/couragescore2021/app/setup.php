@@ -13,6 +13,7 @@ use Roots\Sage\Template\BladeProvider;
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('sage/main.css', asset_path('styles/main.css'), false, null);
     wp_enqueue_script('sage/main.js', asset_path('scripts/main.js'), ['jquery'], null, true);
+    wp_localize_script( 'sage/main.js', 'my_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 
     if (is_single() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
@@ -1285,3 +1286,12 @@ function jb_filter_acf_meta( $where ) {
     $where = str_replace('meta_key = \'voting_history_$_vote_date', "meta_key LIKE 'voting_history_%_vote_date", $where);
     return $where;
 }
+
+// TEST AJAX CALLS
+function callExampleFunction() {
+    $name = \FrontPage::exampleFunction();
+    wp_send_json_success($name);
+}
+
+add_action('wp_ajax_nopriv_call_example_function', __NAMESPACE__ .'\\callExampleFunction' );
+add_action('wp_ajax_admin_call_example_function', __NAMESPACE__ .'\\callExampleFunction' );

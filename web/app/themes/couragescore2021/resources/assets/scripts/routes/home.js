@@ -39,27 +39,21 @@ export default {
         },
     });
 
-    // $('#address-input').on('propertychange change click keyup input paste', function () {
-    //   let val = $(this).val();
-    //   if(val)
-    //   $.ajax({
-    //     url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?',
-    //     data: {
-    //       f: 'json',
-    //       text: val,
-    //       category: 'Address',
-    //     },
-    //     cache: false,
-    //   })
-    //     .done(function( res ) {
-    //       $('#suggestions').html('');
-    //       res.suggestions.forEach(result => {
-    //         $('#suggestions').append(
-    //           '<div id="' + result.magicKey + '">' + result.text + '</div>'
-    //         );
-    //       });
-    //     });
-    // })
+    $('#address-button').on('click', function () {
+      console.log('Button click');
+      console.log(process.env);
+
+      $.ajax({
+        // eslint-disable-next-line no-undef
+        url : my_ajax_object.ajax_url,
+        data : {
+        action: 'call_example_function',
+        },
+        success: function(response) {
+        console.log(response);
+        },
+        });
+    });
   },
   finalize() {
     // JavaScript to be fired on the home page, after the init JS
