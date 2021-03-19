@@ -6,9 +6,6 @@ web/app/upgrade
 web/app/uploads/*
 !web/app/uploads/.gitkeep
 
-# old theme
-web/app/themes/progressive
-
 # WordPress
 web/wp
 web/.htaccess
