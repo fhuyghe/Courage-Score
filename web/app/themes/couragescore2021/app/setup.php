@@ -7,6 +7,8 @@ use Roots\Sage\Assets\JsonManifest;
 use Roots\Sage\Template\Blade;
 use Roots\Sage\Template\BladeProvider;
 
+define('GOOGLEMAPS_API', getenv('GOOGLEMAPS_API'));
+
 /**
  * Theme assets
  */
@@ -272,12 +274,10 @@ function create_vote_topics_taxonomies()
     ));
 }
 
-function get_district($street, $city, $zip){
+function getDistrict(){
     // example address 1228 O St , Sacramento, CA, 95814
-    $address = ''.str_replace(' ', '%20', $street);
-    $address .= '+'.str_replace(' ', '%20', $city);
-    $address .= '+'.$zip;
-    $url = "https://www.googleapis.com/civicinfo/v2/representatives?address=$address+CA&key=GOOGLEMAPS_API";
+    
+    $url = "https://www.googleapis.com/civicinfo/v2/representatives?address=" . urlencode($_REQUEST['address']) . "&key=" . GOOGLEMAPS_API;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -288,8 +288,6 @@ function get_district($street, $city, $zip){
     $response = curl_exec($ch);
     curl_close($ch);
     $response_a = json_decode($response);
-    // print_r('++++++++++++++++++++');
-    // print_r($response_a);
     $offices = $response_a->offices;
     if($offices){
         foreach ($offices as $office){
@@ -299,8 +297,11 @@ function get_district($street, $city, $zip){
             $divisions[$district_type] = $district_number;
         }
     }
-    return $divisions;
+    wp_send_json_success( $divisions);
 }
+
+add_action('wp_ajax_nopriv_get_district', __NAMESPACE__ .'\\getDistrict' );
+add_action('wp_ajax_admin_get_district', __NAMESPACE__ .'\\getDistrict' );
 
 function get_district_data( $district_type , $district_id, $maps_count){
     $openstates_data_var = 'openstates_data_'.$district_type.'_'.$district_id.'_json';

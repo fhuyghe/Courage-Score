@@ -22,7 +22,7 @@ export default {
               data: {
                 f: 'json',
                 text: text,
-                category: 'Address',
+                category: 'Address, Residence, Postal',
                 countryCode: 'usa',
                 searchExtent: '-125.656774,31.611563,-113.850027,42.427281',
               },
@@ -30,29 +30,13 @@ export default {
             })
               .done(function (res) {
                 let suggestions = res.suggestions;
-                suggestions = suggestions.filter(function(address){return address.text.includes('CA,')});
+                //suggestions = suggestions.filter(function(address){return address.text.includes('CA,')});
                 update(suggestions);
               });
         },
         onSelect: function(item) {
             input.value = item.text;
         },
-    });
-
-    $('#address-button').on('click', function () {
-      console.log('Button click');
-      console.log(process.env);
-
-      $.ajax({
-        // eslint-disable-next-line no-undef
-        url : my_ajax_object.ajax_url,
-        data : {
-        action: 'call_example_function',
-        },
-        success: function(response) {
-        console.log(response);
-        },
-        });
     });
   },
   finalize() {

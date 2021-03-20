@@ -9,6 +9,7 @@
         <input id="address-input" type="text" placeholder="Enter an address e.g. 1 York St" size="50" />
         <div id="suggestions"></div>
         <button id="address-button">Find</button>
+        <div id="districts"></div>
       </div>
     </div>
   </section>
