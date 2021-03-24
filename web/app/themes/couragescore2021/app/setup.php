@@ -8,6 +8,8 @@ use Roots\Sage\Template\Blade;
 use Roots\Sage\Template\BladeProvider;
 
 define('GOOGLEMAPS_API', getenv('GOOGLEMAPS_API'));
+define('OPENSTATES_API', getenv('OPENSTATES_API'));
+define('$BILLTRACK_API', getenv('BILLTRACK_API'));
 
 /**
  * Theme assets
@@ -274,6 +276,7 @@ function create_vote_topics_taxonomies()
     ));
 }
 
+// Get the district numbers based on your address.
 function getDistrict(){
     // example address 1228 O St , Sacramento, CA, 95814
     
@@ -297,19 +300,21 @@ function getDistrict(){
             $divisions[$district_type] = $district_number;
         }
     }
-    wp_send_json_success( $divisions);
+    $district_info[0] = \App::getLegislator('assembly', $divisions['sldl']);
+    $district_info[1] = \App::getLegislator('senate', $divisions['sldu']);
+    wp_send_json_success( $district_info);
 }
 
 add_action('wp_ajax_nopriv_get_district', __NAMESPACE__ .'\\getDistrict' );
 add_action('wp_ajax_admin_get_district', __NAMESPACE__ .'\\getDistrict' );
 
-function get_district_data( $district_type , $district_id, $maps_count){
+function get_district_data( $district_type , $district_id){
     $openstates_data_var = 'openstates_data_'.$district_type.'_'.$district_id.'_json';
     $cached_data = get_transient( $openstates_data_var );
     if( true == $cached_data ){
          return  $cached_data;
     }else{
-        $url = "http://openstates.org/api/v1/districts/boundary/ocd-division/country:us/state:ca/$district_type:$district_id/?apikey=OPENSTATES_API";
+        $url = "https://v3.openstates.org/people?jurisdiction=ca&org_classification=$district_type&district=$district_id&apikey=6ece8713-9334-4204-a913-dea301f01663";// . OPENSTATES_API;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -320,6 +325,8 @@ function get_district_data( $district_type , $district_id, $maps_count){
         $response = curl_exec($ch);
         curl_close($ch);
         $response_a = json_decode($response);
+        return $response_a;
+        
         $openstates_data_var_month = 'openstates_data_'.$district_type.'_'.$district_id.'_json_month';
         if (!is_object($response_a)){
             $response_a = get_transient( $openstates_data_var_month );
@@ -332,264 +339,6 @@ function get_district_data( $district_type , $district_id, $maps_count){
         return  $response_a;
     } 
     
-}
-
-function get_district_map( $district_type , $district_id, $maps_count){
-    global $post;
-    $response_a = get_district_data($district_type , $district_id, $maps_count);
-    $center_lat = $response_a->region->center_lat;
-    $center_lng = $response_a->region->center_lon;
-    $html = '<div  class="map"><div id="map-'.$maps_count.'" style="width:100%; height:100%"></div></div>';
-    $html .='<script>
-                function map'.$maps_count.'() {
-                    var map'.$maps_count.' = new google.maps.Map(document.getElementById("map-'.$maps_count.'"), {
-                        zoom: 7,
-                        center: {lat: '.$center_lat.', lng: '.$center_lng.'},
-                        mapTypeId: google.maps.MapTypeId.ROADMAP,
-                        disableDefaultUI: true,
-                        zoomControl: true,
-                        fullscreenControlOptions: true,
-                    });
-                ';
-                foreach ($response_a->shape as $key=>$district_locations){
-    $html .=    'var districtCoords_'.$key.' = [';
-                    foreach($district_locations[0] as $lng_lat){
-                        
-                        $html .= '{lat:'.$lng_lat[1].', lng:'.$lng_lat[0].'},';
-                    }
-    $html .=    '];
-
-                  // Construct the polygon.
-                  var districtPolygon_'.$key.' = new google.maps.Polygon({
-                    paths: districtCoords_'.$key.',
-                    strokeColor: "#FF0000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#FF0000",
-                    fillOpacity: 0.35
-                  });';
-     $html .=    ' districtPolygon_'.$key.'.setMap(map'.$maps_count.');';
-                } 
-    $html .=    '
-                var currCenter = map'.$maps_count.'.getCenter();
-                setTimeout(function(){
-                google.maps.event.trigger(map'.$maps_count.', "resize");
-                map'.$maps_count.'.setCenter(currCenter);
-                }, 1000); 
-             google.maps.event.trigger(map'.$maps_count.', "resize");}</script>';
-    return $html;
-    //endif;
-}
-
-function get_district_map_new( $district_type , $district_id, $maps_count){
-    global $post;
-    $center_lat = 0;
-    $center_lng = 0;
-    $html = '<div  class="map"><div id="map-'.$maps_count.'" style="width:100%; height:100%"></div></div>';
-    $html .='<script>
-                function map'.$maps_count.'() {
-                    var map'.$maps_count.' = new google.maps.Map(document.getElementById("map-'.$maps_count.'"), {
-                        zoom: 10,
-                        center: {lat: '.$center_lat.', lng: '.$center_lng.'},
-                        mapTypeId: google.maps.MapTypeId.ROADMAP,
-                        disableDefaultUI: true,
-                        zoomControl: true,
-                        fullscreenControlOptions: true,
-                    });
-                ';
-                if($district_type== 'sldu' ){$district = 'senate';} else{ $district = 'assembly';}
-                
-                $drow = $district.'_district_'.$district_id;
-    $html .=    'var districtCoords = [';
-    $html .=  	get_local_file_contents(TEMPLATEPATH.'/geo/'.$district.'/district-'.$district_id.'.txt');
-    $html .=	'];';
-                  // Construct the polygon.
-     $html .=   'var districtPolygon = new google.maps.Polygon({
-                    paths: districtCoords,
-                    strokeColor: "#FF0000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#FF0000",
-                    fillOpacity: 0.35
-                  });';
-     
-               
-    $html .=    ' 
-     			var bounds = new google.maps.LatLngBounds();
-				var i;
-				for (var j = 0; j < districtCoords.length; j++) {
-					for (i = 0; i < districtCoords[j].length; i++) {
-					  bounds.extend(districtCoords[j][i]);
-					}
-				}
-				map'.$maps_count.'.fitBounds(bounds);
-     			districtPolygon.setMap(map'.$maps_count.');';
-    $html .=    '
-                var currCenter = bounds.getCenter();
-                
-                var listener = google.maps.event.addListener(map'.$maps_count.', "idle", function() { 
-				    var zoom = map'.$maps_count.'.getZoom();
-				    if(zoom <3){
-                        map'.$maps_count.'.setZoom(6); 
-                    }
-
-				  google.maps.event.removeListener(listener); 
-				 });
-                setTimeout(function(){
-                google.maps.event.trigger(map'.$maps_count.', "resize");
-                map'.$maps_count.'.setCenter(currCenter);
-                }, 1000);
-                google.maps.event.trigger(map'.$maps_count.', "resize"); }</script>';
-    return $html;
-}
-
-function get_local_file_contents( $file_path ) {
-    ob_start();
-    include $file_path;
-    $contents = ob_get_clean();
-
-    return $contents;
-}
-
-function get_district_map_full_screen( $district_type , $district_id, $maps_count){
-    global $post;
-    $response_a = get_district_data($district_type , $district_id, $maps_count);
-    $center_lat = $response_a->region->center_lat;
-    $center_lng = $response_a->region->center_lon;
-    //print_r($response_a);
-    //if($response_a && $response_a[0] !='Not Found'):
-    $html = '<div  class="map"><div id="map-'.$maps_count.'" style="width:100%; height:100%"></div></div>';
-    $html .='<script>
-                function map'.$maps_count.'() {
-                    var map'.$maps_count.' = new google.maps.Map(document.getElementById("map-'.$maps_count.'"), {
-                        zoom: 10,
-                        center: {lat: '.$center_lat.', lng: '.$center_lng.'},
-                        mapTypeId: google.maps.MapTypeId.ROADMAP,
-                        disableDefaultUI: true,
-                        zoomControl: true,
-                        fullscreenControlOptions: true,
-                    });';
-                foreach ($response_a->shape as $key=>$district_locations){
-    $html .=    'var districtCoords_'.$key.' = [';
-                    foreach($district_locations[0] as $lng_lat){
-                        
-                        $html .= '{lat:'.$lng_lat[1].', lng:'.$lng_lat[0].'},';
-                    }
-    $html .=    '];
-
-                  // Construct the polygon.
-                  var districtPolygon_'.$key.' = new google.maps.Polygon({
-                    paths: districtCoords_'.$key.',
-                    strokeColor: "#FF0000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#FF0000",
-                    fillOpacity: 0.35
-                  });';
-     $html .=    ' districtPolygon_'.$key.'.setMap(map'.$maps_count.');';
-                } 
-    $html .=    ' }</script>';
-    return $html;
-    //endif;
-}
-
-function get_district_map_full_screen_new( $district_type , $district_id, $maps_count){
-    global $post;
-    $center_lat = 0;
-    $center_lng = 0;
-    //print_r($response_a);
-    //if($response_a && $response_a[0] !='Not Found'):
-    $html = '<div  class="map"><div id="map-'.$maps_count.'" style="width:100%; height:100%"></div></div>';
-    $html .='<script>
-                function map'.$maps_count.'() {
-                    var map'.$maps_count.' = new google.maps.Map(document.getElementById("map-'.$maps_count.'"), {
-                        zoom: 10,
-                        center: {lat: '.$center_lat.', lng: '.$center_lng.'},
-                        mapTypeId: google.maps.MapTypeId.ROADMAP,
-                        disableDefaultUI: true,
-                        zoomControl: true,
-                        fullscreenControlOptions: true,
-                    });';
-                 if($district_type == 'sldu' ){$district = 'senate';} else{ $district = 'assembly';}
-    $html .=    'var districtCoords = [';
-    $html .=    get_local_file_contents(TEMPLATEPATH.'/geo/'.$district.'/district-'.$district_id.'.txt');
-    $html .=    '];';
-
-                  // Construct the polygon.
-    $html .=    'var districtPolygon = new google.maps.Polygon({
-                    paths: districtCoords,
-                    strokeColor: "#FF0000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#FF0000",
-                    fillOpacity: 0.35
-                  });';
-      $html .=    ' 
-                var bounds = new google.maps.LatLngBounds();
-                var i;
-                for (var j = 0; j < districtCoords.length; j++) {
-                    for (i = 0; i < districtCoords[j].length; i++) {
-                      bounds.extend(districtCoords[j][i]);
-                    }
-                }
-                map'.$maps_count.'.fitBounds(bounds);
-                districtPolygon.setMap(map'.$maps_count.');';
-    $html .=    '
-                var currCenter = bounds.getCenter();
-                
-                var listener = google.maps.event.addListener(map'.$maps_count.', "idle", function() { 
-                    var zoom = map'.$maps_count.'.getZoom();
-                    if(zoom <3){
-                        map'.$maps_count.'.setZoom(6); 
-                    }
-
-                  google.maps.event.removeListener(listener); 
-                 });
-                setTimeout(function(){
-                google.maps.event.trigger(map'.$maps_count.', "resize");
-                map'.$maps_count.'.setCenter(currCenter);
-                }, 1000); }</script>';
-    return $html;
-    //endif;
-}
-
-function get_district_static_map( $district_type , $district_id, $maps_count){
-    global $post;
-    // print_r($district_type);
-    // print_r($district_id);
-    // print_r($maps_count);
-    $response_a = get_district_data($district_type , $district_id, $maps_count);
-
-    $center_lat = $response_a->region->center_lat;
-    $center_lng = $response_a->region->center_lon;
-    $html = '<img src="http://maps.googleapis.com/maps/api/staticmap?center='.$center_lat.','.$center_lng.'&size=213x214&sensor=false';
-        foreach ($response_a->shape as $key=>$district_locations){
-            $html .='&path=color:red|weight:1|fillcolor:red';
-            $coord_count = 0;
-            if( 49 > count($district_locations[0])  ){
-                $divider = 1;
-            } elseif( 99 > count($district_locations[0]) &&  count($district_locations[0]) > 50){
-                $divider = 2;
-            } elseif(200 > count($district_locations[0]) &&  count($district_locations[0]) > 100){
-                $divider = 5;
-            } elseif(500 >count($district_locations[0]) && count($district_locations[0]) > 201){
-                $divider = 10;
-            }  elseif(1000 >count($district_locations[0]) && count($district_locations[0]) > 501){
-                $divider = 20;
-            }  elseif(2000 >count($district_locations[0]) && count($district_locations[0]) > 1000){
-                $divider = 40;
-            } else {
-                $divider = 50;
-            }
-            foreach($district_locations[0] as $lng_lat){
-                if($coord_count %  $divider == 0){
-                    $html .= '|'.$lng_lat[1].','.$lng_lat[0];
-                }
-                $coord_count++;
-            }
-        }
-    $html .='"/>';
-    return $html;
 }
 
 function wpml_custom_args() {
@@ -789,7 +538,7 @@ function prof_print()
 function get_scorecards(){
     
     /*** API Request ***/ 
-    $authorization = "Authorization: apikey BILLTRACK_API";
+    $authorization = "Authorization: apikey " . $BILLTRACK_API;
     $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Scorecards';
 
     $ch = curl_init();
@@ -813,7 +562,7 @@ function get_scorecards(){
 function get_bills_by_scorecard(){
      set_time_limit(0);
     /*** API Request ***/ 
-    $authorization = "Authorization: apikey BILLTRACK_API";
+    $authorization = "Authorization: apikey " . $BILLTRACK_API;
     
     $scorecards = get_scorecards();
     if($scorecards && $scorecards->Scorecards){
@@ -869,7 +618,7 @@ function get_bill_summury($bill_id){
 
 function get_bill_votes($bill_id){
     /*** API Request ***/ 
-    $authorization = "Authorization: apikey BILLTRACK_API";
+    $authorization = "Authorization: apikey " . $BILLTRACK_API;
     $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Bills/'.$bill_id.'/Votes';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
@@ -1036,7 +785,7 @@ function get_person_id( $post_id ){
         /*************************/
         
         /*** API Request ***/ 
-        $authorization = "Authorization: apikey BILLTRACK_API";
+        $authorization = "Authorization: apikey " . $BILLTRACK_API;
         $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Legislators?LegislatorName='. $person_last_name .'&StateCodes=CA';
 
         $ch = curl_init();
@@ -1083,7 +832,7 @@ function get_people(){
 
 function get_votes_by_scorecard_and_legislator_id($person_id){
     /*** API Request ***/ 
-    $authorization = "Authorization: apikey BILLTRACK_API";
+    $authorization = "Authorization: apikey " . $BILLTRACK_API;
     
     $scorecards = get_scorecards();
     if($scorecards && $scorecards->Scorecards){
@@ -1265,7 +1014,7 @@ function save_votings_single_person(){
 
 function get_bill_authors($bill_id){
     /*** API Request ***/ 
-    $authorization = "Authorization: apikey BILLTRACK_API";
+    $authorization = "Authorization: apikey " . $BILLTRACK_API;
     $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Bills/'.$bill_id.'/Sponsors';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
