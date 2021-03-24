@@ -11,6 +11,7 @@ class SinglePeople extends Controller
 
         $data['senate_or_assembly'] = get_field('senate_or_assembly');
         $data['district'] = get_field('district');
+        $data['bills'] = get_field('voting');
 
 	    return $data;
     }

@@ -13,6 +13,14 @@
   <div class="entry-content">
     @php the_content() @endphp
   </div>
-  <footer>
-  </footer>
+  <section id="bills">
+    @if($data['bills'])
+      @foreach ($data['bills'] as $vote)
+      @php $bill = $vote['bill_number']; @endphp
+      <div class="bill-row">
+        <p>{{ $bill->post_title }}</p>
+      </div>
+      @endforeach
+    @endif
+  </section>
 </article>
