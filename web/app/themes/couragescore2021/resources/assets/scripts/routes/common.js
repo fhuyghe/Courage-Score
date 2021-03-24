@@ -12,12 +12,13 @@ export default {
           action: 'get_district',
           address,
         },
-        success: function(response) {
-          if (response.data.sldu && response.data.sldl) {
-            $('#districts').html('Senate : ' + response.data.sldu + ', Assembly: ' + response.data.sldl);
-          } else {
-            $('#districts').html('No district information found');
-          }
+        success: function (response) {
+          console.log(response);
+          // if (response.data.sldu && response.data.sldl) {
+          //   $('#districts').html('Senate : ' + response.data.sldu + ', Assembly: ' + response.data.sldl);
+          // } else {
+          //   $('#districts').html('No district information found');
+          // }
         },
         });
     });

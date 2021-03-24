@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Sober\Controller\Controller;
+use WP_Query;
 
 class App extends Controller
 {
@@ -29,5 +30,27 @@ class App extends Controller
             return __('Not Found', 'sage');
         }
         return get_the_title();
+    }
+
+    public static function getLegislator($chamber, $district){
+        $args = array(
+            'post_type'     => 'people',
+            'showposts' => 1,
+            'meta_query'	=> array(
+                'relation'		=> 'AND',
+                array(
+                    'key'	 	=> 'district',
+                    'value'	  	=> $district,
+                    'compare' 	=> '='
+                ),
+                array(
+                    'key'	  	=> 'senate_or_assembly',
+                    'value'	  	=> $chamber,
+                    'compare' 	=> '='
+                )
+            )
+	    );
+	    $the_query = new WP_Query( $args );
+	    return $the_query->posts;
     }
 }
