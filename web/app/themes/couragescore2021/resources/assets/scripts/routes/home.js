@@ -28,7 +28,6 @@ export default {
                 category: 'Address, Residence, Postal',
                 countryCode: 'usa',
                 searchExtent: '-125.656774,31.611563,-113.850027,42.427281',
-                nonce: window.sage.nonce,
               },
               cache: false,
             })
@@ -65,7 +64,6 @@ export default {
               data : {
                 action: 'get_name_suggestion',
                 text: text,
-                nonce: window.sage.nonce,
               },
             })
               .done(function (res) {

@@ -3,7 +3,7 @@ module.exports = {
   'extends': 'eslint:recommended',
   'globals': {
     'wp': true,
-    'admin_url': true
+    'admin_url': true,
   },
   'env': {
     'node': true,
