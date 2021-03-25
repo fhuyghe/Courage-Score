@@ -7,7 +7,7 @@ export default {
 
       $.ajax({
         // eslint-disable-next-line no-undef
-        url : my_ajax_object.ajax_url,
+        url : ajax_object.ajax_url,
         data : {
           action: 'get_district',
           address,

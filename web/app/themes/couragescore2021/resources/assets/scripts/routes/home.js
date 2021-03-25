@@ -59,8 +59,8 @@ export default {
             // you can also use AJAX requests instead of preloaded data
             //var suggestions = countries.filter(n => n.label.toLowerCase().startsWith(text))
           $.ajax({
-              // eslint-disable-next-line no-undef
-              url : my_ajax_object.ajax_url,
+              
+              url : ajax_object.ajax_url,
               data : {
                 action: 'get_name_suggestion',
                 text: text,

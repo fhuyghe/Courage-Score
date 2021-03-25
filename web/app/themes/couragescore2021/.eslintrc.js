@@ -4,6 +4,7 @@ module.exports = {
   'globals': {
     'wp': true,
     'admin_url': true,
+    'ajax_object': true,
   },
   'env': {
     'node': true,
