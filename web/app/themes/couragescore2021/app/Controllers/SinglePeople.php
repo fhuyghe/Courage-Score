@@ -11,8 +11,23 @@ class SinglePeople extends Controller
 
         $data['senate_or_assembly'] = get_field('senate_or_assembly');
         $data['district'] = get_field('district');
-        $data['bills'] = get_field('voting');
+        $data['scores'] = get_field('progressive_voting_by_member');
 
 	    return $data;
+    }
+
+    static function votes($year){
+        $year;
+        $votes = get_field('voting');
+        $votesByYear = array_filter($votes, function($vote) use ($year){
+            return $vote['floorcommittee'] == 'floor_votes' 
+                && ( 
+                    date("Y", strtotime($vote['bill_number']->floor_voted_date)) == $year
+                    || 
+                    date("Y", strtotime($vote['vote_date'])) == $year
+                );
+            });
+
+        return $votesByYear;
     }
 }

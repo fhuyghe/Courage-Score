@@ -1,8 +1,8 @@
 export default {
   init() {
     // JavaScript to be fired on all pages
-    $('#address-button').on('click', function () {
-      const address = $('#address-input').val();
+    $('.address-button').on('click', function () {
+      const address = $('.address-input').val();
       $('#districts').html('Loading...');
 
       $.ajax({

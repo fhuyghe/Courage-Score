@@ -4,10 +4,13 @@ export default {
   init() {
     // JavaScript to be fired on the home page
 
-    var input = document.getElementById('address-input');
+    /*****************/
+    // Search by Address
+    /*****************/
+    var addressInput = $('.address-input')[0];
 
     autocomplete({
-      input: input,
+      input: addressInput,
       render: function(item) {
         var div = document.createElement('div');
         div.textContent = item.text;
@@ -35,7 +38,41 @@ export default {
               });
         },
         onSelect: function(item) {
-            input.value = item.text;
+          addressInput.value = item.text;
+        },
+    });
+    
+    /*****************/
+    // Search by Address
+    /*****************/
+    var nameInput = $('.name-input')[0];
+
+    autocomplete({
+      input: nameInput,
+      render: function(item) {
+        var div = document.createElement('div');
+        div.textContent = item.post_title;
+        return div;
+    },
+        fetch: function(text, update) {
+            text = text.toLowerCase();
+            // you can also use AJAX requests instead of preloaded data
+            //var suggestions = countries.filter(n => n.label.toLowerCase().startsWith(text))
+          $.ajax({
+              // eslint-disable-next-line no-undef
+              url : my_ajax_object.ajax_url,
+              data : {
+                action: 'get_name_suggestion',
+                text: text,
+              },
+            })
+              .done(function (res) {
+                let suggestions = res.data;
+                update(suggestions);
+              });
+        },
+        onSelect: function(item) {
+          nameInput.value = item.post_title;
         },
     });
   },

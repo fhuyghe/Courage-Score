@@ -14,11 +14,42 @@
     @php the_content() @endphp
   </div>
   <section id="bills">
-    @if($data['bills'])
-      @foreach ($data['bills'] as $vote)
+    @php 
+    $year = 2019;
+    $votes = SinglePeople::votes($year);
+
+    // Courage Score
+    $points = 0;
+    foreach ($votes as $vote) {
+      if($vote['vote'] == 'y' && !get_field('oppose', $vote['bill_number']->ID)){
+        $points++;
+      }
+    }
+    @endphp
+    <h2>Score: {{ $points * 100 / count($votes) }}</h2>
+    <h3>Manual Score: {{ $data['scores'][0]['score'] }}</h3>
+
+    @if($votes)
+      @foreach ($votes as $vote)
       @php $bill = $vote['bill_number']; @endphp
       <div class="bill-row">
         <p>{{ $bill->post_title }}</p>
+        @php 
+          switch ($vote['vote']) {
+            case 'n_e':
+                echo '<span class="square grey">N/E</span>';
+                break;
+            case 'a':
+                echo '<span class="square orange">A</span>';
+                break;
+            case 'n':
+                echo '<span class="square green">NO</span>';
+                break;
+            case 'y':
+                echo '<span class="square green">'.__('YES','progressive').'</span>';
+                break;
+            }
+        @endphp
       </div>
       @endforeach
     @endif
