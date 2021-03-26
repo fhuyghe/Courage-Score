@@ -1040,18 +1040,3 @@ function jb_filter_acf_meta( $where ) {
     $where = str_replace('meta_key = \'voting_history_$_vote_date', "meta_key LIKE 'voting_history_%_vote_date", $where);
     return $where;
 }
-
-// Get Legislator name suggestions
-function get_name_suggestion() {
-    $args = array(
-        'posts_per_page' => -1, 
-        's' => esc_attr($_REQUEST['text']), 
-        'post_type' => 'people',
-        'showposts' => 5
-    );
-    $the_query = new \WP_Query( $args );
-    wp_send_json_success($the_query->posts);
-}
-
-add_action('wp_ajax_nopriv_get_name_suggestion', __NAMESPACE__ .'\\get_name_suggestion' );
-add_action('wp_ajax_admin_get_name_suggestion', __NAMESPACE__ .'\\get_name_suggestion' );

@@ -136,3 +136,18 @@ function display_sidebar()
     isset($display) || $display = apply_filters('sage/display_sidebar', false);
     return $display;
 }
+
+
+// Get Legislator name suggestions
+function get_name_suggestion() {
+    $args = array(
+        'posts_per_page' => 5, 
+        's' => esc_attr($_REQUEST['text']), 
+        'post_type' => 'people'
+    );
+    $the_query = new \WP_Query( $args );
+    wp_send_json_success($the_query->posts);
+}
+
+add_action('wp_ajax_nopriv_get_name_suggestion', __NAMESPACE__ .'\\get_name_suggestion' );
+add_action('wp_ajax_admin_get_name_suggestion', __NAMESPACE__ .'\\get_name_suggestion' );
