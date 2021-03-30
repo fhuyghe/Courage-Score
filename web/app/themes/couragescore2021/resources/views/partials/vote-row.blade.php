@@ -15,7 +15,7 @@
             echo '<span class="square orange">A</span>';
             break;
         case 'n':
-            echo '<span class="square green">NO</span>';
+            echo '<span class="square red">NO</span>';
             break;
         case 'y':
             echo '<span class="square green">'.__('YES','progressive').'</span>';
