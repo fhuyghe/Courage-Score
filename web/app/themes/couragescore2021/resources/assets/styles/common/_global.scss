@@ -17,6 +17,21 @@ header.banner{
     padding-top: $grid-gutter;
 }
 
-.bill-row{
+.vote-row{
     margin-bottom: $grid-gutter;
+    padding: $grid-gutter / 2 0;
+    border-bottom: 1px solid black;
+
+    &:last-child{
+        border-bottom: 0;
+    }
+
+    .vote-casted{
+        .square{
+            display: inline-block;
+            padding: 5px;
+            text-align: center;
+            width: 70px;
+        }
+    }
 }

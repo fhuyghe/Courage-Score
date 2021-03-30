@@ -11,6 +11,7 @@ class SinglePeople extends Controller
 
         $data['senate_or_assembly'] = get_field('senate_or_assembly');
         $data['district'] = get_field('district');
+        $data['party'] = get_field('party');
         $data['scores'] = get_field('progressive_voting_by_member');
 
 	    return $data;
@@ -20,14 +21,16 @@ class SinglePeople extends Controller
         $year;
         $votes = get_field('voting');
         $votesByYear = array_filter($votes, function($vote) use ($year){
+            if($vote['bill_number']):
             return $vote['floorcommittee'] == 'floor_votes' 
                 && ( 
                     date("Y", strtotime($vote['bill_number']->floor_voted_date)) == $year
                     || 
                     date("Y", strtotime($vote['vote_date'])) == $year
                 );
+            endif;
             });
 
-        return $votesByYear;
+            return $votesByYear;
     }
 }

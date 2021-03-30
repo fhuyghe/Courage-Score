@@ -1,7 +1,20 @@
 .single-people{
+    #general{
+        margin-bottom: $grid-gutter;
+        table{
+            display: flex;
+        }
+
+        .thumbnail{
+            img{
+                max-width: 100%;
+                height: auto;
+            }
+        }
+    }
     #mapContainer{
         max-width: 100%;
-        height: 500px;
+        height: 300px;
 
         .mapboxgl-control-container{
             display: none;

@@ -1,3 +1,5 @@
+import 'datatables.net'
+
 export default {
     init() {
         
@@ -41,6 +43,9 @@ export default {
     });
     });
         
+    // Votes Table
+    
+    $('#billsTable').DataTable();    
 },
 finalize() {
   // JavaScript to be fired on the home page, after the init JS
