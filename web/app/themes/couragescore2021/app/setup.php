@@ -689,7 +689,7 @@ function update_bill(){
         $bill_summary = get_bill_summary($bill['billID']);
         
         $new_bill = array(
-            'post_title'    => $bill['statebillID'],
+            'post_title'    => $bill['stateBillID'],
             'post_content'  => $bill_summary,
             'post_status'   => 'draft',
             'post_author'   => 1,
