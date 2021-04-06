@@ -1,7 +1,93 @@
-.banner .nav li {
-  @extend .nav-item;
+header.banner{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+  height: $headerHeight;
+  background-color: theme-color(white);
+  border-bottom: 1px solid theme-color(black);
+  padding-top: 5px;
+
+  .container{
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+  }
 }
 
-.banner .nav a {
-  @extend .nav-link;
+.banner {
+  .brand{
+    font-family: $gilam;
+    color: theme-color(black);
+    font-size: 1.5em;
+    text-transform: uppercase;
+
+    &:hover{
+      text-decoration: none;
+    }
+  }
+
+  #social{
+    text-align: right;
+  }
+
+  #searchWrap{
+    select{
+      display: none;
+    }
+  }
+
+  .nav {
+    li {
+      @extend .nav-item;
+      margin-right: $grid-gutter;
+
+      &:last-child{
+        margin-left: auto;
+        margin-right: 0;
+
+        a{
+          color: theme-color(black);
+        }
+      }
+
+      &.current-menu-item{
+        a{
+          color: theme-color(black);
+
+          &:after{
+            width: 100%;
+          }
+        }
+      }
+    }
+    
+    a {
+      @extend .nav-link;
+      color: theme-color(darkgrey);
+      position: relative;
+      padding: 5px 0;
+
+      &:after{
+        content: '';
+        position: absolute;
+        width: 0%;
+        height: 4px;
+        top: 100%;
+        left: 0;
+        background-color: theme-color(black);
+        transition: .25s;
+      }
+
+      &:hover{
+        color: theme-color(black);
+
+        &:after{
+          width: 100%;
+        }
+      }
+    }
+  }
 }

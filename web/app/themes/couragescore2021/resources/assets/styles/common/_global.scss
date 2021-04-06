@@ -1,4 +1,4 @@
-$headerHeight: 75px;
+$headerHeight: 80px;
 
 html, body{
     min-height: 100%;
@@ -6,21 +6,9 @@ html, body{
     position: relative;
 }
 
-header.banner{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: $headerHeight;
-    z-index: 99;
-    background-color: theme-color(white);
-    border-bottom: 1px solid theme-color(black);
-}
-
 .wrap{
     min-height: 100vh;
     margin-top: $headerHeight;
-    padding-top: $grid-gutter;
 }
 
 // Typography
@@ -52,6 +40,33 @@ h6,
             padding: 5px;
             text-align: center;
             width: 70px;
+        }
+    }
+}
+
+//Search
+#searchWrap{
+    .search-container{
+        display: none;
+
+        &.active{
+            display: flex;
+        }
+
+        input{
+            background: theme-color(grey);
+            color: theme-color(darkgrey);
+            border: 0;
+            outline: 0;
+            padding: 5px 10px;
+        }
+
+        button{
+            background-color: theme-color(black);
+            color: theme-color(white);
+            border: 0;
+            outline: 0;
+            width: 40px;
         }
     }
 }

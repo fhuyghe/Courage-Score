@@ -270,3 +270,4 @@ update_field("last_update_success_ts", time(), $wp_bill->ID);
 wp_send_json_success($updatedVotes . 'votes updated');
 }
 add_action('wp_ajax_update_bill', __NAMESPACE__ .'\\update_bill' );
+add_action('wp_ajax_nopriv_update_bill', __NAMESPACE__ .'\\update_bill' );
