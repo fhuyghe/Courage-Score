@@ -17,15 +17,21 @@ header.banner{
   }
 }
 
-.banner {
-  .brand{
-    font-family: $gilam;
-    color: theme-color(black);
-    font-size: 1.5em;
-    text-transform: uppercase;
 
-    &:hover{
-      text-decoration: none;
+.banner {
+  #logo{
+    flex: 0;
+
+    .brand{
+      font-family: $gilam;
+      color: theme-color(black);
+      font-size: 1.5em;
+      text-transform: uppercase;
+      white-space: nowrap;
+
+      &:hover{
+        text-decoration: none;
+      }
     }
   }
 
@@ -33,9 +39,20 @@ header.banner{
     text-align: right;
   }
 
-  #searchWrap{
-    select{
-      display: none;
+  #bannerSearch{
+    flex: 1;
+
+    #searchWrap{
+      max-width: 350px;
+  
+      button{
+        background-color: theme-color(grey); 
+        color: theme-color(darkgrey);
+      }
+  
+      select{
+        display: none;
+      }
     }
   }
 
