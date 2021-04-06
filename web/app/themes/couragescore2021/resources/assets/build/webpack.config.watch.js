@@ -1,7 +1,6 @@
 const url = require('url');
 const webpack = require('webpack');
 const BrowserSyncPlugin = require('browsersync-webpack-plugin');
-const Dotenv = require('dotenv-webpack');
 
 const config = require('./config');
 
@@ -24,9 +23,6 @@ module.exports = {
   devtool: '#cheap-module-source-map',
   stats: false,
   plugins: [
-    new Dotenv({
-      //path: '../../../../.env',
-    }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),

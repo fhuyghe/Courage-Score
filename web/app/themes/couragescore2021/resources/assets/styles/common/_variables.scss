@@ -25,3 +25,17 @@ $navbar-light-toggler-icon-bg: none;
 .grey{
   background-color: grey;
 }
+
+// Fonts
+$anon-pro:"Anonymous Pro", monospace;
+$lato:"Lato", sans-serif;
+$gilam:"Gilam", sans-serif;
+
+@font-face {
+  font-family: 'Gilam';
+  src: url('/app/themes/couragescore2021/resources/assets/fonts/Gilam-Bold.woff2') format('woff2'),
+      url('/app/themes/couragescore2021/resources/assets/fonts/Gilam-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal; 
+  font-display: swap;
+}

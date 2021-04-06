@@ -23,6 +23,20 @@ header.banner{
     padding-top: $grid-gutter;
 }
 
+// Typography
+p{
+    font-family: $lato;
+}
+
+h1, h2, h3, h4{
+    font-family: $gilam;
+}
+
+h6,
+.legend{
+    font-family: $anon-pro;
+}
+
 .vote-row{
     margin-bottom: $grid-gutter;
     padding: $grid-gutter / 2 0;

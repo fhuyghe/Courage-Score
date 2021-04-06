@@ -37,7 +37,9 @@
     "node": ">= 8.0.0"
   },
   "devDependencies": {
+    "autocompleter": "^6.1.0",
     "autoprefixer": "^10.0.1",
+    "bootstrap": "v4.3.1",
     "browser-sync": "^2.26.13",
     "browsersync-webpack-plugin": "^0.6.0",
     "bs-html-injector": "~3.0",
@@ -47,6 +49,9 @@
     "copy-globs-webpack-plugin": "^0.2.0",
     "css-loader": "^0.28.11",
     "cssnano": "^4.0.5",
+    "datatables.net": "^1.10.24",
+    "datatables.net-dt": "^1.10.24",
+    "dotenv": "^8.2.0",
     "eslint": "~4.19.1",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.14.0",
@@ -56,6 +61,8 @@
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-webpack-plugin": "^2.4.2",
     "import-glob": "~1.5",
+    "dotenv-webpack": "^7.0.2",
+    "mapbox-gl": "^2.1.1",
     "node-sass": "^5.0.0",
     "postcss-loader": "^4.0.4",
     "postcss-safe-parser": "^5.0.2",
@@ -76,15 +83,8 @@
     "yargs": "^16.1.0"
   },
   "dependencies": {
-    "autocompleter": "^6.1.0",
-    "bootstrap": "v4.3.1",
-    "datatables.net": "^1.10.24",
-    "datatables.net-dt": "^1.10.24",
-    "dotenv": "^8.2.0",
-    "dotenv-webpack": "^7.0.2",
-    "fs": "0.0.1-security",
+    "bootstrap": "^4.5.3",
     "jquery": "^3.3.1",
-    "mapbox-gl": "^2.1.1",
     "popper.js": "^1.14.7"
   }
 }

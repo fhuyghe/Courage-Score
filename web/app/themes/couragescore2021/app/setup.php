@@ -343,6 +343,7 @@ function getDistrict(){
 }
 
 add_action('wp_ajax_get_district', __NAMESPACE__ .'\\getDistrict' );
+add_action('wp_ajax_nopriv_get_district', __NAMESPACE__ .'\\getDistrict' );
 //add_action('wp_ajax_admin_get_district', __NAMESPACE__ .'\\getDistrict' );
 
 function get_district_data( $district_type , $district_id){
