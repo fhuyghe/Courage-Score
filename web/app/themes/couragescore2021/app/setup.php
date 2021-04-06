@@ -9,7 +9,7 @@ use Roots\Sage\Template\BladeProvider;
 
 define('GOOGLEMAPS_API', getenv('GOOGLEMAPS_API'));
 define('OPENSTATES_API', getenv('OPENSTATES_API'));
-define('$BILLTRACK_API', getenv('BILLTRACK_API'));
+define('BILLTRACK_API', getenv('BILLTRACK_API'));
 
 /**
  * Theme assets
@@ -26,7 +26,18 @@ add_action('wp_enqueue_scripts', function () {
     if (is_single() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
     }
+
 }, 100);
+
+add_action('admin_enqueue_scripts', function () {
+    $ajax_params = array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'ajax_nonce' => wp_create_nonce('my_nonce'),
+    );
+
+    wp_enqueue_script('sage/admin.js', asset_path('scripts/admin.js'), ['jquery'], null, true);
+    wp_localize_script('sage/admin.js', 'ajax_object', $ajax_params);
+});
 
 /**
  * Theme setup
@@ -150,7 +161,7 @@ if( function_exists('acf_add_options_page') ) {
         'capability'    => 'edit_posts',
         'redirect'      => false
     ));
-    
+
     acf_add_options_sub_page(array(
         'page_title'    => 'Theme Header Settings',
         'menu_title'    => 'Header',
@@ -170,6 +181,28 @@ if( function_exists('acf_add_options_page') ) {
     ));
     
 }
+
+/************************* */
+//Load Bills Submenu page
+/************************* */
+function load_bills_submenu() {
+    add_submenu_page(
+        'tools.php',
+        'Load Bills',
+        'Load Bills',
+        'manage_options',
+        'load-bills',
+        __NAMESPACE__ . '\\load_bills_menu_callback',
+        null
+    );
+}
+
+function load_bills_menu_callback() {
+    echo template('partials.admin-load-bills');
+    echo '</div>';
+}
+add_action('admin_menu', __NAMESPACE__ . '\\load_bills_submenu');
+
 
 if ( function_exists( 'add_theme_support' ) ) {
 	add_theme_support( 'post-thumbnails' );
@@ -542,7 +575,7 @@ function prof_print()
 function get_scorecards(){
     
     /*** API Request ***/ 
-    $authorization = "Authorization: apikey " . $BILLTRACK_API;
+    $authorization = "Authorization: apikey " . BILLTRACK_API;
     $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Scorecards';
 
     $ch = curl_init();
@@ -566,43 +599,9 @@ function get_scorecards(){
 function get_bills_by_scorecard(){
      set_time_limit(0);
     /*** API Request ***/ 
-    $authorization = "Authorization: apikey " . $BILLTRACK_API;
+    $authorization = "Authorization: apikey " . BILLTRACK_API;
     
-    $scorecards = get_scorecards();
-    if($scorecards && $scorecards->Scorecards){
-        $bill_list_full = array();
-        foreach($scorecards->Scorecards as $scorecard){
-            if($scorecard->ScorecardName == '2020 Courage Score'){
-                $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Scorecards/'.$scorecard->ScorecardID.'/Bills';
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-                $response = curl_exec($ch);
-
-                curl_close($ch);
-                $response_a = json_decode($response);
-
-                $bills = $response_a->Bills;
-                $bill_list_full = $bill_list_full + $bills;
-
-                return  $bill_list_full;
-            }
-        }
-    }    
-    // print_r($bill_list_full);
-    // die();
-    
-}
-
-function get_bill_summury($bill_id){
-    /*** API Request ***/ 
-    $authorization = "Authorization: apikey APIKEY";
-    $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Bills/'.$bill_id;
+    $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Scorecards/'. $_GET['scorecardID'] .'/Bills';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -616,14 +615,38 @@ function get_bill_summury($bill_id){
     curl_close($ch);
     $response_a = json_decode($response);
 
-    $bill_summury = $response_a->Bill->Summary;
-    return  $bill_summury;
+    $bills = $response_a->bills;
+    //$bill_list_full = $bill_list_full + $bills;
+
+    wp_send_json_success($bills);
+}
+add_action('wp_ajax_get_bills_by_scorecard', __NAMESPACE__ .'\\get_bills_by_scorecard' );
+
+function get_bill_summary($bill_id){
+    /*** API Request ***/ 
+    $authorization = "Authorization: apiKey " . BILLTRACK_API;
+    $url = 'https://www.billtrack50.com/bt50api/2.0/json/bills/' . $bill_id;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    $response = curl_exec($ch);
+
+    curl_close($ch);
+    $response_a = json_decode($response);
+
+    $bill_summary = $response_a->bill->summary;
+    return  $bill_summary;
 }
 
 function get_bill_votes($bill_id){
     /*** API Request ***/ 
-    $authorization = "Authorization: apikey " . $BILLTRACK_API;
-    $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Bills/'.$bill_id.'/Votes';
+    $authorization = "Authorization: apikey " . BILLTRACK_API;
+    $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Bills/' . $bill_id . '/Votes';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -637,144 +660,114 @@ function get_bill_votes($bill_id){
     curl_close($ch);
     $response_a = json_decode($response);
 //print_r( $response_a);
-    $votes_arr = $response_a->Votes;
+    $votes_arr = $response_a->votes;
     //return $response_a;
     return $votes_arr;
 }
 
-function add_new_bills(){
-   
-    $bills = get_bills_by_scorecard();
-    // print_r($bills);
-    // die;
-    foreach ( $bills as $bill){
-        $bills_query = new WP_Query(array(
-            'meta_key'          => 'billtrack_id',
-            'meta_value'        => $bill->BillID,
-            'post_type'         => 'vote',
-            'suppress_filters'  => false,
-            'numberposts'       => -1,
-            'post_status'       => array('draft', 'publish'),
-            ));
-        if ( $bills_query->have_posts()){
-            while( $bills_query->have_posts()): $bills_query->the_post();
-                // $votes = get_bill_votes(get_field('billtrack_id'));
-                // if(have_rows('voting_history')): while(have_rows('voting_history')): the_row();
-                //     foreach($votes as $vote){
-                //         if(get_sub_field('vote_id') == $vote->VoteID){
-                //             update_sub_field('yes_votes', $vote->YesVotes);
-                //             update_sub_field('no_votes', $vote->NoVotes);
-                //             update_sub_field('other_votes', $vote->OtherVotes);
-                //         }
-                //     }
-                // endwhile; endif;
-            endwhile;
-        } else { 
-            // Create post object
-            $bill_summury = get_bill_summury($bill->BillID);
-            
-            $new_bill = array(
-              'post_title'    => $bill->StateBillID,
-              'post_content'  => $bill_summury,
-              'post_status'   => 'draft',
-              'post_author'   => 1,
-              'post_type' => 'vote',
-            );
-            $new_post_ID = wp_insert_post( $new_bill );
-            update_field('title', $bill->BillName,  $new_post_ID );
-            update_field('billtrack_id', $bill->BillID,  $new_post_ID );
-            update_field('last_update_attempt_ts', 0,  $new_post_ID );
-            update_field('last_update_success_ts', 0,  $new_post_ID );
-            
-        }
-        // print_r($new_post_ID);
-        //  print_r('+++++++++++');
+function update_bill(){
 
-        wp_reset_postdata();       
-    }
-    $all_bills = new WP_Query(array(
+    $bill = $_GET['bill'];
+
+    // Find out if bill is in the DB
+    $bills_query = new \WP_Query(array(
         'post_type'         => 'vote',
-        'suppress_filters'  => false,
-        'showposts'       => -1,
         'post_status'       => array('draft', 'publish'),
-        'meta_key' => 'last_update_attempt_ts',
-        'orderby' => "meta_value",
-        'order' => "ASC"
+        'meta_query'        => array(
+            array(
+                'key' => 'billtrack_id',
+                'value' => $bill['billID'],
+                'compare' => '=',
+            )
+        )
     ));
-    //print_r($all_bills->posts);die();
-    if(!$all_bills)
-        die("can't get bills list from DB");
+    $wp_bill = $bills_query->posts[0];
 
-    $first_bill = false;
-    $nowts = time();
-    $limitts = $nowts - 10*60*60; //-10 hours
-
-    foreach($all_bills->posts as $wp_bill){
-        //print_r($wp_bill); die();
-        $a_ts = get_field("last_update_attempt_ts", $wp_bill->ID);
-        $s_ts = get_field("last_update_success_ts", $wp_bill->ID);
-        $billtrack_id = get_field("billtrack_id", $wp_bill->ID);
-        $voting_history = get_field('voting_history', $wp_bill->ID);
-        //print_r($voting_history);
-        if(empty($billtrack_id))
-            continue;
-        if($a_ts > $limitts)
-            continue;
+    // Create post if bill doesn't exist
+    if ( !$bills_query->have_posts()){ 
+        // Create post object
+        $bill_summary = get_bill_summary($bill['billID']);
         
-        $first_bill = $wp_bill;
-        //print_r($first_bill);die();
-        echo "<hr/><br/>working with  <br/>title : ".get_the_title( $first_bill->ID )." <br/>billtrack_id : ".$billtrack_id."<br/> postID : ".($first_bill->ID)."<hr/>";
-        break;
+        $new_bill = array(
+            'post_title'    => $bill['statebillID'],
+            'post_content'  => $bill_summary,
+            'post_status'   => 'draft',
+            'post_author'   => 1,
+            'post_type' => 'vote',
+        );
+        $new_post_ID = wp_insert_post( $new_bill );
+        update_field('title', $bill['billName'],  $new_post_ID );
+        update_field('billtrack_id', $bill['billID'],  $new_post_ID );
+        update_field('last_update_attempt_ts', 0,  $new_post_ID );
+        update_field('last_update_success_ts', 0,  $new_post_ID );
+
+        // Get post from database
+        $wp_bill = new \WP_Query(array(
+            'post_type'     => 'vote',
+            'p'            => $new_post_ID
+        ));
     }
 
-    if(!$first_bill) // too early to update
-        die("all bill entries are up to date");
+    //Check that we didn't try to update it in the last 10 hours
+    $limitts = time() - 10*60*60; //-10 hours
+    $a_ts = get_field("last_update_attempt_ts", $wp_bill->ID);
+    $s_ts = get_field("last_update_success_ts", $wp_bill->ID);
+    $billtrack_id = get_field("billtrack_id", $wp_bill->ID);
+    $voting_history = get_field('voting_history', $wp_bill->ID);
 
-    update_field("last_update_attempt_ts", time(), $first_bill->ID);
+    if(empty($billtrack_id) || $a_ts > $limitts){
+        wp_send_json_success('Already updated');
+    }
 
-    $bill = $first_bill;
-    $votes = get_bill_votes(get_field('billtrack_id', $first_bill->ID));
-    //print_r($votes);die();
+    update_field("last_update_attempt_ts", time(), $wp_bill->ID);
+
+    
+    //Get votes
+    $votes = get_bill_votes($billtrack_id);
+    
+    //Get current vote IDs
     $voting_history_arr = array();
-    if(have_rows('voting_history', $first_bill->ID)): while(have_rows('voting_history', $first_bill->ID)): the_row();
-        $voting_history_arr[] = get_sub_field('vote_id');
-    endwhile; endif;
-    //print_r($voting_history_arr);die();
+    if(have_rows('voting_history', $wp_bill->ID)): 
+        while(have_rows('voting_history', $wp_bill->ID)): the_row();
+            $voting_history_arr[] = get_sub_field('vote_id');
+        endwhile; 
+    endif;
+
+    $updatedVotes = 0;
+
     if($votes){
         foreach ($votes as $vote) {
-            $vote_id = $vote->VoteID;
+            $vote_id = $vote->voteID;
             if(!in_array($vote_id, $voting_history_arr)){
-                $vote_date = date("Ymd", strtotime($vote->VoteDate));
-                $votes_count = $vote->YesVotes + $vote->NoVotes + $vote->OtherVotes;
+                $updatedVotes++;
+                $vote_date = date("Ymd", strtotime($vote->voteDate));
+                $votes_count = $vote->yesVotes + $vote->noVotes + $vote->otherVotes;
                 if( $votes_count>37 ){ $commitee_floor = 'floor'; } else {$commitee_floor = 'committee';};
                
                 $row = array(
                     'field_5a5f6d4a0ae1a' =>  $vote_id,
                     'field_5a5f6d5c0ae1b' =>  $vote_date,
                     'field_5a5f6d910ae1c' =>  $commitee_floor,
-                    'field_5a61f5744032d' =>  $vote->YesVotes,
-                    'field_5a61f58b4032e' =>  $vote->NoVotes,
-                    'field_5a61f5934032f' =>  $vote->OtherVotes
+                    'field_5a61f5744032d' =>  $vote->yesVotes,
+                    'field_5a61f58b4032e' =>  $vote->noVotes,
+                    'field_5a61f5934032f' =>  $vote->otherVotes
                 );
-                // print_r($row);
-                // print_r($new_post_ID);
-                //print_r($row);die();
-                $i = add_row('field_5a5f6d320ae19', $row, $first_bill->ID );
+           
+                $i = add_row('field_5a5f6d320ae19', $row, $wp_bill->ID );
                 unset($row);
                 unset($vote_id);
                 unset($vote_date);
                 unset($commitee_floor);
-                //return true;
             }
-        }
-        //return false;                
+        }           
     }
     unset($voting_history_arr);
-    update_field("last_update_success_ts", time(), $first_bill->ID);
+    update_field("last_update_success_ts", time(), $wp_bill->ID);
    
-    return true;
-    //return false;
+    wp_send_json_success($updatedVotes . 'votes updated');
 }
+add_action('wp_ajax_update_bill', __NAMESPACE__ .'\\update_bill' );
+
 
 function get_person_id( $post_id ){
     //$post_id = 13; // David Chiu ID
@@ -789,7 +782,7 @@ function get_person_id( $post_id ){
         /*************************/
         
         /*** API Request ***/ 
-        $authorization = "Authorization: apikey " . $BILLTRACK_API;
+        $authorization = "Authorization: apikey " . BILLTRACK_API;
         $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Legislators?LegislatorName='. $person_last_name .'&StateCodes=CA';
 
         $ch = curl_init();
@@ -836,7 +829,7 @@ function get_people(){
 
 function get_votes_by_scorecard_and_legislator_id($person_id){
     /*** API Request ***/ 
-    $authorization = "Authorization: apikey " . $BILLTRACK_API;
+    $authorization = "Authorization: apikey " . BILLTRACK_API;
     
     $scorecards = get_scorecards();
     if($scorecards && $scorecards->Scorecards){
@@ -944,7 +937,7 @@ function save_votings_single_person(){
                 'meta_query' => array(
                     array(
                         'key' => 'billtrack_id',
-                        'value' => $vote->BillID,
+                        'value' => $vote->billID,
                     )
                 ),
                 'post_type'         => 'vote',
@@ -1018,7 +1011,7 @@ function save_votings_single_person(){
 
 function get_bill_authors($bill_id){
     /*** API Request ***/ 
-    $authorization = "Authorization: apikey " . $BILLTRACK_API;
+    $authorization = "Authorization: apikey " . BILLTRACK_API;
     $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Bills/'.$bill_id.'/Sponsors';
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
@@ -1035,8 +1028,8 @@ function get_bill_authors($bill_id){
     return $response_a;
 }
 
-add_filter('posts_where',  __NAMESPACE__ . '\\jb_filter_acf_meta');
-function jb_filter_acf_meta( $where ) {
-    $where = str_replace('meta_key = \'voting_history_$_vote_date', "meta_key LIKE 'voting_history_%_vote_date", $where);
-    return $where;
-}
+// add_filter('posts_where',  __NAMESPACE__ . '\\jb_filter_acf_meta');
+// function jb_filter_acf_meta( $where ) {
+//     $where = str_replace('meta_key = \'voting_history_$_vote_date', "meta_key LIKE 'voting_history_%_vote_date", $where);
+//     return $where;
+// }

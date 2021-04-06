@@ -151,3 +151,5 @@ function get_name_suggestion() {
 
 add_action('wp_ajax_nopriv_get_name_suggestion', __NAMESPACE__ .'\\get_name_suggestion' );
 add_action('wp_ajax_admin_get_name_suggestion', __NAMESPACE__ .'\\get_name_suggestion' );
+
+

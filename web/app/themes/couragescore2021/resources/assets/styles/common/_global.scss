@@ -1,5 +1,11 @@
 $headerHeight: 75px;
 
+html, body{
+    min-height: 100%;
+    height: auto;
+    position: relative;
+}
+
 header.banner{
     position: fixed;
     top: 0;

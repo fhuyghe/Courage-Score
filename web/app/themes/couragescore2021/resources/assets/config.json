@@ -2,6 +2,7 @@
   "entry": {
     "main": [
       "./scripts/main.js",
+      "./scripts/admin.js",
       "./styles/main.scss"
     ],
     "customizer": [
