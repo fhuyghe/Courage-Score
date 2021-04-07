@@ -9,7 +9,7 @@
             {{ $legislator->post_title }}
         </a>
       </h3>
-      <h5>State {{ $senate_or_assembly }}</h5>
+      <h4>State {{ $senate_or_assembly }}</h4>
       <div>
         <table>
           <thead>
@@ -33,7 +33,10 @@
       {!! get_the_post_thumbnail( $legislator->ID, 'thumbnail' );  !!}
     </div>
   </div>
-<div class="excerpt">
-  {{ the_field('hall_of_shame_slider_text_block', $legislator->ID) }}
-</div>
+  @php $excerpt = get_field('hall_of_shame_slider_text_block', $legislator->ID); @endphp
+  @if($excerpt)
+    <div class="excerpt">
+      {!! $excerpt !!}
+    </div>
+  @endif
 </div>

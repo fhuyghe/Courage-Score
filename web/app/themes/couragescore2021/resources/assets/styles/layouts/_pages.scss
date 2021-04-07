@@ -54,6 +54,18 @@
 
         .info{
             flex: 1;
+            padding-right: $grid-gutter;
+
+            h3{
+                margin-bottom: 0;
+            }
+
+            h4{
+                color: theme-color(darkgrey);
+                font-family: $lato;
+                font-size: 1em;
+                text-transform: capitalize;
+            }
 
             a{
                 border-bottom: 0;
@@ -61,11 +73,29 @@
 
             table{
                 width: 100%;
+                border-top: 1px solid theme-color(darkgrey);
+
+                th{
+                    padding-top: 10px;
+                    padding-left: 0;
+                }
+
+                tr{
+                    vertical-align: top;
+                }
             }
         }
     }
 
     .portrait{
         width: 120px;
+    }
+
+    .excerpt{
+        padding-top: 10px;
+
+        p:last-child{
+            margin-bottom: 0;
+        }
     }
 }

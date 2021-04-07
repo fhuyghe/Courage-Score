@@ -19,12 +19,15 @@ img{
 // Typography
 p{
     font-family: $lato;
+
+    a{
+        display: inline-block;
+        border-bottom: 1px dotted theme-color(black);
+    }
 }
 
 a{
     color: inherit;
-    display: inline-block;
-    border-bottom: 1px dotted theme-color(black);
 }
 
 h1, h2, h3, h4{
@@ -34,6 +37,20 @@ h1, h2, h3, h4{
 h6,
 .legend{
     font-family: $anon-pro;
+}
+
+//Tables
+table{
+    th{
+        font-family: $lato;
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: .9em;
+    }
+
+    td{
+        font-family: $anon-pro;
+    }
 }
 
 .vote-row{
