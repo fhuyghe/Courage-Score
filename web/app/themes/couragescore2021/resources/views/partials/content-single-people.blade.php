@@ -39,27 +39,13 @@ $score = round($points * 100 / $voteNumber);
       </div>
       <div class="row">
       <div class="col-md-12">
-        <h1 class="entry-title">{!! get_the_title() !!}</h1>
-        <h4 id="body">{{ $data['senate_or_assembly'] }} Assembly</h4>
-        <table id="repInfo">
-          <tr>
-            <th>District</th>
-            <th>Party</th>
-            <th>Score</th>
-            <th>Grade</th>
-          </tr>
-          <tr>
-            <td id="district">{{ $data['district'] }}</td>
-            <td id="party">{{ $data['party'] }}</td>
-            <td id="score">{{ $score }}</td>
-            <td id="grade">{{ $data['district'] }}</td>
-          </tr>
-        </table>
+        @include('partials.rep-info')
         <h3>Manual Score: {{ $data['scores'][0]['score'] }}</h3>
+      </div>
       </div>
     </section>
   </div>
-  <div class="col-md-8">
+  <div class="col-md-8" id="sections">
   <div class="entry-content">
     @php the_content() @endphp
   </div>

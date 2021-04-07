@@ -25,13 +25,14 @@ export default {
     map.resize();
 
     // Get Legislator info
-    const districtNumber = $('#district').html();
-    const senateAssembly = $('#parliement').html() == 'assembly' ? 0 : 1;
+    const districtNumber = $('.district').html();
+    const senateAssembly = $('.body').html() == 'assembly' ? 0 : 1;
 
     //Add their layer to the map
         let districtUrl = 'https://map.dfg.ca.gov/arcgis/rest/services/Political/boundaries/MapServer/' + senateAssembly + '/query?where=district%3D' + districtNumber + '&f=geojson';
 
         $.getJSON(districtUrl, function (response) {
+            console.log(districtUrl, response);
 
             map.addSource('districts', {
                 'type': 'geojson',

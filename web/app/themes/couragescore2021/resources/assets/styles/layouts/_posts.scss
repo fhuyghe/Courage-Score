@@ -2,12 +2,9 @@
     article{
         padding-top: $grid-gutter * 2;
     }
-    
+
     #general{
         margin-bottom: $grid-gutter;
-        table{
-            display: flex;
-        }
 
         .thumbnail{
             img{
@@ -16,6 +13,13 @@
             }
         }
     }
+
+    #sections{
+        section{
+            margin-bottom: $grid-gutter * 2;
+        }
+    }
+
     #mapContainer{
         max-width: 100%;
         height: 300px;

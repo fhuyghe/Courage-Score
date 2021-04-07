@@ -1,5 +1,5 @@
 @php 
-    $score = get_field('progressive_voting_by_member_in_assembly', $legislator->ID);
+    $score = get_field('progressive_voting_by_member_in_assembly');
     
     // if(have_rows('progressive_voting_by_member')): 
     //     $current_year = date('Y');
