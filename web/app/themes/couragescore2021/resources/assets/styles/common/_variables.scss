@@ -7,6 +7,11 @@ $theme-colors: (
   white: #ffffff,
   grey: #EEF1F2,
   darkgrey: #A3A3A3,
+  green: #02D578,
+  red: #F81140,
+  orange: #FF5300,
+  yellow: #FAE500,
+  blue: #0094EE,
 );
 
 $grid-gutter: 25px;
@@ -16,16 +21,16 @@ $navbar-dark-toggler-icon-bg: none;
 $navbar-light-toggler-icon-bg: none;
 
 .green{
-  background-color: green;
+  background-color: theme-color(green);
 }
 .red{
-  background-color: red;
+  background-color: theme-color(red);
 }
 .orange{
-  background-color: orange;
+  background-color: theme-color(orange);
 }
 .grey{
-  background-color: grey;
+  background-color: theme-color(grey);
 }
 
 // Fonts

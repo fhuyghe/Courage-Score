@@ -72,15 +72,28 @@ table{
         font-size: .9em;
     }
 
-    td{
+    td,
+    td p{
         font-family: $anon-pro;
+        vertical-align: top;
     }
+}
+
+table.dataTable tbody td{
+    padding: 20px 10px;
 }
 
 .vote-row{
     margin-bottom: $grid-gutter;
-    padding: $grid-gutter / 2 0;
-    border-bottom: 1px solid black;
+    
+    td{
+        padding: $grid-gutter / 2 0 $grid-gutter;
+        border-bottom: 1px solid theme-color(darkgrey);
+
+        p:last-child{
+            margin-bottom: 0;
+        }
+    }
 
     &:last-child{
         border-bottom: 0;
