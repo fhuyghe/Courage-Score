@@ -62,12 +62,11 @@ header.banner{
       margin-right: $grid-gutter;
 
       &:last-child{
-        margin-left: auto;
         margin-right: 0;
-
-        a{
-          color: theme-color(black);
-        }
+      }
+      
+      &:nth-last-child(3){
+        margin-left: auto;
       }
 
       &.current-menu-item{

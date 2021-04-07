@@ -1,3 +1,11 @@
+// All Pages
+.page{
+    .page-header{
+        padding-top: $grid-gutter * 2;
+        text-align: center;
+    }
+}
+
 // Home
 .page.home{
     #top{
