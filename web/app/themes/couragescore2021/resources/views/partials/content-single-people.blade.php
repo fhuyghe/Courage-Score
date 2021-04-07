@@ -28,10 +28,17 @@ $score = round($points * 100 / $voteNumber);
 
 <article @php post_class() @endphp>
   <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-4 sticky">
     <section id="general">
       <div class="row">
-      <div class="col-md-8">
+        <div class="col-md-6 thumbnail">
+          {!! get_the_post_thumbnail( get_the_ID(), 'people-thumbnail_314x314') !!}
+        </div>
+        <div class="col-md-6 badges">
+        </div>
+      </div>
+      <div class="row">
+      <div class="col-md-12">
         <h1 class="entry-title">{!! get_the_title() !!}</h1>
         <h4 id="body">{{ $data['senate_or_assembly'] }} Assembly</h4>
         <table id="repInfo">
@@ -50,16 +57,24 @@ $score = round($points * 100 / $voteNumber);
         </table>
         <h3>Manual Score: {{ $data['scores'][0]['score'] }}</h3>
       </div>
-        <div class="col-md-4 thumbnail">
-          {!! get_the_post_thumbnail( get_the_ID(), 'people-thumbnail_314x314') !!}
-        </div>
     </section>
-  
+  </div>
+  <div class="col-md-8">
   <div class="entry-content">
     @php the_content() @endphp
   </div>
 
+  <section>
+    <h2>{{ $data['senate_or_assembly'] }} District {{ $data['district'] }}</h2>
+    <div id="mapContainer"></div>
+  </section>
+
+  <section id="contributions">
+    <h2>Contributions</h2>
+  </section>
+
   <section id="bills">
+    <h2>Votes</h2>
     @if($votes)
       <table id="billsTable">
         <thead>
@@ -78,9 +93,9 @@ $score = round($points * 100 / $voteNumber);
       </table>
     @endif
   </section>
-</div>
 
-  <div class="col-md-4">
-    <div id="mapContainer"></div>
-    </div>
+  <section id="partnersScores">
+    <h2>Partners Scores</h2>
+  </section>
+</div>
 </article>

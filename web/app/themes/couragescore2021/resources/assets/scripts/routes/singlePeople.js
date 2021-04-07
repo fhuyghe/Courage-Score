@@ -1,10 +1,13 @@
 import 'datatables.net'
+import Sticky from 'sticky-js'
+import * as turf from '@turf/turf'
 
 export default {
     init() {
         
     //Maps
     var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
+    // var bounds = new mapboxgl.LngLatBounds();
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiZnJpZW5kc29mZnJpZW5kcyIsImEiOiJjajlldnkwbDIyODJmMnlsZ2Z2MjJrZGplIn0.uSr8TFD1-mXrGRfjt1_h5Q';
     var map = new mapboxgl.Map({
@@ -26,29 +29,46 @@ export default {
     const senateAssembly = $('#parliement').html() == 'assembly' ? 0 : 1;
 
     //Add their layer to the map
-    map.addSource('districts', {
-        'type': 'geojson',
-        'data': 'https://map.dfg.ca.gov/arcgis/rest/services/Political/boundaries/MapServer/' + senateAssembly + '/query?where=district%3D' + districtNumber + '&f=geojson',
-    });
-    
-    map.addLayer({
-        id: 'districts-fill',
-        type: 'fill',
-        source: 'districts',
-        paint: {
-        'fill-color': 'hsl(200, 80%, 50%)',
-        'fill-opacity': 0.5,
-        'fill-outline-color': 'white',
-        },
-    });
+        let districtUrl = 'https://map.dfg.ca.gov/arcgis/rest/services/Political/boundaries/MapServer/' + senateAssembly + '/query?where=district%3D' + districtNumber + '&f=geojson';
+
+        $.getJSON(districtUrl, function (response) {
+
+            map.addSource('districts', {
+                'type': 'geojson',
+                'data': response,
+            });
+            
+            map.addLayer({
+                id: 'districts-fill',
+                type: 'fill',
+                source: 'districts',
+                paint: {
+                'fill-color': 'hsl(200, 80%, 50%)',
+                'fill-opacity': 0.5,
+                'fill-outline-color': 'white',
+                },
+            });
+
+            var bbox = turf.bbox(response);
+            map.fitBounds(bbox, {padding: 20});
+        });
     });
         
     // Votes Table
     
-    $('#billsTable').DataTable();    
+    $('#billsTable').DataTable();
+        
 },
 finalize() {
   // JavaScript to be fired on the home page, after the init JS
+    
+    //Sticky Element
+    var sticky = new Sticky('.sticky');
+    sticky.update();
+
+    $(window).on('resize', function () {
+        sticky.update();
+    })
     
 },
 };

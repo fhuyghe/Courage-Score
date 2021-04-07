@@ -1,4 +1,8 @@
 .single-people{
+    article{
+        padding-top: $grid-gutter * 2;
+    }
+    
     #general{
         margin-bottom: $grid-gutter;
         table{
