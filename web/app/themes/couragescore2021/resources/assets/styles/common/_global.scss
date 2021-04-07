@@ -11,9 +11,20 @@ html, body{
     margin-top: $headerHeight;
 }
 
+img{
+    max-width: 100%;
+    height: auto;
+}
+
 // Typography
 p{
     font-family: $lato;
+}
+
+a{
+    color: inherit;
+    display: inline-block;
+    border-bottom: 1px dotted theme-color(black);
 }
 
 h1, h2, h3, h4{

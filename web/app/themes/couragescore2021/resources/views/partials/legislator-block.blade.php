@@ -1,21 +1,39 @@
 @php $senate_or_assembly = get_field('senate_or_assembly', $legislator->ID) @endphp
+@php $party = get_field('party', $legislator->ID) == 'democrat' ? 'D' : 'R' @endphp
 
 <div class="legislator-block {{ $senate_or_assembly }}">
-    <div class="portrait">
-      {!! get_the_post_thumbnail( $legislator->ID, 'medium' );  !!}
+  <div class="top">
+    <div class="info">
+      <h3>
+        <a href="{{ get_permalink( $legislator->ID ) }}">
+            {{ $legislator->post_title }}
+        </a>
+      </h3>
+      <h5>State {{ $senate_or_assembly }}</h5>
+      <div>
+        <table>
+          <thead>
+            <tr>
+              <th>District</th>
+              <th>Party</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="district">{{ get_field('district', $legislator->ID) }}</td>
+              <td class="party">{{ $party }}</td>
+              <td class="Score">@include('partials.score-display')</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <h3>
-      <a href="{{ get_permalink( $legislator->ID ) }}">
-          {{ $legislator->post_title }}
-      </a>
-    </h3>
-    <h5>District 
-      @if($senate_or_assembly == 'assembly')
-        {{ get_field('state_assembly_district', $legislator->ID) }}
-      @else
-        {{ get_field('district', $legislator->ID) }}
-      @endif
-    </h5>
-  <h6>{{ get_field('party', $legislator->ID) }}</h6>
-  <div class="score">@include('partials.score-display')</div>
+    <div class="portrait">
+      {!! get_the_post_thumbnail( $legislator->ID, 'thumbnail' );  !!}
+    </div>
+  </div>
+<div class="excerpt">
+  {{ the_field('hall_of_shame_slider_text_block', $legislator->ID) }}
+</div>
 </div>

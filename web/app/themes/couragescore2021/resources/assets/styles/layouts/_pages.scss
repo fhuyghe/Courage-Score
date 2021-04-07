@@ -34,19 +34,38 @@
     
 }
 
+//All Stars and Hall of Shame
+.page.all-stars, 
+.page.hall-of-shame{
+    #top{
+        text-align: center;
+        padding: $grid-gutter * 2 0;
+    }
+}
+
 //Legislator Blocks
 .legislator-block{
-    border-radius: 5px;
-    border: 1px solid theme-color(black);
+    background-color: theme-color(grey);
     padding: $grid-gutter;
     margin-bottom: $grid-gutter;
 
-    .portrait{
-        margin-bottom: $grid-gutter;
+    .top{
+        display: flex;
 
-        img{
-            max-width: 100%;
-            height: auto;
+        .info{
+            flex: 1;
+
+            a{
+                border-bottom: 0;
+            }
+
+            table{
+                width: 100%;
+            }
         }
+    }
+
+    .portrait{
+        width: 120px;
     }
 }
