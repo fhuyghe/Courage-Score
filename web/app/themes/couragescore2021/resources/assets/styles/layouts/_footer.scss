@@ -1,5 +1,15 @@
 footer.content-info{
     margin-top: $grid-gutter;
     padding: $grid-gutter * 2 0;
-    background-color: theme-color(black);
+    border-top: 1px solid theme-color(black);
+
+    .copyright{
+        font-size: .8em;
+    }
+
+    .contact{
+        padding-left: 5px;
+        font-size: .9em;
+        margin-bottom: 10px;
+    }
 }

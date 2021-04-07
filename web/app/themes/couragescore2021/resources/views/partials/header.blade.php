@@ -8,7 +8,7 @@
         @include('partials.search')
       </div>
       <div class="col" id="social">
-        Social
+        @include('partials.social-links')
       </div>
     </div>
     <nav class="nav-primary">
