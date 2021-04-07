@@ -9,10 +9,10 @@
     <td class="vote-casted">
         @switch ($vote['vote'])
             @case('n_e')
-                <span class="square grey">N/E</span>
+                <span class="square grey">N/A</span>
                 @break
             @case('a')
-                <span class="square orange">A</span>
+                <span class="square orange">No Vote</span>
                 @break
             @case('n')
                 <span class="square {{ $opposed ? 'green' : 'red' }}">Oppose</span>
