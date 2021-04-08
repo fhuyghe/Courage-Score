@@ -35,10 +35,29 @@
             }
         }
     }
+
+    #hallOfShame{
+        background-color: theme-color(grey);
+    }
+
+    .main section{
+        padding: 100px 0;
+
+        .section-header{
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto $grid-gutter * 2;
+        }
+
+        .section-footer{
+            margin-top: $grid-gutter * 2;
+            text-align: center;
+        }
+    }
 }
 
 // All Legislators
-.page.all-legislators{
+.page.all-representatives{
     
 }
 
