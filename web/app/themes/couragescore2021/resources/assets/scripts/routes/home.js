@@ -16,6 +16,7 @@ export default {
     // Search by Name
     /*****************/
     var nameInput = $('.name-input')[0];
+    console.log(nameInput);
 
     autocomplete({
       input: nameInput,
@@ -25,7 +26,8 @@ export default {
         return div;
     },
         fetch: function(text, update) {
-            text = text.toLowerCase();
+          text = text.toLowerCase();
+          console.log('Text: ' + text);
           $.ajax({
               url : ajax_object.ajax_url,
               data : {

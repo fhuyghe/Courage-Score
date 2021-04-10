@@ -28,39 +28,45 @@ export default {
     /*****************/
     // Search by Address
     /*****************/
-    var addressInput = $('.address-input')[0];
+    var addressInput = document.getElementById('address-input');
 
     autocomplete({
       input: addressInput,
+      highlightMatches: true,
+      className: 'suggestions',
       render: function(item) {
         var div = document.createElement('div');
         div.textContent = item.text;
         return div;
-    },
-        fetch: function(text, update) {
-            text = text.toLowerCase();
-            // you can also use AJAX requests instead of preloaded data
-            //var suggestions = countries.filter(n => n.label.toLowerCase().startsWith(text))
-            $.ajax({
-              url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?',
-              data: {
-                f: 'json',
-                text: text,
-                category: 'Address, Residence, Postal',
-                countryCode: 'usa',
-                searchExtent: '-125.656774,31.611563,-113.850027,42.427281',
-              },
-              cache: false,
-            })
-              .done(function (res) {
-                let suggestions = res.suggestions;
-                //suggestions = suggestions.filter(function(address){return address.text.includes('CA,')});
-                update(suggestions);
-              });
-        },
-        onSelect: function(item) {
-          addressInput.value = item.text;
-        },
+      },
+      fetch: function(text, update) {
+          text = text.toLowerCase();
+
+          $.ajax({
+            url: 'https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/suggest?',
+            data: {
+              f: 'json',
+              text: text,
+              category: 'Address, Residence, Postal',
+              countryCode: 'usa',
+              searchExtent: '-125.656774,31.611563,-113.850027,42.427281',
+            },
+            cache: true,
+          })
+            .done(function (res) {
+              let suggestions = res.suggestions;
+              suggestions = suggestions.filter(function (address) { return address.text.includes('CA,') });
+              update(suggestions);
+            });
+      },
+      onSelect: function(item) {
+        addressInput.value = item.text;
+      },
+      customize: function(input, inputRect, container) {
+        container.style.top = inputRect.top - 80;
+        console.log(input, inputRect);
+        container.style.maxHeight = '200px';
+      },
     });
     
   },

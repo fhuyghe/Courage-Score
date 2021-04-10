@@ -177,6 +177,7 @@ table.dataTable tbody td{
 
     .search-container{
         display: none;
+        position: relative;
         width: 100%;
 
         &.active{
@@ -203,6 +204,21 @@ table.dataTable tbody td{
             border: 0;
             outline: 0;
             width: 40px;
+        }
+    }
+}
+.autocomplete {
+    margin-top: - $headerHeight;
+    border: 1px solid theme-color(grey);
+    background: theme-color(white);
+    list-style: none;
+    padding-left: 0;
+
+    div{
+        padding: 5px 10px;
+
+        &.selected{
+            background-color: theme-color(green);
         }
     }
 }
