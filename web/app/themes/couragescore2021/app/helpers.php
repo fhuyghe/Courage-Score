@@ -146,11 +146,18 @@ function get_name_suggestion() {
         'post_type' => 'people'
     );
     $the_query = new \WP_Query( $args );
-    wp_send_json_success($the_query->posts);
+    $suggestions = array();
+    foreach($the_query->posts as $post){
+        $suggestions[] = [
+            'post' => $post,
+            'url' => get_permalink($post->ID),
+            'thumbnail' => get_the_post_thumbnail_url($post->ID, 'thumbnail'),
+        ];
+    }
+    wp_send_json_success($suggestions);
 }
 
 add_action('wp_ajax_get_name_suggestion', __NAMESPACE__ .'\\get_name_suggestion' );
 add_action('wp_ajax_nopriv_get_name_suggestion', __NAMESPACE__ .'\\get_name_suggestion' );
-//add_action('wp_ajax_admin_get_name_suggestion', __NAMESPACE__ .'\\get_name_suggestion' );
 
 

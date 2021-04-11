@@ -5,7 +5,9 @@
         <a class="brand" href="{{ home_url('/') }}">{{ get_bloginfo('name', 'display') }}</a>
       </div>
       <div class="col" id="bannerSearch">
-        {{-- @include('partials.search') --}}
+        @if(!is_front_page())
+          @include('partials.search')
+        @endif
       </div>
       <div class="col" id="social">
         @include('partials.social-links')

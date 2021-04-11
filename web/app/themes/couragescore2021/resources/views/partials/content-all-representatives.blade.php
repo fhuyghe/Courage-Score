@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    @foreach($all_legislators as $post)
+    @foreach($all_representatives as $post)
     @php setup_postdata( $post ) @endphp
     @php $senate_or_assembly = get_field('senate_or_assembly') @endphp
     <tr class="{{ $senate_or_assembly }}">

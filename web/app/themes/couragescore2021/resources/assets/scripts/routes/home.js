@@ -16,18 +16,19 @@ export default {
     // Search by Name
     /*****************/
     var nameInput = $('.name-input')[0];
-    console.log(nameInput);
 
     autocomplete({
       input: nameInput,
       render: function(item) {
         var div = document.createElement('div');
-        div.textContent = item.post_title;
+        let str = '<div class="thumbnail"><img src="' + item.thumbnail + '" /></div>'
+        str += '<div class="name">' + item.post.post_title + '</div>'
+        str += '<div class="score">Score</div>'
+        div.insertAdjacentHTML( 'beforeend', str );
         return div;
     },
         fetch: function(text, update) {
           text = text.toLowerCase();
-          console.log('Text: ' + text);
           $.ajax({
               url : ajax_object.ajax_url,
               data : {
@@ -35,13 +36,14 @@ export default {
                 text: text,
               },
             })
-              .done(function (res) {
-                let suggestions = res.data;
-                update(suggestions);
-              });
+            .done(function (res) {
+              let suggestions = res.data;
+              update(suggestions);
+            });
         },
-        onSelect: function(item) {
-          nameInput.value = item.post_title;
+      onSelect: function (item) {
+        nameInput.value = item.post.post_title;
+        window.location.href = item.url;
         },
     });
   },

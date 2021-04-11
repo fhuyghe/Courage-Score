@@ -5,9 +5,9 @@ namespace App\Controllers;
 use Sober\Controller\Controller;
 use WP_Query;
 
-class PageAllLegislators extends Controller
+class PageAllRepresentatives extends Controller
 {
-    public function all_legislators() {
+    public function all_representatives() {
         $args = array(
             'post_type' => 'people',
             'orderby' => 'title',
