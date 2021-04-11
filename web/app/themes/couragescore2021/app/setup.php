@@ -331,9 +331,11 @@ function getDistrict(){
             $divisions[$district_type] = $district_number;
         }
     }
-    $district_info[0] = \App::getLegislator('assembly', $divisions['sldl']);
-    $district_info[1] = \App::getLegislator('senate', $divisions['sldu']);
-    wp_send_json_success( $district_info);
+    //Assembly result
+    $district_info[0] = template('partials.legislator-block', ['post' => \App::getLegislator('assembly', $divisions['sldl'])]);
+    //Senate result
+    $district_info[1] = template('partials.legislator-block', ['post' => \App::getLegislator('senate', $divisions['sldu'])]);
+    wp_send_json_success( $district_info );
 }
 
 add_action('wp_ajax_get_district', __NAMESPACE__ .'\\getDistrict' );

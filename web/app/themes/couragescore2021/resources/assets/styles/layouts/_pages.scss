@@ -36,6 +36,14 @@
         }
     }
 
+    #searchResults{
+        display: none;
+        
+        &.active{
+            display: block;
+        }
+    }
+
     #hallOfShame{
         background-color: theme-color(grey);
     }

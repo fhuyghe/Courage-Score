@@ -204,6 +204,26 @@ table.dataTable tbody td{
             border: 0;
             outline: 0;
             width: 40px;
+
+            .fa-spinner-third{
+                display: none;
+            }
+        }
+
+        &.loading{
+            input{
+                opacity: .5;
+            }
+
+            button{
+                .fa-spinner-third{
+                    display: block;
+                }
+
+                .fa-search{
+                    display: none;
+                }
+            }
         }
     }
 }

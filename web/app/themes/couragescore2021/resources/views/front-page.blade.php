@@ -10,6 +10,21 @@
       <a href="/all-representatives">See all representatives</a>
   </section>
 
+  <section id="searchResults">
+    <div class="container">
+      <h2>You Representatives</h2>
+      <h5 id="address"></h5>
+      <div class="row">
+        <div class="col-md-6">
+          <div id="assemblyRep"></div>
+        </div>
+        <div class="col-md-6">
+          <div id="senateRep"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="about">
     <div class="container">
       {!! the_content() !!}

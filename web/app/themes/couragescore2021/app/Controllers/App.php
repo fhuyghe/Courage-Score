@@ -32,7 +32,7 @@ class App extends Controller
         return get_the_title();
     }
 
-    public static function getLegislator($chamber, $district){
+    public static function getLegislator($body, $district){
         $args = array(
             'post_type'     => 'people',
             'showposts' => 1,
@@ -45,12 +45,12 @@ class App extends Controller
                 ),
                 array(
                     'key'	  	=> 'senate_or_assembly',
-                    'value'	  	=> $chamber,
+                    'value'	  	=> $body,
                     'compare' 	=> '='
                 )
             )
 	    );
 	    $the_query = new WP_Query( $args );
-	    return $the_query->posts;
+	    return $the_query->posts[0];
     }
 }

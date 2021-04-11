@@ -4,8 +4,13 @@ export default {
   init() {
     // JavaScript to be fired on all pages
     $('.address-button').on('click', function () {
-      const address = $('.address-input').val();
-      $('#districts').html('Loading...');
+      const address = $('#address-input').val();
+      getDistrict(address);
+    });
+
+    var getDistrict = function (address) {
+      $('#address-input').attr('disabled', true);
+      $('.search-container.address').addClass('loading');
 
       $.ajax({
         // eslint-disable-next-line no-undef
@@ -16,14 +21,26 @@ export default {
         },
         success: function (response) {
           console.log(response);
-          // if (response.data.sldu && response.data.sldl) {
-          //   $('#districts').html('Senate : ' + response.data.sldu + ', Assembly: ' + response.data.sldl);
-          // } else {
-          //   $('#districts').html('No district information found');
-          // }
+          let searchResults = document.getElementById('searchResults');
+
+          //Populate address
+          $('#address').html(address);
+
+          // Populate Assembly
+          $('#assemblyRep').html(response.data[0]);
+          
+          // Populate Senate
+          $('#senateRep').html(response.data[1]);
+          
+          searchResults.classList.add('active');
+          searchResults.scrollIntoView({ block: 'start', behavior: 'smooth' });
+          
+          //Remove Loading Status
+          $('#address-input').attr('disabled', false);
+          $('.search-container.address').removeClass('loading');
         },
         });
-    });
+    }
 
     /*****************/
     // Search by Address
@@ -61,10 +78,10 @@ export default {
       },
       onSelect: function(item) {
         addressInput.value = item.text;
+        getDistrict(item.text);
       },
       customize: function(input, inputRect, container) {
         container.style.top = inputRect.top - 80;
-        console.log(input, inputRect);
         container.style.maxHeight = '200px';
       },
     });
