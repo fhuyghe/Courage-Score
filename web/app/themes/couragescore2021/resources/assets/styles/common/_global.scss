@@ -122,6 +122,19 @@ table.dataTable tbody td{
             padding: 5px;
             text-align: center;
             width: 80px;
+
+            &.green{
+                background-color: theme-color(green);
+              }
+              &.red{
+                background-color: theme-color(red);
+            }
+            &.yellow{
+                background-color: theme-color(yellow);
+            }
+            &.grey{
+                background-color: theme-color(grey);
+            }
         }
     }
 }

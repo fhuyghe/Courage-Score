@@ -40,7 +40,7 @@ $score = round($points * 100 / $voteNumber);
       <div class="row">
       <div class="col-md-12">
         @include('partials.rep-info')
-        <h3>Manual Score: {{ $data['scores'][0]['score'] }}</h3>
+        <h3>Manual Score: {{ $data['scores'][0]['score'] }} / {{ $score }}</h3>
       </div>
       </div>
     </section>
