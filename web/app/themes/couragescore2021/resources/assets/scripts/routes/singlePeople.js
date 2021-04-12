@@ -57,7 +57,9 @@ export default {
         
     // Votes Table
     
-    $('#billsTable').DataTable();
+        $('#billsTable').DataTable({
+            //paging: false,
+        });
         
 },
 finalize() {

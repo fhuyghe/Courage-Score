@@ -5,11 +5,21 @@
 
     #general{
         margin-bottom: $grid-gutter;
+        background-color: theme-color(grey);
+        border-radius: 10px;
+        padding: $grid-gutter;
 
-        .thumbnail{
-            img{
-                max-width: 100%;
-                height: auto;
+        .representative-block{
+            padding: 0;
+
+            .top{
+                display: flex;
+                padding-bottom: $grid-gutter;
+
+                .rep-name-title{
+                    flex: 1;
+                    padding-right: $grid-gutter;
+                }
             }
         }
     }
@@ -22,7 +32,7 @@
 
     #mapContainer{
         max-width: 100%;
-        height: 300px;
+        height: 200px;
 
         .mapboxgl-control-container{
             display: none;

@@ -3,6 +3,7 @@
 
 <div class="representative-block {{ $senate_or_assembly }}">
   <div class="top">
+    @include('partials.rep-name-title')
     @include('partials.rep-info')
     <div class="portrait">
       {!! get_the_post_thumbnail( $post->ID, 'thumbnail' );  !!}

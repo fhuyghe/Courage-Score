@@ -18,7 +18,7 @@
                 <span class="square {{ $opposed ? 'green' : 'red' }}">Oppose</span>
                 @break
             @case('y')
-                <span class="square green">Support</span>
+                <span class="square {{ $opposed ? 'red' : 'green' }}">Support</span>
                 @break
         @endswitch
     </td>

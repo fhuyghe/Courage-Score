@@ -161,3 +161,21 @@ add_action('wp_ajax_get_name_suggestion', __NAMESPACE__ .'\\get_name_suggestion'
 add_action('wp_ajax_nopriv_get_name_suggestion', __NAMESPACE__ .'\\get_name_suggestion' );
 
 
+//Get Rep Scores
+function get_score($post) {
+
+    $score = 'na';
+    
+    if(have_rows('progressive_voting_by_member')): 
+        $current_year = date('Y');
+        while(have_rows('progressive_voting_by_member')): the_row();
+            if(get_sub_field('na') == 1){$score = 'na';} else {$score = get_sub_field('score');}
+            $vote_info[] = array( 'year' => get_sub_field('years') , 'score' => $score);
+            $score = $vote_info[0]['score']; 
+        endwhile;
+    endif;
+
+    return $score;
+}
+
+

@@ -1,15 +1,5 @@
 @php 
-    $score = get_field('progressive_voting_by_member_in_assembly');
-    
-    // if(have_rows('progressive_voting_by_member')): 
-    //     $current_year = date('Y');
-    //     while(have_rows('progressive_voting_by_member')): the_row();
-    //         if(get_sub_field('na') == 1){$score = 'na';} else {$score = get_sub_field('score');}
-    //         $vote_info[] = array( 'year' => get_sub_field('years') , 'score' => $score);
-    //         $score = $vote_info[0]['score']; 
-            
-    //     endwhile;
-    // endif;
+    $score = App\get_score($post);
 
     if ( $score == 'na' || empty($score) && $score != "0" ){
         $score = 'na';

@@ -28,36 +28,38 @@ $score = round($points * 100 / $voteNumber);
 
 <article @php post_class() @endphp>
   <div class="row">
-  <div class="col-md-4 sticky">
+  <div class="col-md-5 sticky">
     <section id="general">
-      <div class="row">
-        <div class="col-md-6 thumbnail">
-          {!! get_the_post_thumbnail( get_the_ID(), 'people-thumbnail_314x314') !!}
+      <div class="representative-block">
+        <div class="top">
+          @include('partials.rep-name-title')
+          <div class="portrait">
+            {!! get_the_post_thumbnail( $post->ID, 'thumbnail' );  !!}
+          </div>
         </div>
-        <div class="col-md-6 badges">
-        </div>
+          @include('partials.rep-info')
       </div>
-      <div class="row">
-      <div class="col-md-12">
-        @include('partials.rep-info')
-        <h3>Manual Score: {{ $data['scores'][0]['score'] }} / {{ $score }}</h3>
-      </div>
-      </div>
+      <div id="mapContainer"></div>
+      <h3>Manual Score: {{ $data['scores'][0]['score'] }} / {{ $score }}</h3>
+    </section>
+
+    <section id="contact">
+    </section>
+
+    <section id="submenu">
+      <ul>
+      <a href="#bills">Votes</a>
+      <a href="#contributions">Contributions</a>
+      <a href="#partnerScores">Partner Scores</a>
+      </ul>
     </section>
   </div>
-  <div class="col-md-8" id="sections">
+
+  {{-- Main content --}}
+  <div class="col-md-7" id="sections">
   <div class="entry-content">
     @php the_content() @endphp
   </div>
-
-  <section>
-    <h2>{{ $data['senate_or_assembly'] }} District {{ $data['district'] }}</h2>
-    <div id="mapContainer"></div>
-  </section>
-
-  <section id="contributions">
-    <h2>Contributions</h2>
-  </section>
 
   <section id="bills">
     <h2>Votes</h2>
@@ -78,6 +80,10 @@ $score = round($points * 100 / $voteNumber);
       </tbody>
       </table>
     @endif
+  </section>
+
+  <section id="contributions">
+    <h2>Contributions</h2>
   </section>
 
   <section id="partnersScores">

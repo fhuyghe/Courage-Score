@@ -17,7 +17,7 @@ class SinglePeople extends Controller
 	    return $data;
     }
 
-    static function votes($year){
+    static function votes($year){ 
         $year;
         $votes = get_field('voting');
         $votesByYear = array_filter($votes, function($vote) use ($year){
