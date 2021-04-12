@@ -66,7 +66,10 @@
 
 // All Legislators
 .page.all-representatives{
-    
+    #tableWarp{
+        max-width: 800px;
+        margin: $grid-gutter auto;
+    }
 }
 
 //All Stars and Hall of Shame

@@ -39,9 +39,6 @@
     }
 @endphp
 
-<div class="score {{ $color }}">
+<div class="grade {{ $color }}">
     {{ $letter }}
-    <div class="number">
-        {{ $score }}
-    </div>
 </div>

@@ -345,7 +345,6 @@ function getDistrict_ajax(){
 
 add_action('wp_ajax_get_district_ajax', __NAMESPACE__ .'\\getDistrict_ajax' );
 add_action('wp_ajax_nopriv_get_district_ajax', __NAMESPACE__ .'\\getDistrict_ajax' );
-//add_action('wp_ajax_admin_get_district', __NAMESPACE__ .'\\getDistrict' );
 
 function get_district_data( $district_type , $district_id){
     $openstates_data_var = 'openstates_data_'.$district_type.'_'.$district_id.'_json';
