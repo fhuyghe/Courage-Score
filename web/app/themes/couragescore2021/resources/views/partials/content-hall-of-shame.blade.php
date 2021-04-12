@@ -12,7 +12,7 @@
       @php setup_postdata( $post ) @endphp
 
       <div class="col-md-6">
-        @include('partials.legislator-block')
+        @include('partials.representative-block')
       </div>
 
       @php wp_reset_postdata() @endphp

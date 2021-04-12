@@ -310,7 +310,7 @@ function create_vote_topics_taxonomies()
 // Get the district numbers based on your address.
 function getDistrict(){
     // example address 1228 O St , Sacramento, CA, 95814
-    
+
     $url = "https://www.googleapis.com/civicinfo/v2/representatives?address=" . urlencode($_REQUEST['address']) . "&key=" . GOOGLEMAPS_API;
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -332,14 +332,19 @@ function getDistrict(){
         }
     }
     //Assembly result
-    $district_info[0] = template('partials.legislator-block', ['post' => \App::getLegislator('assembly', $divisions['sldl'])]);
+    $district_info[0] = template('partials.representative-block', ['post' => \App::getLegislator('assembly', $divisions['sldl'])]);
     //Senate result
-    $district_info[1] = template('partials.legislator-block', ['post' => \App::getLegislator('senate', $divisions['sldu'])]);
+    $district_info[1] = template('partials.representative-block', ['post' => \App::getLegislator('senate', $divisions['sldu'])]);
+    return( $district_info );
+}
+
+function getDistrict_ajax(){
+    $district_info = getDistrict($_REQUEST['address']);
     wp_send_json_success( $district_info );
 }
 
-add_action('wp_ajax_get_district', __NAMESPACE__ .'\\getDistrict' );
-add_action('wp_ajax_nopriv_get_district', __NAMESPACE__ .'\\getDistrict' );
+add_action('wp_ajax_get_district_ajax', __NAMESPACE__ .'\\getDistrict_ajax' );
+add_action('wp_ajax_nopriv_get_district_ajax', __NAMESPACE__ .'\\getDistrict_ajax' );
 //add_action('wp_ajax_admin_get_district', __NAMESPACE__ .'\\getDistrict' );
 
 function get_district_data( $district_type , $district_id){

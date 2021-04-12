@@ -2,13 +2,18 @@ import autocomplete from 'autocompleter';
 
 export default {
   init() {
+
+    let isHome = $('.home').length > 0 ? true : false;
+
     // JavaScript to be fired on all pages
     $('.address-button').on('click', function () {
       const address = $('#address-input').val();
-      getDistrict(address);
+        getDistrict(address);
     });
 
     var getDistrict = function (address) {
+      if (isHome) {
+        // Get the reps here
       $('#address-input').attr('disabled', true);
       $('.search-container.address').addClass('loading');
 
@@ -16,7 +21,7 @@ export default {
         // eslint-disable-next-line no-undef
         url : ajax_object.ajax_url,
         data : {
-          action: 'get_district',
+          action: 'get_district_ajax',
           address,
         },
         success: function (response) {
@@ -39,7 +44,11 @@ export default {
           $('#address-input').attr('disabled', false);
           $('.search-container.address').removeClass('loading');
         },
-        });
+      });
+      } else {
+        //Forward to the search results
+        window.location.assign('/my-representatives?address=' + encodeURIComponent(address));
+      }
     }
 
     /*****************/

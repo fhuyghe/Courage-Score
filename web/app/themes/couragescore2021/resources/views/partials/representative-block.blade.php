@@ -1,7 +1,7 @@
 @php $senate_or_assembly = get_field('senate_or_assembly', $post->ID) @endphp
 @php $party = get_field('party', $post->ID) == 'democrat' ? 'D' : 'R' @endphp
 
-<div class="legislator-block {{ $senate_or_assembly }}">
+<div class="representative-block {{ $senate_or_assembly }}">
   <div class="top">
     @include('partials.rep-info')
     <div class="portrait">
