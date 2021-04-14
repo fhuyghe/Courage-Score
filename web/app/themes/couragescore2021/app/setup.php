@@ -293,16 +293,45 @@ function Votes_custom_init()
     'publicly_queryable' => true,
     'show_ui' => true, 
     'show_in_menu' => true, 
+    'menu-icon' => 'dashicons-media-document',
     'query_var' => true,
     'rewrite' => true,
     'capability_type' => 'post',
     'has_archive' => true, 
     'hierarchical' => false,
-    'menu_position' => null,
+    'menu_position' => null, 
     'supports' => array('title','editor','thumbnail'),
     'taxonomies' => array('vote-category', 'vote-topic')
   ); 
   register_post_type('vote',$args);
+}
+
+// CPT "Partners" registration
+add_action('init',  __NAMESPACE__ . '\\Partners_custom_init');
+function Partners_custom_init() 
+{
+  $labels = array(
+    'name' => _x('Partner', 'post type general name'),
+    'singular_name' => _x('Partner', 'post type singular name'),
+    'menu_name' => 'Partners'
+  );
+  
+  $args = array(
+    'labels' => $labels,
+    'public' => true,
+    'publicly_queryable' => true,
+    'show_ui' => true, 
+    'show_in_menu' => true, 
+    'menu-icon' => 'dashicons-groups',
+    'query_var' => true,
+    'rewrite' => array( 'slug' => 'partner' ),
+    'capability_type' => 'post',
+    'has_archive' => true, 
+    'hierarchical' => false,
+    'menu_position' => null,
+    'supports' => array('title','thumbnail'),
+  ); 
+  register_post_type('partner',$args);
 }
 
 
