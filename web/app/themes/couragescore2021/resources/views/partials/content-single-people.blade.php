@@ -30,6 +30,7 @@ $score = round($points * 100 / $voteNumber);
   <div class="row">
   <div class="col-md-5 sticky">
     <section id="general">
+      @include('partials.badge')
       <div class="rep-block">
         <div class="top">
           @include('partials.rep-name-title')
@@ -44,13 +45,14 @@ $score = round($points * 100 / $voteNumber);
     </section>
 
     <section id="contact">
+      <a id="contactToggle">Contact <i class="far fa-arrow-right"></i></a>
     </section>
 
     <section id="submenu">
       <ul>
-      <a href="#bills">Votes</a>
-      <a href="#contributions">Contributions</a>
-      <a href="#partnerScores">Partner Scores</a>
+        <li><a href="#bills">Votes</a></li>
+        <li><a href="#contributions">Contributions</a></li>
+          <li><a href="#partnerScores">Partner Scores</a></li>
       </ul>
     </section>
   </div>

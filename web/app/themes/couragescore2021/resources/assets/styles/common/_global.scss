@@ -350,3 +350,44 @@ div.grade{
     border-color: theme-color(grey);
     }
 }
+
+// List Badges
+.list-badge{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    background-color: theme-color(grey);
+
+    &:after{
+        color: theme-color(white);
+        text-transform: uppercase;
+        white-space: normal;
+        position: absolute;    
+        width: 50px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: .8em;
+        font-weight: bold;
+    }
+    
+    &.all-star{
+        background-color: theme-color(green);
+
+        &:after{
+            content: "All Star";
+        }
+    }
+    
+    &.hall-of-shame{
+        background-color: theme-color(red);
+        
+        &:after{
+            content: "Hall of Shame";
+        }
+    }
+}

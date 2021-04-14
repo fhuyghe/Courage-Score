@@ -180,4 +180,32 @@ function get_score($post) {
     return $score;
 }
 
+//Get Rep Scores
+function get_score_yoast() {
+
+    $score = 'na';
+    $scores = get_field('progressive_voting_by_member'); 
+    $current_year = date('Y');
+    
+    if($scores): 
+        foreach($scores as $scoreRow):
+            if($scoreRow['na'] == 1){$score = 'na';} else {$score = $scoreRow['score'];}
+            $vote_info[] = array( 'year' => $scoreRow['years'] , 'score' => $score);
+        endforeach;
+    endif;
+    
+    $score = $vote_info[0]['score']; 
+
+    return $score;
+}
+
+
+// define the action for register yoast_variable replacments
+function register_custom_yoast_variables() {
+    wpseo_register_var_replacement( '%%score%%', __NAMESPACE__ . '\get_score_yoast', 'advanced' );
+}
+
+// Add action
+add_action('wpseo_register_extra_replacements', __NAMESPACE__ . '\register_custom_yoast_variables');
+
 
