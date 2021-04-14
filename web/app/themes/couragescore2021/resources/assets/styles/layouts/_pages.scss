@@ -9,19 +9,48 @@
 // Home
 .page.home{
     #top{
-        height: 100vh;
-        background: grey;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        flex-flow: row wrap;
+        padding: $grid-gutter / 2;
+
+        .squares-top, 
+        .squares-bottom{
+            flex: 0 0 100%;
+            display: flex;
+        }
+        
+        .squares-left, 
+        .squares-right{
+            flex: 0 0 25%;
+            
+            & > div{
+                display: flex;
+            }
+        }
+
+        .square{
+            flex: 1;
+            background-color: theme-color(black);
+            margin: $grid-gutter / 2;
+
+            &:after {
+                content: "";
+                display: block;
+                padding-bottom: 100%;
+              }
+        }
         
         .content{
-            width: 100%;
-            max-width: 800px;
+            flex: 0 0 50%;
             background-color: theme-color(white);
             border-radius: 5px;
             padding: $grid-gutter;
             text-align: center;
+
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
 
             #searchWrap{
                 max-width: 500px;
