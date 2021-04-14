@@ -11,7 +11,9 @@
   <div class="photos-wrap">
     @foreach($data['allStars'] as $post)
       <div class="photo">
+        <a href="{{ get_the_permalink($post->ID) }}">
         {!! get_the_post_thumbnail($post->ID, 'thumbnail') !!}
+        </a>
       </div>
     @endforeach
   </div>
