@@ -53,4 +53,12 @@ class App extends Controller
 	    $the_query = new WP_Query( $args );
 	    return $the_query->posts[0];
     }
+
+    public static function getAllStars(){
+        return get_field('people_list', 3214);
+    }
+    
+    public static function getHallOfShame(){
+        return get_field('people_list', 175);
+    }
 }
