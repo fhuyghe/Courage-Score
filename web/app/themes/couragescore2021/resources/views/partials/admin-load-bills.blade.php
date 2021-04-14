@@ -6,7 +6,7 @@ $scorecards = $scorecardsImport->scorecards;
     <h2>Load Bills</h2>
     <label for="cars">Choose a Scorecard to import:</label>
     <select name="scorecards" id="scorecards">
-    @foreach($scorecards as $scorecard):
+    @foreach(array_reverse($scorecards) as $scorecard):
         <option value="{{ $scorecard->scorecardID }}">{{ $scorecard->scorecardName }}</option>
     @endforeach
     </select>
@@ -16,6 +16,7 @@ $scorecards = $scorecardsImport->scorecards;
     <div id="preview">
         <h2 id="previewTitle"></h2>
         <ul id="previewList"></ul>
+    </div>
     </div>
 </div>
 

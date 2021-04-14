@@ -193,9 +193,28 @@ function load_bills_submenu() {
 
 function load_bills_menu_callback() {
     echo template('partials.admin-load-bills');
-    echo '</div>';
 }
 add_action('admin_menu', __NAMESPACE__ . '\\load_bills_submenu');
+
+/************************* */
+//Load Votes Submenu page
+/************************* */
+function load_votes_submenu() {
+    add_submenu_page(
+        'tools.php',
+        'Load Votes',
+        'Load Votes',
+        'manage_options',
+        'load-votes',
+        __NAMESPACE__ . '\\load_votes_menu_callback',
+        null
+    );
+}
+
+function load_votes_menu_callback() {
+    echo template('partials.admin-load-votes');
+}
+add_action('admin_menu', __NAMESPACE__ . '\\load_votes_submenu');
 
 
 if ( function_exists( 'add_theme_support' ) ) {
@@ -569,275 +588,3 @@ function prof_print()
     }
     echo "<b>{$prof_names[$size-1]}</b><br>";
 }
-
-
-
-
-
-
-
-
-function get_person_id( $post_id ){
-    //$post_id = 13; // David Chiu ID
-    if ( $post_id ){
-        $person_name = get_the_title( $post_id );
-
-        $person_name = str_replace('&#8217;', "'", $person_name);
-        
-        /*** Person's Last Name ***/
-        $pieces = explode(' ', $person_name);
-        $person_last_name = array_pop($pieces);
-        /*************************/
-        
-        /*** API Request ***/ 
-        $authorization = "Authorization: apikey " . BILLTRACK_API;
-        $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Legislators?LegislatorName='. $person_last_name .'&StateCodes=CA';
-
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        $response = curl_exec($ch);
-
-        curl_close($ch);
-        $response_a = json_decode($response);
-        $found_legislators = $response_a->Legislators;
-
-        if($found_legislators){
-            foreach($found_legislators as $legislator){
-                if ($person_name == $legislator->Name){
-                    update_field('billtrack_id', $legislator->LegislatorID,  $post_id );                 
-                }
-            }
-            return true;
-        }
-    } else {
-        return ;
-    }
-   
-}
-
-function get_people(){
-    $all_people = get_posts(array(
-        'post_type' => 'people',
-        'numberposts' => -1,
-        'suppress_filters' => false,
-        'post_status' => 'publish',
-    ));
-    if($all_people){
-        foreach($all_people as $i => $person){
-            $success = get_person_id($person->ID);
-        }
-    }
-}
-
-function get_votes_by_scorecard_and_legislator_id($person_id){
-    /*** API Request ***/ 
-    $authorization = "Authorization: apikey " . BILLTRACK_API;
-    
-    $scorecards = get_scorecards();
-    if($scorecards && $scorecards->Scorecards){
-        $votes_full = array();
-        foreach($scorecards->Scorecards as $scorecard){
-            if($scorecard->ScorecardName == '2020 Courage Score'){
-                $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Scorecards/'.$scorecard->ScorecardID.'/Legislators/'. $person_id .'/Votes';
-
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-                $response = curl_exec($ch);
-
-                curl_close($ch);
-                $response_a = json_decode($response);
-                $votes = $response_a->BillVotes;
-                $votes_full = $votes_full + $votes;
-            }
-        }
-    }    
-    return  $votes_full;
-}
-
-function save_votings_single_person(){
-
-    // prof_flag('start');
-    // echo "<br/>NOW:".date("Y-m-d H:i:s"); 
-
-    //zero all empty "update" fields
-    // prof_flag('START: get peoples with empty "update" fields ');
-    $all_people = get_posts(array(
-        'post_type' => 'people',
-        //'post__in' => array(13),
-        'numberposts' => 1,
-        'suppress_filters' => false,
-        'post_status' => 'publish',
-    ));
-    foreach($all_people as $person){
-        $a_ts = get_field("last_update_attempt_ts", $person->ID);
-        $s_ts = get_field("last_update_success_ts", $person->ID);
-        // echo "<br/> {$person->ID} == (".gettype($a_ts).")[$a_ts] (".gettype($s_ts).")[$s_ts]";
-
-        if($a_ts == "" || is_null($a_ts))
-            update_field("last_update_attempt_ts", 0, $person->ID);
-        if($s_ts == "" || is_null($s_ts))
-            update_field("last_update_success_ts", 0, $person->ID);
-    }
-    
-
-    
-    //get first person ordered by "last_update_attempt_ts", later filtered by "billtrack_id" not null
-    $all_people = get_posts(array(
-        //'p' => 999,
-        'post_type' => 'people',
-        //'post__in' => array(13),
-        'numberposts' => -1,
-        'suppress_filters' => false,
-        'post_status' => 'publish',
-        'meta_key' => 'last_update_attempt_ts',
-        // 'meta_compare' => 'EXISTS',
-        'orderby' => "meta_value",
-        'order' => "ASC"
-    ));
-
-
-    if(!$all_people)
-        die("can't get people's list from DB");
-
-    $first_person = false;
-    $nowts = time();
-    $limitts = $nowts - 10*60*60; //-10 hours
-
-    foreach($all_people as $person){
-        $a_ts = get_field("last_update_attempt_ts", $person->ID);
-        $s_ts = get_field("last_update_success_ts", $person->ID);
-        $billtrack_id = get_field("billtrack_id", $person->ID);
-        if(empty($billtrack_id))
-            continue;
-        if($a_ts > $limitts)
-            continue;
-        //print_r($billtrack_id);
-        $first_person = $person;
-        echo "<hr/><br/>working with  <br/>title : ".get_the_title( $first_person->ID )." <br/>billtrack_id : ".$billtrack_id."<br/> postID : ".($first_person->ID)."<hr/>";
-        break;
-    }
-
-    if(!$first_person) // too early to update
-        die("all people entries are up to date");
-
-    update_field("last_update_attempt_ts", time(), $first_person->ID);
-
-    $person = $first_person;
-
-    $votes = get_votes_by_scorecard_and_legislator_id(get_field('billtrack_id', $person->ID));
-
-    if($votes){
-        foreach($votes as $vote){                            
-
-            $bills_query = get_posts(array(
-                'meta_query' => array(
-                    array(
-                        'key' => 'billtrack_id',
-                        'value' => $vote->billID,
-                    )
-                ),
-                'post_type'         => 'vote',
-                'suppress_filters'  => false,
-                'showposts'       => 1,
-                'post_status'       => array('draft', 'publish'),
-            ));
-            if($bills_query){
-                foreach($bills_query as $bill_post){
-                    $billtrack_bill_id = get_field('billtrack_id',$bill_post->ID);
-                    
-                    if($vote->Vote == 'Y'){
-                        $vote_label = 'y';
-                    } elseif ($vote->Vote == 'N'){
-                        $vote_label = 'n';
-                    } else{
-                        $vote_label = 'a';
-                    }
-                    $vote_date = date("Ymd", strtotime($vote->VoteDate));
-                    if(have_rows('voting_history', $bill_post->ID)){
-                        while (have_rows('voting_history',$bill_post->ID)) {
-                            the_row();
-                            if (get_sub_field('vote_date') == $vote_date) {
-                                if(get_sub_field('committee_floor') == 'floor'){
-                                    $floor_committee = 'floor_votes';
-                                } else {
-                                    $floor_committee = 'committee_votes';
-                                }
-                            }
-                        }
-                    }
-
-                    $row = array(
-                        'bill_number'    => $bill_post->ID ,
-                        'bill_id'        => $billtrack_bill_id,
-                        'vote'           => $vote_label,
-                        'vote_date'      => $vote_date,
-                        'floorcommittee' => $floor_committee,
-                    );
-                     
-                    // die();
-                    $row_exists = 0;
-                    if(have_rows('voting',$person->ID)): while(have_rows('voting',$person->ID)): the_row();
-                        if( get_sub_field('bill_id') == $billtrack_bill_id && get_sub_field('vote') == $vote_label && get_sub_field('vote_date') == $vote_date && get_sub_field('floorcommittee') == $floor_committee ):
-                            $row_exists = 1;
-                        endif;
-                    endwhile; endif;
-                    if($row_exists == 0){
-                        $i = add_row( 'voting', $row, $person->ID );
-                    }
-                    // print_r($i);
-                    // print_r('<br/>');
-                    unset($billtrack_bill_id);
-                    unset($vote_label);
-                    unset($floor_committee);
-                    unset($vote_date);
-                    unset($row);
-                }
-            }unset($bills_query);
-        }
-        print_r(' -- votes updated'); 
-       
-    }
-
-    unset($votes);
-
-    update_field("last_update_success_ts", time(), $person->ID);
-   
-   return true;
-}
-
-function get_bill_authors($bill_id){
-    /*** API Request ***/ 
-    $authorization = "Authorization: apikey " . BILLTRACK_API;
-    $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Bills/'.$bill_id.'/Sponsors';
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-    $response = curl_exec($ch);
-
-    curl_close($ch);
-    $response_a = json_decode($response);
-    return $response_a;
-}
-
-// add_filter('posts_where',  __NAMESPACE__ . '\\jb_filter_acf_meta');
-// function jb_filter_acf_meta( $where ) {
-//     $where = str_replace('meta_key = \'voting_history_$_vote_date', "meta_key LIKE 'voting_history_%_vote_date", $where);
-//     return $where;
-// }
