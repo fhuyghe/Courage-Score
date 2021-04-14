@@ -108,6 +108,23 @@
         text-align: center;
         padding: $grid-gutter * 2 0;
     }
+
+    #photos{
+        margin-bottom: 100px;
+        
+        .photos-wrap{
+            max-width: 800px;
+            margin: auto;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+
+            .photo{
+                flex: 0 0 80px;
+                margin: $grid-gutter / 2;
+            }
+        }
+    }
 }
 
 //Legislator Blocks

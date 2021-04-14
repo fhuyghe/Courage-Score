@@ -6,6 +6,17 @@
 </section>
 
 @if($data['allStars'])
+
+<section id="photos">
+  <div class="photos-wrap">
+    @foreach($data['allStars'] as $post)
+      <div class="photo">
+        {!! get_the_post_thumbnail($post->ID, 'thumbnail') !!}
+      </div>
+    @endforeach
+  </div>
+</section>
+
   <section id="legislators">
     <div class="row">
       @foreach($data['allStars'] as $post)
