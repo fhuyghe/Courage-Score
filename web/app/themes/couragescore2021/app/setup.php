@@ -256,8 +256,8 @@ function People_custom_init()
     'has_archive' => true, 
     'hierarchical' => false,
     'menu_position' => null,
-    'supports' => array('title','editor','thumbnail','custom-fields', 'category'),
-    'taxonomies' => array('title', 'district', 'category')
+    'supports' => array('title','editor','thumbnail','custom-fields'),
+    'taxonomies' => array('title', 'district')
   ); 
   register_post_type('people',$args);
 }
