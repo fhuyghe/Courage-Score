@@ -174,13 +174,20 @@ table{
 .rep-name-title{
     h3{
         margin-bottom: 0;
+        display: flex;
+        align-items: center;
+
+        .grade{
+            margin-left: $grid-gutter / 2;
+        }
     }
 
     h4{
         color: theme-color(darkgrey);
         font-family: $lato;
-        font-size: 1em;
+        font-size: .8em;
         text-transform: capitalize;
+        margin-bottom: 5px;
     }
 
     a{
@@ -320,6 +327,9 @@ div.grade{
     justify-content: center;
     align-items: center;
     padding-left: 2px;
+    font-weight: 100;
+    font-family: $lato;
+    font-size: 16px;
 
     &.green{
         border-color: theme-color(green);
