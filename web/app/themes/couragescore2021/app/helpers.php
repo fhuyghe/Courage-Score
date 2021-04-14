@@ -165,15 +165,17 @@ add_action('wp_ajax_nopriv_get_name_suggestion', __NAMESPACE__ .'\\get_name_sugg
 function get_score($post) {
 
     $score = 'na';
+    $scores = get_field('progressive_voting_by_member', $post->ID);
+    $current_year = date('Y');
     
-    if(have_rows('progressive_voting_by_member')): 
-        $current_year = date('Y');
-        while(have_rows('progressive_voting_by_member')): the_row();
-            if(get_sub_field('na') == 1){$score = 'na';} else {$score = get_sub_field('score');}
-            $vote_info[] = array( 'year' => get_sub_field('years') , 'score' => $score);
-            $score = $vote_info[0]['score']; 
-        endwhile;
+    if($scores): 
+        foreach($scores as $scoreRow):
+            if($scoreRow['na'] == 1){$score = 'na';} else {$score = $scoreRow['score'];}
+            $vote_info[] = array( 'year' => $scoreRow['years'] , 'score' => $score);
+        endforeach;
     endif;
+    
+    $score = $vote_info[0]['score']; 
 
     return $score;
 }

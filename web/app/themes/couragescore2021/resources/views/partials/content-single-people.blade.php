@@ -30,7 +30,7 @@ $score = round($points * 100 / $voteNumber);
   <div class="row">
   <div class="col-md-5 sticky">
     <section id="general">
-      <div class="representative-block">
+      <div class="rep-block">
         <div class="top">
           @include('partials.rep-name-title')
           <div class="portrait">

@@ -12,7 +12,7 @@
       @php setup_postdata( $post ) @endphp
 
       <div class="col-md-6">
-        @include('partials.representative-block')
+        @include('partials.rep-block')
       </div>
       
       @php wp_reset_postdata() @endphp

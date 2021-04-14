@@ -36,12 +36,20 @@
   @if($allStars)
   <section id="allStar">
     <div class="container">
-    <div class="section-header">
-      <h2>{{ $allStars['title'] }}</h2>
-      {!! $allStars['paragraph'] !!}
-    </div>
-    <div id="starList">
-    Get Star list
+      <div class="section-header">
+        <h2>{{ $allStars['title'] }}</h2>
+        {!! $allStars['paragraph'] !!}
+      </div>
+      <div id="starList" class="row">
+      @php $allStarList = App::getAllStars() @endphp
+    @for ($i = 0; $i < 6; $i++)
+     @php 
+        $post = $allStarList[$i];
+        setup_postdata( $post ) 
+      @endphp
+      @include('partials.rep-block-vertical')
+      @php wp_reset_postdata() @endphp
+    @endfor
     </div>
     <div class="section-footer">
       <a class="button" href="{{ $allStars['link'] }}">Hall of Shame</a>
@@ -60,7 +68,14 @@
           {!! $hallOfShame['paragraph'] !!}
         </div>
         <div class="col-md-6">
-          Get Shame list
+          <div id="carousel">
+            @php $hallOfShameList = App::getHallOfShame() @endphp
+            @foreach ($hallOfShameList as $post)
+            @php setup_postdata( $post ) @endphp
+              @include('partials.rep-block-vertical')
+              @php wp_reset_postdata() @endphp
+            @endforeach
+          </div>
         </div>
       </div>
       <div class="section-footer">

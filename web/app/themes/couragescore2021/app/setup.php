@@ -351,9 +351,9 @@ function getDistrict(){
         }
     }
     //Assembly result
-    $district_info[0] = template('partials.representative-block', ['post' => \App::getLegislator('assembly', $divisions['sldl'])]);
+    $district_info[0] = template('partials.rep-block', ['post' => \App::getLegislator('assembly', $divisions['sldl'])]);
     //Senate result
-    $district_info[1] = template('partials.representative-block', ['post' => \App::getLegislator('senate', $divisions['sldu'])]);
+    $district_info[1] = template('partials.rep-block', ['post' => \App::getLegislator('senate', $divisions['sldu'])]);
     return( $district_info );
 }
 

@@ -1,4 +1,5 @@
 import autocomplete from 'autocompleter';
+import 'slick-carousel'
 
 export default {
   init() {
@@ -49,5 +50,15 @@ export default {
   },
   finalize() {
     // JavaScript to be fired on the home page, after the init JS
+
+    /*****************/
+    // Hall of Shame Carousel
+    /*****************/
+    $('#carousel').slick({
+      dots: false,
+      infinite: true,
+      slidesToShow: 4,
+      slidesToScroll: 1,
+    });
   },
 };
