@@ -126,4 +126,43 @@
             }
         }
     }
+
+    // Email Form
+    #contact-form{
+        max-width: 600px;
+        border-radius: 10px;
+        background-color: theme-color(grey);
+
+        input,
+        textarea{
+            background-color: theme-color(white);
+            border: 0;
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        #ak-fieldbox-user_custom_message textarea{
+            height: 200px;
+        }
+
+        button{
+            background: theme-color(black);
+            color: theme-color(white);
+            border: 0;
+            outline: 0;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            transition: .25s;
+            
+            &:hover{
+                background: theme-color(blue);
+            }
+        }
+
+        p{
+            margin-top: 10px;
+            font-size: .8em;
+        }
+    }
 }

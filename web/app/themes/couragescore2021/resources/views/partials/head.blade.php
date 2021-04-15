@@ -13,6 +13,9 @@
 
   {{-- Font Awesome --}}
   <script src="https://kit.fontawesome.com/28ecd9ba70.js" crossorigin="anonymous"></script>
+
+  {{-- Action Kit --}}
+  <script type="text/javascript" src="https://act.couragecampaign.org/resources/actionkit.js"></script>
     
   @php wp_head() @endphp
 </head>

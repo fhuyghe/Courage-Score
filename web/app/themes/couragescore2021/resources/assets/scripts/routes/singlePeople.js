@@ -2,7 +2,6 @@ import 'datatables.net'
 import Sticky from 'sticky-js'
 import '@fancyapps/fancybox/dist/jquery.fancybox'
 import * as turf from '@turf/turf'
-//import actionkit from '../util/actionkit'
 import '@popperjs/core'
 
 export default {
