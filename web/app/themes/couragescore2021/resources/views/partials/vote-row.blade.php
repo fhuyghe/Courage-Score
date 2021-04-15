@@ -1,11 +1,15 @@
+@php $bill = $vote['bill_number']; @endphp
 @php $opposed = get_field('oppose',$bill->ID) @endphp
-<tr class="vote-row">
+
+<tr class="vote-row {{$vote['floorcommittee']}}">
     <td class="name">
         <p>{{ $bill->post_title }}</p>
     </td>
+
     <td class="description">
         <p>{{ get_field('title', $bill->ID) }}</p>
     </td>
+
     <td class="vote-casted">
         @switch ($vote['vote'])
             @case('n_e')

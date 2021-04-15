@@ -1,6 +1,8 @@
 @php 
-$year = 2019;
+$year = intval(get_field('score_year', 'option')) - 1;
 $votes = SinglePeople::votes($year);
+$contributions = $data['contributions'];
+$partners_scores = $data['partners_scores'];
 
 // Courage Score
 $points = 0;
@@ -51,8 +53,12 @@ $score = round($points * 100 / $voteNumber);
     <section id="submenu">
       <ul>
         <li><a href="#bills">Votes</a></li>
-        <li><a href="#contributions">Contributions</a></li>
+        @if($contributions)
+          <li><a href="#contributions">Contributions</a></li>
+        @endif
+        @if($partners_scores)
           <li><a href="#partnerScores">Partner Scores</a></li>
+        @endif
       </ul>
     </section>
   </div>
@@ -76,7 +82,6 @@ $score = round($points * 100 / $voteNumber);
       </thead>
       <tbody>
         @foreach ($votes as $vote)
-          @php $bill = $vote['bill_number']; @endphp
           @include('partials.vote-row')
         @endforeach
       </tbody>
@@ -84,7 +89,7 @@ $score = round($points * 100 / $voteNumber);
     @endif
   </section>
 
-  @php $contributions = $data['contributions'] @endphp
+  
   @if($contributions)
   <section id="contributions">
     <h2>Contributions</h2>
@@ -109,7 +114,6 @@ $score = round($points * 100 / $voteNumber);
   </section>
   @endif
 
-  @php $partners_scores = $data['partners_scores'] @endphp
   @if($partners_scores)
     <section id="partnersScores">
       <h2>Partners Scores</h2>

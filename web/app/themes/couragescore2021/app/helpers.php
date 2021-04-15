@@ -160,6 +160,17 @@ function get_name_suggestion() {
 add_action('wp_ajax_get_name_suggestion', __NAMESPACE__ .'\\get_name_suggestion' );
 add_action('wp_ajax_nopriv_get_name_suggestion', __NAMESPACE__ .'\\get_name_suggestion' );
 
+// Get Votes per year
+function get_votes_per_year() {
+    $year = $_REQUEST['year'];
+    $votes = \SinglePeople::get_vote($year);
+
+    wp_send_json_success($votes);
+}
+
+add_action('wp_ajax_get_votes_per_year', __NAMESPACE__ .'\\get_votes_per_year' );
+add_action('wp_ajax_nopriv_get_votes_per_year', __NAMESPACE__ .'\\get_votes_per_year' );
+
 
 //Get Rep Scores
 function get_score($post) {

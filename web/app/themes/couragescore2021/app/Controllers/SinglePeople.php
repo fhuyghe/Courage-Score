@@ -20,16 +20,13 @@ class SinglePeople extends Controller
     }
 
     static function votes($year){ 
-        $year;
+        $year = intval($year);
         $votes = get_field('voting');
         $votesByYear = array_filter($votes, function($vote) use ($year){
             if($vote['bill_number']):
-            return $vote['floorcommittee'] == 'floor_votes' 
-                && ( 
-                    date("Y", strtotime($vote['bill_number']->floor_voted_date)) == $year
+            return date("Y", strtotime(get_field('floor_voted_date',$vote['bill_number']))) == $year
                     || 
-                    date("Y", strtotime($vote['vote_date'])) == $year
-                );
+                    date("Y", strtotime($vote['vote_date'])) == $year;
             endif;
             });
 
