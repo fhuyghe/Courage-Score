@@ -2,7 +2,7 @@ import 'datatables.net'
 import Sticky from 'sticky-js'
 import '@fancyapps/fancybox/dist/jquery.fancybox'
 import * as turf from '@turf/turf'
-import actionkit from '../util/actionkit'
+//import actionkit from '../util/actionkit'
 import '@popperjs/core'
 
 export default {
@@ -10,7 +10,6 @@ export default {
         
     //Maps
     var mapboxgl = require('mapbox-gl/dist/mapbox-gl.js');
-    // var bounds = new mapboxgl.LngLatBounds();
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiZnJpZW5kc29mZnJpZW5kcyIsImEiOiJjajlldnkwbDIyODJmMnlsZ2Z2MjJrZGplIn0.uSr8TFD1-mXrGRfjt1_h5Q';
     var map = new mapboxgl.Map({
@@ -29,7 +28,7 @@ export default {
 
     // Get Legislator info
     const districtNumber = $('.district').html();
-    const senateAssembly = $('.body').html() == 'assembly' ? 0 : 1;
+    const senateAssembly = $('.body').html() == 'assembly' ? 1 : 0;
 
     //Add their layer to the map
         let districtUrl = 'https://map.dfg.ca.gov/arcgis/rest/services/Political/boundaries/MapServer/' + senateAssembly + '/query?where=district%3D' + districtNumber + '&f=geojson';
@@ -53,6 +52,7 @@ export default {
                 },
             });
 
+            console.log(districtUrl, response);
             var bbox = turf.bbox(response);
             map.fitBounds(bbox, {padding: 20});
         });
@@ -89,9 +89,9 @@ finalize() {
             type : 'inline',
             opts : {
                 afterShow : function() {
-                    actionkit.forms.initPage();
-                    actionkit.forms.contextRoot = 'https://act.couragecampaign.org/context/';
-                    actionkit.forms.initForm('act')
+                    // actionkit.forms.initPage();
+                    // actionkit.forms.contextRoot = 'https://act.couragecampaign.org/context/';
+                    // actionkit.forms.initForm('act')
                 },
             },
         });

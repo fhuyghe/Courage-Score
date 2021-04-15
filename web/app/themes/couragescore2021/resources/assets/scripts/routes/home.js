@@ -24,7 +24,7 @@ export default {
         var div = document.createElement('div');
         let str = '<div class="thumbnail"><img src="' + item.thumbnail + '" /></div>'
         str += '<div class="name">' + item.post.post_title + '</div>'
-        str += '<div class="score">Score</div>'
+        str += '<div class="score">' + item.score + '</div>'
         div.insertAdjacentHTML( 'beforeend', str );
         return div;
     },

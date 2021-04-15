@@ -25,7 +25,7 @@ foreach ($votes as $vote) {
   }
 }
 
-$score = round($points * 100 / $voteNumber);
+$score = $voteNumber > 0 ? round($points * 100 / $voteNumber) : 'na';
 @endphp
 
 <article @php post_class() @endphp>

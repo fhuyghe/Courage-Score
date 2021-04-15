@@ -152,6 +152,7 @@ function get_name_suggestion() {
             'post' => $post,
             'url' => get_permalink($post->ID),
             'thumbnail' => get_the_post_thumbnail_url($post->ID, 'thumbnail'),
+            'score' => template('partials.grade-display', ['post' => $post]),
         ];
     }
     wp_send_json_success($suggestions);

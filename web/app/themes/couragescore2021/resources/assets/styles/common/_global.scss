@@ -19,6 +19,7 @@ img{
 // Typography
 p{
     font-family: $lato;
+    line-height: 1.7em;
 
     a{
         display: inline-block;
@@ -318,10 +319,11 @@ tr.rep{
     list-style: none;
     padding-left: 0;
 
-    div{
-        padding: 5px 10px;
+    & > div{
+        padding: 10px;
         display: flex;
         align-items: center;
+        border: 2px solid theme-color(white);
 
         .thumbnail{
             max-width: 70px;
@@ -329,10 +331,12 @@ tr.rep{
 
         .name{
             flex: 1;
+            padding-left: $grid-gutter;
         }
 
         &.selected{
-            background-color: theme-color(green);
+            background: theme-color(white);
+            border: 2px solid theme-color(green);
         }
     }
 }
