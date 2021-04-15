@@ -12,4 +12,29 @@ footer.content-info{
         font-size: .9em;
         margin-bottom: 10px;
     }
+
+    .newsletter-wrap{
+        margin-bottom: $grid-gutter / 2;
+        
+        form{
+            display: flex;
+        }
+
+        input{
+            padding: 5px 10px;
+            border-radius: 0;
+        }
+
+        input[type="text"]{
+            flex: 1;
+            border: 1px solid theme-color(grey);
+        }
+
+        input[type="submit"]{
+            background-color: theme-color(black);
+            color: theme-color(white);
+            border: 0;
+        }
+
+    }
 }
