@@ -167,6 +167,7 @@ function get_score($post) {
     $score = 'na';
     $scores = get_field('progressive_voting_by_member', $post->ID);
     $current_year = date('Y');
+    $vote_info = [];
     
     if($scores): 
         foreach($scores as $scoreRow):
@@ -175,7 +176,7 @@ function get_score($post) {
         endforeach;
     endif;
     
-    $score = $vote_info[0]['score']; 
+    $score = isset($vote_info[0]) ? $vote_info[0]['score'] : 'na'; 
 
     return $score;
 }
@@ -217,6 +218,24 @@ function get_color($score){
     }
 
     return $color;
+}
+
+function get_industry($tag){
+    $industry = '';
+
+    switch ($tag) {
+        case 'oilagas':
+            $industry = 'Oil & Gas';
+            break;
+        case 'cops':
+            $industry = 'Cops';
+            break;
+        case 'realestate':
+            $industry = 'Real Estate';
+            break;
+        }
+
+    return $industry;
 }
 
 //Get Rep Scores

@@ -88,4 +88,42 @@
     #contact-form{
         display: none;
     }
+
+    table{
+        width: 100%;
+
+        thead{
+            background: theme-color(grey);
+
+            th{
+                padding: 10px 10px 5px;
+            }
+        }
+
+        tbody{
+            td{
+                padding: 5px 10px;
+                border-bottom: 1px solid theme-color(black);
+
+                &.green{
+                    color: theme-color(green);
+                  }
+                  &.red{
+                color: theme-color(red);
+                }
+                &.yellow{
+                color: theme-color(yellow);
+                }
+                &.blue{
+                    color: theme-color(blue);
+                }
+                &.orange{
+                color: theme-color(orange);
+                }
+                &.grey{
+                color: theme-color(grey);
+                }
+            }
+        }
+    }
 }

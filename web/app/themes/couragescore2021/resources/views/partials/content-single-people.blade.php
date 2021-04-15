@@ -84,13 +84,53 @@ $score = round($points * 100 / $voteNumber);
     @endif
   </section>
 
+  @php $contributions = $data['contributions'] @endphp
+  @if($contributions)
   <section id="contributions">
     <h2>Contributions</h2>
+    <table id="contributionsTable">
+      <thead>
+      <tr>
+        <th>Type</th>
+        <th>Amount</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach ($contributions as $contribution)
+      <tr>
+        <td>{{ App\get_industry($contribution['type']) }}</td>
+        <td>{{ $contribution['sum'] }}</td>
+        <td><i class="fal fa-info-circle"></i></td>
+      </tr>
+      @endforeach
+    </tbody>
+    </table>
   </section>
+  @endif
 
-  <section id="partnersScores">
-    <h2>Partners Scores</h2>
-  </section>
+  @php $partners_scores = $data['partners_scores'] @endphp
+  @if($partners_scores)
+    <section id="partnersScores">
+      <h2>Partners Scores</h2>
+      <table id="partnersScoresTable">
+        <thead>
+        <tr>
+          <th>Partner</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach ($partners_scores as $p_score)
+          <tr>
+            <td>{{ $p_score['partner']->post_title }}</td>
+            <td class="{{ App\get_color($p_score['score']) }}">{{ $p_score['score'] }}</td>
+          </tr>
+        @endforeach
+      </tbody>
+      </table>
+    </section>
+  @endif
   
   <section id="share">
     @include('partials.share-social')

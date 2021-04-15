@@ -13,6 +13,8 @@ class SinglePeople extends Controller
         $data['district'] = get_field('district');
         $data['party'] = get_field('party');
         $data['scores'] = get_field('progressive_voting_by_member');
+        $data['partners_scores'] = get_field('partners_scores');
+        $data['contributions'] = get_field('corporate_contributions_to_legislator');
 
 	    return $data;
     }
