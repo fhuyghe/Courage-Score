@@ -1,5 +1,5 @@
 @php 
-$year = intval(get_field('score_year', 'option')) - 1;
+$year = get_field('score_year', 'option');
 $votes = SinglePeople::votes($year);
 $contributions = $data['contributions'];
 $partners_scores = $data['partners_scores'];
@@ -77,6 +77,7 @@ $score = round($points * 100 / $voteNumber);
         <tr>
           <th>Name</th>
           <th>Description</th>
+          <th></th>
           <th>Vote</th>
         </tr>
       </thead>
@@ -103,10 +104,24 @@ $score = round($points * 100 / $voteNumber);
     </thead>
     <tbody>
       @foreach ($contributions as $contribution)
+      @php 
+      $sources = get_field('source_information', 'option') ;
+      $source = '';
+      $threshold = 0;
+      foreach ($sources as $item) {
+        if($item['type'] == $contribution['type'])
+          $source = $item['info'];
+          $threshold = $item['threshold'];
+      }
+      @endphp
       <tr>
         <td>{{ App\get_industry($contribution['type']) }}</td>
         <td>{{ $contribution['sum'] }}</td>
-        <td><i class="fal fa-info-circle"></i></td>
+        <td><i class="fal fa-info-circle"
+          data-toggle="popover" 
+          data-content="{{ $source }}"
+          title="Sources" ></i>
+      </td>
       </tr>
       @endforeach
     </tbody>

@@ -8,7 +8,7 @@ html, body{
 
 .wrap{
     min-height: 100vh;
-    margin-top: $headerHeight;
+    padding-top: $headerHeight;
 }
 
 img{
@@ -179,6 +179,7 @@ table{
               }
               &.red{
                 background-color: theme-color(red);
+                color: theme-color(white);
             }
             &.yellow{
                 background-color: theme-color(yellow);
@@ -312,7 +313,6 @@ tr.rep{
     }
 }
 .autocomplete {
-    margin-top: - $headerHeight;
     border: 1px solid theme-color(grey);
     background: theme-color(white);
     list-style: none;
@@ -342,7 +342,7 @@ div.grade{
     width: 40px;
     height: 40px;
     border-radius: 40px;
-    border: 1px solid theme-color(grey);
+    border: 2px solid theme-color(grey);
     display: flex;
     justify-content: center;
     align-items: center;

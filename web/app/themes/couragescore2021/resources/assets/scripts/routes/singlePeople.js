@@ -3,6 +3,7 @@ import Sticky from 'sticky-js'
 import '@fancyapps/fancybox/dist/jquery.fancybox'
 import * as turf from '@turf/turf'
 import actionkit from '../util/actionkit'
+import '@popperjs/core'
 
 export default {
     init() {
@@ -74,6 +75,13 @@ finalize() {
     $(window).on('resize', function () {
         sticky.update();
     })
+
+    //Popover
+    $('[data-toggle="popover"]').popover({
+        placement: 'left',
+        trigger: 'hover',
+        html: true,
+    });
 
     //Fancybox launch
     $('#contact-form-btn').fancybox({

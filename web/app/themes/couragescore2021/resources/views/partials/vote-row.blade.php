@@ -10,6 +10,12 @@
         <p>{{ get_field('title', $bill->ID) }}</p>
     </td>
 
+    <td class="info">
+        @if($opposed)
+            <i class="fal fa-info-circle" data-toggle="popover" title="Opposed Bill" data-content="This is a bad bill."></i>
+        @endif
+    </td>
+
     <td class="vote-casted">
         @switch ($vote['vote'])
             @case('n_e')
