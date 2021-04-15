@@ -63,7 +63,7 @@
 
             li{
                 display: block;
-                
+
                 a{
                     text-transform: uppercase;
                 }
@@ -82,5 +82,10 @@
         canvas:focus{
             outline: 0;
         }
+    }
+
+    //Email Form
+    #contact-form{
+        display: none;
     }
 }

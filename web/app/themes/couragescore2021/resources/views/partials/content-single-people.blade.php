@@ -91,5 +91,10 @@ $score = round($points * 100 / $voteNumber);
   <section id="partnersScores">
     <h2>Partners Scores</h2>
   </section>
+  
+  <section id="share">
+    @include('partials.share-social')
+    @include('partials.share-email')
+  </section>
 </div>
 </article>

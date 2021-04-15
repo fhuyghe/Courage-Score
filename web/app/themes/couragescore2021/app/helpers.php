@@ -180,6 +180,45 @@ function get_score($post) {
     return $score;
 }
 
+function get_letter($score){
+    if ( $score == 'na' || empty($score) && $score != "0" ){
+        $letter = 'NA';
+    } elseif ($score < 60){
+        $letter = 'F';
+    } elseif($score < 70 && $score > 59){
+        $letter = 'D';
+    } elseif($score < 80 && $score > 69){
+        $letter = 'C';
+    } elseif($score < 90 && $score > 79){
+        $letter = 'B';
+    } elseif( $score > 89){
+        $letter = 'A';
+        if($score == 100){
+            $letter = 'A+';
+        };
+    }
+
+    return $letter;
+}
+
+function get_color($score){
+    if ( $score == 'na' || empty($score) && $score != "0" ){
+        $color = 'grey';
+    } elseif ($score < 60){
+        $color = 'red';
+    } elseif($score < 70 && $score > 59){
+        $color = 'orange';
+    } elseif($score < 80 && $score > 69){
+        $color = 'yellow';
+    } elseif($score < 90 && $score > 79){
+        $color = 'green';
+    } elseif( $score > 89){
+        $color = 'blue';
+    }
+
+    return $color;
+}
+
 //Get Rep Scores
 function get_score_yoast() {
 

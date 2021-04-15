@@ -83,6 +83,7 @@
     "yargs": "^16.1.0"
   },
   "dependencies": {
+    "@fancyapps/fancybox": "^3.5.7",
     "@tarekraafat/autocomplete.js": "^9.0.0",
     "@turf/turf": "^6.3.0",
     "bootstrap": "^4.5.3",
