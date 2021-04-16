@@ -2,6 +2,16 @@
 @php $opposed = get_field('oppose',$bill->ID) @endphp
 
 <tr class="vote-row {{$vote['floorcommittee']}}">
+    <td class="type">
+        {{ $vote['floorcommittee'] }}
+    </td>
+    <td class="categories">
+        <ul>
+        @foreach (get_the_terms($bill->ID, 'vote-topic') as $cat)
+            <li>{{ $cat->slug }}</li>
+        @endforeach
+        </ul>
+    </td>
     <td class="name">
         <p>{{ $bill->post_title }}</p>
     </td>

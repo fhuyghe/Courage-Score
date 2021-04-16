@@ -59,8 +59,43 @@ export default {
         
     // Votes Table
     
-        $('#billsTable').DataTable({
+        var voteTable = $('#billsTable').DataTable({
+            columnDefs: [
+                {
+                    targets: 0,
+                    visible: false,
+                },
+                {
+                    targets: 1,
+                    visible: false,
+                },
+            ],
             //paging: false,
+        });
+
+        voteTable
+                .column(0)
+                .search( 'floor_votes', true, false )
+                .draw();
+
+        //Filter by Topic
+        $('#topics').on('change', function () {
+            var val = $(this).val();
+            voteTable
+                .column(1)
+                .search( val ? val : '', true, false )
+                .draw();
+        });
+        
+        //Filter by Floor or Committee
+        $('#floorCommittee button').on('click', function () {
+            $('#floorCommittee button').removeClass('active');
+            $(this).addClass('active');
+            var val = $(this).data('val');
+            voteTable
+                .column(0)
+                .search( val ? val : '', true, false )
+                .draw();
         });
         
 },

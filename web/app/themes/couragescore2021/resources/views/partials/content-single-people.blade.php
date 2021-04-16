@@ -52,10 +52,26 @@ $partners_scores = $data['partners_scores'];
 
   <section id="bills">
     <h2>Votes</h2>
+
+    <div id="floorCommittee">
+          <button data-val="floor_votes" class="active">Floor Vote</button>
+          <button data-val="committee_votes">Committee Vote</button> 
+    </div>
+
+    @php $topics = get_terms('vote-topic') @endphp
+    <select id="topics">
+      <option value="" default>Bill Topics</option>
+      @foreach ($topics as $topic)
+          <option value="{{ $topic->slug }}">{{ $topic->name }}</option>
+      @endforeach
+    </select>
+
     @if($votes)
       <table id="billsTable">
         <thead>
         <tr>
+          <th>Type</th>
+          <th>Categories</th>
           <th>Name</th>
           <th>Description</th>
           <th></th>
