@@ -66,6 +66,10 @@ h2{
     font-size: 1.5em;
 }
 
+h3{
+    font-size: 1.25em;
+}
+
 h6,
 .legend{
     font-family: $anon-pro;
@@ -393,7 +397,7 @@ div.grade{
     }
 
     &:after{
-        color: theme-color(white);
+        color: theme-color(black);
         text-transform: uppercase;
         white-space: normal;
         position: absolute;    
@@ -423,6 +427,7 @@ div.grade{
         
         &:after{
             content: "Hall of Shame";
+            color: theme-color(white);
         }
     }
 }

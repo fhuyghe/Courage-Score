@@ -127,6 +127,51 @@
     }
 }
 
+//Contributions
+.page.contributions{
+    @include media-breakpoint-down(md){
+        .wp-block-columns{
+            flex-flow: column-reverse;
+        }
+    }
+}
+
+// Partners
+.page.partners{
+    #partners{
+        margin: $grid-gutter 0;
+
+        .partner{
+            text-align: center;
+            margin-bottom: $grid-gutter;
+        }
+    }
+}
+
+// About 
+.page.about{
+    .main .container{
+        padding-top: $grid-gutter * 2;
+
+        &>*{
+            max-width: 880px;
+            margin: 0 auto $grid-gutter;
+            
+            &.wp-block-columns{
+                max-width: 1200px;
+            }
+        }
+
+        h3{
+            margin-bottom: $grid-gutter / 2;
+        }
+
+        .page-header{
+            display: none;
+        }
+    }
+}
+
 //Legislator Blocks
 .rep-block{
     background-color: theme-color(grey);
@@ -135,16 +180,45 @@
 
     .top{
         display: flex;
-        justify-content: space-between;
+        flex-flow: row-reverse wrap;
 
-        .text{
+        .portrait{
+            flex: 0 0 120px;
+        }
+
+        .rep-name-title{
             flex: 1;
+            margin-left: $grid-gutter / 2;
         }
 
         .rep-info{
-            flex: 1;
-            padding-right: $grid-gutter;
+            margin-top: 10px;
+            order: 3;
+            flex: 1 0 100%;
         }
+        
+        @include media-breakpoint-up(md){
+
+        }
+
+        @include media-breakpoint-up(lg){
+            flex-flow: column wrap;
+            max-height: 150px;
+            align-content: space-between;
+
+            .rep-name-title{
+                margin-left: 0;
+                margin-right: 10px;
+                width: 68%;
+            }
+
+            .rep-info{
+                order: 0;
+                padding-right: $grid-gutter;
+            }
+        }
+
+
     }
 
     .portrait{
