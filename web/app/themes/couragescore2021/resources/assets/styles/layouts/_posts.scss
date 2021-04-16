@@ -60,7 +60,12 @@
 
     #sections{
         section{
-            margin-bottom: $grid-gutter * 2;
+            padding: $grid-gutter 0;
+            scroll-margin-top: $headerHeight;
+
+            @include media-breakpoint-up(md){
+                scroll-margin-top: $headerHeightDesktop;
+            }
         }
 
         
@@ -76,7 +81,7 @@
             }
 
             #floorCommittee{
-                margin-top: $grid-gutter;
+                margin-top: $grid-gutter / 2;
 
                 button{
                     border: 0;
@@ -151,11 +156,14 @@
     }
 
     #submenu{
+        margin-top: $grid-gutter;
+
         ul{
             padding: 0;
 
             li{
                 display: block;
+                margin-bottom: 5px;
 
                 a{
                     text-transform: uppercase;
@@ -187,8 +195,11 @@
 
         thead{
             background: theme-color(grey);
-
+            color: theme-color(darkgrey);
+            border-bottom: 1px solid theme-color(black);
+            
             th{
+                font-weight: 100;
                 padding: 10px 10px 5px;
             }
         }

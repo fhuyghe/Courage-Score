@@ -5,6 +5,7 @@ $votes = SinglePeople::votes($year);
 $score = App\get_score($post);
 $contributions = $data['contributions'];
 $partners_scores = $data['partners_scores'];
+$senateAssembly = get_field('senate_or_assembly');
 @endphp
 
 <article @php post_class() @endphp>
@@ -22,7 +23,24 @@ $partners_scores = $data['partners_scores'];
             {!! get_the_post_thumbnail( $post->ID, 'thumbnail' );  !!}
           </div>
         </div>
-          @include('partials.rep-info')
+        <div class="rep-info">
+          <table>
+            <thead>
+              <tr>
+                <th>District</th>
+                <th>Party</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="district">{{ $senateAssembly == 'senate' ? 'SD' : 'AD' }}-{{ get_field('district', $post->ID) }}</td>
+                <td class="party">{{ get_field('party', $post->ID) }}</td>
+                <td class="score">@include('partials.score-display')</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
       </div>
       <div id="mapContainer"></div>
     </section>
@@ -38,7 +56,7 @@ $partners_scores = $data['partners_scores'];
           <li><a href="#contributions">Contributions</a></li>
         @endif
         @if($partners_scores)
-          <li><a href="#partnerScores">Partner Scores</a></li>
+          <li><a href="#partnersScores">Partner Scores</a></li>
         @endif
       </ul>
     </section>
@@ -104,25 +122,33 @@ $partners_scores = $data['partners_scores'];
     </thead>
     <tbody>
       @foreach ($contributions as $contribution)
-      @php 
-      $sources = get_field('source_information', 'option') ;
-      $source = '';
-      $threshold = 0;
-      foreach ($sources as $item) {
-        if($item['type'] == $contribution['type'])
-          $source = $item['info'];
-          $threshold = $item['threshold'];
-      }
-      @endphp
-      <tr>
-        <td>{{ App\get_industry($contribution['type']) }}</td>
-        <td>{{ $contribution['sum'] }}</td>
-        <td><i class="fal fa-info-circle"
-          data-toggle="popover" 
-          data-content="{{ $source }}"
-          title="Sources" ></i>
-      </td>
-      </tr>
+        @php 
+        $sources = get_field('source_information', 'option') ;
+        $source = '';
+        $threshold = 0;
+        foreach ($sources as $item) {
+          if($item['type'] == $contribution['type'])
+            $source = $item['info'];
+            $threshold = $item['threshold'];
+        }
+        @endphp
+        <tr>
+          <td>
+            {{ App\get_industry($contribution['type']) }}
+          </td>
+          <td>
+            @if($contribution['sum'] > $threshold)
+              <span class="red">${{ number_format($contribution['sum']) }}</span>
+            @else
+            ${{ number_format($contribution['sum']) }}
+            @endif
+          </td>
+          <td><i class="fal fa-info-circle"
+            data-toggle="popover" 
+            data-content="{{ $source }}"
+            title="Sources" ></i>
+        </td>
+        </tr>
       @endforeach
     </tbody>
     </table>
@@ -142,8 +168,16 @@ $partners_scores = $data['partners_scores'];
       <tbody>
         @foreach ($partners_scores as $p_score)
           <tr>
-            <td>{{ $p_score['partner']->post_title }}</td>
-            <td class="{{ App\get_color($p_score['score']) }}">{{ $p_score['score'] }}</td>
+            <td>
+              <a href="{{ get_field('scorecard_link', $p_score['partner']->ID) }}" target="_blank">
+                {{ $p_score['partner']->post_title }}
+              </a>
+            </td>
+            <td class="{{ App\get_color($p_score['score']) }}">
+              <div class="square">
+                {{ $p_score['score'] }}
+              </div>
+            </td>
           </tr>
         @endforeach
       </tbody>

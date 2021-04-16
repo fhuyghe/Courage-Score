@@ -6,6 +6,7 @@ html, body{
     min-height: 100%;
     height: auto;
     position: relative;
+    scroll-behavior: smooth;
 }
 
 .wrap{
@@ -242,6 +243,10 @@ table{
 
         tr{
             vertical-align: top;
+        }
+
+        .party{
+            text-transform: capitalize;
         }
     }
 }
