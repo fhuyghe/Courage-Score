@@ -4,7 +4,7 @@
   @while(have_posts()) @php the_post() @endphp
   <div class="container">
     @include('partials.page-header')
-    @include('partials.content-page')
+    @include('partials.content-page-partners')
   </div>
   @endwhile
 @endsection

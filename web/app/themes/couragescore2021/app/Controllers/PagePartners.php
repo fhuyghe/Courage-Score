@@ -10,7 +10,10 @@ class PagePartners extends Controller
     public function partners() {
         $args = array(
             'post_type' => 'partner',
-            'orderby' => 'title',
+            'orderby' => array( 
+                'title' => 'ASC',
+            ),
+            'meta_key' => 'scorecard_link',
             'showposts' => -1,
 	    );
 	    $the_query = new WP_Query( $args );

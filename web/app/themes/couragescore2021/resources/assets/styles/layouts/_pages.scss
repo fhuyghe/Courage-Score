@@ -297,9 +297,20 @@
     #partners{
         margin: $grid-gutter 0;
 
+        .row{
+            justify-content: center;
+            margin-bottom: $grid-gutter * 2;
+            align-items: center;
+        }
+
         .partner{
             text-align: center;
             margin-bottom: $grid-gutter;
+
+            img{
+                max-height: 70px;
+                width: auto;
+            }
         }
     }
 }
