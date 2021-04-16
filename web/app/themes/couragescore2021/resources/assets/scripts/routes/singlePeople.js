@@ -70,7 +70,9 @@ export default {
                     visible: false,
                 },
             ],
-            //paging: false,
+            language: {
+                search: '<i class="fal fa-search"></i>',
+              },
         });
 
         voteTable
