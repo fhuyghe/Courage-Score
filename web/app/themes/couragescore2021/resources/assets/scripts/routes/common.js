@@ -11,6 +11,12 @@ export default {
         getDistrict(address);
     });
 
+    //Hmaburger
+    $('.hamburger').on('click', function () {
+      $(this).toggleClass('is-active');
+      $('.nav-wrap').toggleClass('active');
+    });
+
     var getDistrict = function (address) {
       if (isHome) {
         // Get the reps here

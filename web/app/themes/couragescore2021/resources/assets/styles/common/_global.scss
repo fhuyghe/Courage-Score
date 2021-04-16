@@ -1,4 +1,9 @@
-$headerHeight: 80px;
+$headerHeight: 45px;
+
+@include media-breakpoint-up(md){
+    $headerHeight: 80px;
+}
+
 
 html, body{
     min-height: 100%;
@@ -282,6 +287,7 @@ tr.rep{
             padding: 5px 10px;
             flex-basis: 100%;
             min-width: 0;
+            width: 100%;
             
             &::placeholder{
                 color: theme-color(darkgrey);

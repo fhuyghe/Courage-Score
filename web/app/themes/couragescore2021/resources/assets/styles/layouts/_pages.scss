@@ -15,17 +15,36 @@
 
         .squares-top, 
         .squares-bottom{
-            flex: 0 0 100%;
-            display: flex;
+            display: none;
+            
+            @include media-breakpoint-up(md){
+                flex: 0 0 100%;
+                display: flex;
+            }
         }
         
         .squares-left, 
         .squares-right{
-            flex: 0 0 25%;
-            
+            flex: 0 0 100%;
+
+            @include media-breakpoint-up(md){
+                flex: 0 0 25%;
+                
+                & > div{
+                    &:first-child{
+                        display: flex;
+                    }
+                }
+            }
+
             & > div{
                 display: flex;
+
+                &:first-child{
+                    display: none;
+                }
             }
+            
         }
 
         .square{
@@ -41,7 +60,7 @@
         }
         
         .content{
-            flex: 0 0 50%;
+            
             background-color: theme-color(white);
             border-radius: 5px;
             padding: $grid-gutter;
@@ -51,6 +70,10 @@
             flex-flow: column;
             justify-content: center;
             align-items: center;
+
+            @include media-breakpoint-up(md){
+                flex: 0 0 50%;
+            }
 
             #searchWrap{
                 max-width: 500px;
