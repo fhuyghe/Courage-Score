@@ -193,6 +193,34 @@ function get_score($post) {
     return $score;
 }
 
+function get_auto_score($votes) {
+
+    // Courage Score
+    $points = 0;
+    $voteNumber = 0;
+    foreach ($votes as $vote) {
+    if($vote['vote'] !== 'n_e'){
+        //If the rep could vote
+        $voteNumber++;
+        if(get_field('oppose', $vote['bill_number']->ID)){
+        //If the bill is bad
+        if($vote['vote'] == 'n' || $vote['vote'] == 'a'){
+            $points++;
+        }
+        } else {
+        //If the bill is good
+        if($vote['vote'] == 'y'){
+            $points++;
+        }
+        }
+    }
+    }
+
+    $score = $voteNumber > 0 ? round($points * 100 / $voteNumber) : 'na';
+
+    return $score;
+}
+
 function get_letter($score){
     if ( $score == 'na' || empty($score) && $score != "0" ){
         $letter = 'NA';

@@ -83,7 +83,7 @@ finalize() {
     });
 
     //Fancybox launch
-    $('#contact-form-btn').fancybox({
+    $('#contact').fancybox({
             src  : '#contact-form',
             type : 'inline',
             opts : {

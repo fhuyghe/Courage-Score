@@ -3,6 +3,35 @@
         padding-top: $grid-gutter * 2;
     }
 
+    .socials{
+        text-align: right;
+        list-style: none;
+
+        li{
+            display: inline-block;
+            margin-left: 5px;
+
+            a{
+                width: 20px;
+                height: 20px;
+                border-radius: 15px;
+                padding-top: 2px;
+                border: 1px solid theme-color(darkgrey);
+                color: theme-color(darkgrey);
+                font-size: .7em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                &:hover{
+                    color: theme-color(black);
+                    border-color: theme-color(black);
+                }
+            }
+        }
+    }
+
     #general{
         position: relative;
         margin-bottom: $grid-gutter;

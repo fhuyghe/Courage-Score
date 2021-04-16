@@ -1,36 +1,18 @@
 @php 
 $year = get_field('score_year', 'option');
 $votes = SinglePeople::votes($year);
+//$autoScore = App\get_auto_score($votes);
+$score = App\get_score($post);
 $contributions = $data['contributions'];
 $partners_scores = $data['partners_scores'];
-
-// Courage Score
-$points = 0;
-$voteNumber = 0;
-foreach ($votes as $vote) {
-  if($vote['vote'] !== 'n_e'){
-    //If the rep could vote
-    $voteNumber++;
-    if(get_field('oppose', $vote['bill_number']->ID)){
-      //If the bill is bad
-      if($vote['vote'] == 'n' || $vote['vote'] == 'a'){
-        $points++;
-      }
-    } else {
-      //If the bill is good
-      if($vote['vote'] == 'y'){
-        $points++;
-      }
-    }
-  }
-}
-
-$score = $voteNumber > 0 ? round($points * 100 / $voteNumber) : 'na';
 @endphp
 
 <article @php post_class() @endphp>
   <div class="row">
   <div class="col-md-5 sticky">
+    <section>
+      @include('partials.share-social')
+    </section>
     <section id="general">
       @include('partials.badge')
       <div class="rep-block">
@@ -43,7 +25,6 @@ $score = $voteNumber > 0 ? round($points * 100 / $voteNumber) : 'na';
           @include('partials.rep-info')
       </div>
       <div id="mapContainer"></div>
-      <h3>Manual Score: {{ $data['scores'][0]['score'] }} / {{ $score }}</h3>
     </section>
 
     <section id="contact">
@@ -151,9 +132,6 @@ $score = $voteNumber > 0 ? round($points * 100 / $voteNumber) : 'na';
     </section>
   @endif
   
-  <section id="share">
-    @include('partials.share-social')
-    @include('partials.share-email')
-  </section>
+  @include('partials.share-email')
 </div>
 </article>
