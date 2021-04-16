@@ -8,6 +8,10 @@ header.banner{
   background-color: theme-color(white);
   border-bottom: 1px solid theme-color(black);
   padding-top: 5px;
+  
+  @include media-breakpoint-up(md){
+    height: $headerHeightDesktop;
+  }
 
   .container{
     height: 100%;
@@ -32,7 +36,6 @@ header.banner{
 .banner {
   #logo{
     flex: 0;
-
   }
 
   #social{
@@ -64,6 +67,18 @@ header.banner{
   .nav {
     li {
       @extend .nav-item;
+
+      @include media-breakpoint-up(md){
+        margin-right: $grid-gutter;
+
+        &:last-child{
+          margin-right: 0;
+        }
+        
+        &:nth-last-child(3){
+          margin-left: auto;
+        }
+      }
 
       &.current-menu-item{
         a{
@@ -113,41 +128,39 @@ header.banner{
 }
 
 .nav-wrap{
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  right: 0;
-  z-index: 98;
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
-  background: theme-color(white);
-  transition: .25s;
-  transform: translateX(-100%);
-  
-  &.active{
-    transform: translateX(0);
+  .social{
+    display: none;
   }
+}
 
-  .nav{
+@include media-breakpoint-down(sm){
+  .nav-wrap{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+    z-index: 98;
+    display: flex;
     flex-flow: column;
-    text-align: center;
     justify-content: center;
+    align-items: center;
+    background: theme-color(white);
+    transition: .25s;
+    transform: translateX(-100%);
+    
+    &.active{
+      transform: translateX(0);
+    }
 
-    li{
-      @include media-breakpoint-up(md){
-        margin-right: $grid-gutter;
+    .social{
+      display: block;
+    }
 
-        &:last-child{
-          margin-right: 0;
-        }
-        
-        &:nth-last-child(3){
-          margin-left: auto;
-        }
-      }
+    .nav{
+      flex-flow: column;
+      text-align: center;
+      justify-content: center;
     }
   }
 }

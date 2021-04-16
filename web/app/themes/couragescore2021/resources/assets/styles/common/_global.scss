@@ -1,8 +1,5 @@
 $headerHeight: 45px;
-
-@include media-breakpoint-up(md){
-    $headerHeight: 80px;
-}
+$headerHeightDesktop: 80px;
 
 
 html, body{
@@ -14,6 +11,10 @@ html, body{
 .wrap{
     min-height: 100vh;
     padding-top: $headerHeight;
+    
+    @include media-breakpoint-up(md){
+        padding-top: $headerHeightDesktop;
+    }
 }
 
 img{
