@@ -2,13 +2,15 @@
   <div class="container">
     <div class="row">
       <div class="col" id="logo">
-        <a class="brand" href="{{ home_url('/') }}">{{ get_bloginfo('name', 'display') }}</a>
+        <a class="brand" href="{{ home_url('/') }}">
+          <img src="@asset('images/couragescore-logo_300.png')" />
+        </a>
       </div>
-      <div class="col" id="bannerSearch">
-        {{-- @if(!is_front_page())
+      {{-- <div class="col" id="bannerSearch">
+        @if(!is_front_page())
           @include('partials.search')
-        @endif --}}
-      </div>
+        @endif
+      </div> --}}
       <div class="col" id="social">
         @include('partials.social-links')
       </div>

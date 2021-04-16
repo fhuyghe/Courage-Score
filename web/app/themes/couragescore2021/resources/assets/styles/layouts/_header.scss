@@ -21,26 +21,21 @@ header.banner{
   }
 }
 
-.brand{
-  font-family: $gilam;
-  color: theme-color(black);
-  font-size: 1.5em;
-  text-transform: uppercase;
-  white-space: nowrap;
-
-  &:hover{
-    text-decoration: none;
-  }
-}
-
 .banner {
   #logo{
-    flex: 0;
+    flex: 1;
+    padding-top: 5px;
+    
+    img{
+      height: 30px;
+      width: auto;
+    }
   }
-
+  
   #social{
     display: none;
     text-align: right;
+    padding-top: 5px;
 
     @include media-breakpoint-up(md){
       display: block;

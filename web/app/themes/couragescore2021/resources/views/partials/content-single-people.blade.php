@@ -34,7 +34,7 @@ $senateAssembly = get_field('senate_or_assembly');
             </thead>
             <tbody>
               <tr>
-                <td class="district">{{ $senateAssembly == 'senate' ? 'SD' : 'AD' }}-{{ get_field('district', $post->ID) }}</td>
+                <td >{{ $senateAssembly == 'senate' ? 'SD' : 'AD' }}-<span class="district">{{ get_field('district', $post->ID) }}</span></td>
                 <td class="party">{{ get_field('party', $post->ID) }}</td>
                 <td class="score">@include('partials.score-display')</td>
               </tr>
@@ -138,7 +138,7 @@ $senateAssembly = get_field('senate_or_assembly');
           </td>
           <td>
             @if($contribution['sum'] > $threshold)
-              <span class="red">${{ number_format($contribution['sum']) }}</span>
+              <span class="red">${{ number_format($contribution['sum']) }} / {{  $threshold }}</span>
             @else
             ${{ number_format($contribution['sum']) }}
             @endif

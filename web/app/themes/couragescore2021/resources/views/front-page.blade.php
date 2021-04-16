@@ -2,43 +2,7 @@
 
 @section('content')
 
-  <section id="top">
-    <div class="squares-top">
-      @for ($i = 0; $i < 8; $i++)
-        <div class="square" id="square-{{ $i }}"></div>
-      @endfor
-    </div>
-    <div class="squares-left">
-      <div>
-      <div class="square"></div>
-      <div class="square"></div>
-      </div>
-      <div>
-      <div class="square"></div>
-      <div class="square"></div>
-      </div>
-  </div>
-    <div class="content">
-      <h1>{!! App::title() !!}</h1>
-      @include('partials.search')
-      <a href="/all-representatives">See all representatives</a>
-    </div>
-      <div class="squares-right">
-        <div>
-          <div class="square"></div>
-          <div class="square"></div>
-          </div>
-          <div>
-          <div class="square"></div>
-          <div class="square"></div>
-          </div>
-      </div>
-      <div class="squares-bottom">
-        @for ($i = 0; $i < 8; $i++)
-      <div class="square" id="square-{{ $i }}"></div>
-    @endfor
-      </div>
-  </section>
+  @include('partials.frontpage-top')
 
   <section id="searchResults">
     <div class="container">
@@ -98,6 +62,7 @@
         <div class="col-md-6">
           <h2>{{ $hallOfShame['title'] }}</h2>
           {!! $hallOfShame['paragraph'] !!}
+          <a class="button" href="{{ $hallOfShame['link'] }}">Hall of Shame</a>
         </div>
         <div class="col-md-6">
           <div id="carousel">
@@ -114,9 +79,6 @@
           </div>
         </div>
       </div>
-      <div class="section-footer">
-        <a class="button" href="{{ $hallOfShame['link'] }}">Hall of Shame</a>
-      </div>
     </div>
   </section>
   @endif
@@ -126,10 +88,30 @@
   <section id="honorableMentions">
     <div class="container">
       <div class="section-header">
-        <h2>{{ $allStars['title'] }}</h2>
-        {!! $allStars['paragraph'] !!}
+        <h2>{{ $honorableMentions['title'] }}</h2>
+        {!! $honorableMentions['paragraph'] !!}
       </div>
-    </div>
+        <div class="row">
+        @foreach ($honorableMentions['representatives'] as $rep)
+            <div class="col-md-4">
+              <div class="rep-block vertical">
+                <div class="portrait">
+                 <img src="{{ $rep['photo']['url'] }}"/>
+                </div>
+                <div class="rep-name-title">
+                  <h3>{{ $rep['name'] }} </h3>
+                  <h5>Score</h5>
+                  <p> {{ $rep['score'] }}</p>
+                  <h5>Previous Position</h5>
+                  <p>{{ $rep['previous_position'] }}</p>
+                  <h5>Current Position</h5>
+                  <p>{{ $rep['current_position'] }}</p>
+                </div>
+            </div>
+            </div>
+        @endforeach
+      </div>
+      </div>
   </section>
   @endif
 

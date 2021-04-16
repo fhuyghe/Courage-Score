@@ -7,9 +7,12 @@
     </td>
     <td class="categories">
         <ul>
+        @php $topics = get_the_terms($bill->ID, 'vote-topic') @endphp
+        @if($topics)
         @foreach (get_the_terms($bill->ID, 'vote-topic') as $cat)
             <li>{{ $cat->slug }}</li>
         @endforeach
+        @endif
         </ul>
     </td>
     <td class="name">
