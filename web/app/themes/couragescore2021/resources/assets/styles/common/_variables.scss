@@ -28,8 +28,8 @@ $gilam:"Gilam", sans-serif;
 
 @font-face {
   font-family: 'Gilam';
-  src: url('/app/themes/couragescore2021/resources/assets/fonts/Gilam-Semibold.woff2') format('woff2'),
-      url('/app/themes/couragescore2021/resources/assets/fonts/Gilam-Semibold.woff') format('woff');
+  src: url('../fonts/Gilam-Semibold.woff2') format('woff2'),
+      url('../fonts/Gilam-Semibold.woff') format('woff');
   font-weight: bold;
   font-style: normal; 
   font-display: swap;
