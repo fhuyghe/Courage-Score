@@ -67,8 +67,10 @@
   <section id="allStar">
     <div class="container">
       <div class="section-header">
+        <div class="header-wrap">
         <h2>{{ $allStars['title'] }}</h2>
         {!! $allStars['paragraph'] !!}
+      </div>
       </div>
       <div id="starList" class="row">
       @php $allStarList = App::getAllStars() @endphp
@@ -105,6 +107,10 @@
               @include('partials.rep-block-vertical')
               @php wp_reset_postdata() @endphp
             @endforeach
+          </div>
+          <div class="arrows">
+            <div class="arrow prevArrow"><i class="fas fa-caret-left"></i></div>
+            <div class="arrow nextArrow"><i class="fas fa-caret-right"></i></div>
           </div>
         </div>
       </div>

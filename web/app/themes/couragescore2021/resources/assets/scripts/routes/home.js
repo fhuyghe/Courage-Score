@@ -57,8 +57,32 @@ export default {
     $('#carousel').slick({
       dots: false,
       infinite: true,
+      centerMode: false,
       slidesToShow: 4,
       slidesToScroll: 1,
+      prevArrow: $('.prevArrow'),
+      nextArrow: $('.nextArrow'),
+      responsive: [
+        {
+          breakpoint: 480,
+          settings: {
+            slidesToShow: 1,
+          },
+        },
+        {
+          breakpoint: 900,
+          settings: {
+            slidesToShow: 2,
+          },
+        },
+        {
+          breakpoint: 1200,
+          settings: {
+            centerMode: true,
+            slidesToShow: 3,
+          },
+        },
+      ],
     });
   },
 };
