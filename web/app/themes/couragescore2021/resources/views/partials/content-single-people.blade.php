@@ -138,7 +138,7 @@ $senateAssembly = get_field('senate_or_assembly');
           </td>
           <td>
             @if($contribution['sum'] > $threshold)
-              <span class="red">${{ number_format($contribution['sum']) }} / {{  $threshold }}</span>
+              <span class="color-red">${{ number_format($contribution['sum']) }}</span>
             @else
             ${{ number_format($contribution['sum']) }}
             @endif
@@ -173,8 +173,8 @@ $senateAssembly = get_field('senate_or_assembly');
                 {{ $p_score['partner']->post_title }}
               </a>
             </td>
-            <td class="{{ App\get_color($p_score['score']) }}">
-              <div class="square">
+            <td >
+              <div class="grade {{ App\get_color($p_score['score']) }}">
                 {{ $p_score['score'] }}
               </div>
             </td>

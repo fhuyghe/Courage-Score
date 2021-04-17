@@ -140,25 +140,15 @@ table{
             }
         }
     }
-    
-    .dataTables_info{
-        display: none;
-    }
-    
-    table.dataTable{
-        .rep{
-            &.senate{
-                display: none;
-            }
-        }
-    }
-    
-    
 }
 
 .dataTables_wrapper{ 
     .dataTables_length{
         display: none;
+    }
+
+    .dataTables_info{
+        color: theme-color(darkgrey);
     }
     
     .dataTables_paginate {
@@ -234,9 +224,13 @@ table{
     h4{
         color: theme-color(darkgrey);
         font-family: $lato;
-        font-size: .8em;
+        font-size: .9em;
         text-transform: capitalize;
         margin-bottom: 5px;
+
+        &.body{
+            margin-top: -5px;
+        }
     }
 
     a{

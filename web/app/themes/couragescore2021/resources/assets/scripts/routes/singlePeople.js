@@ -99,6 +99,11 @@ export default {
                 .search( val ? val : '', true, false )
                 .draw();
         });
+
+        $('#partnersScoresTable').DataTable({
+            searching: false,
+            paging: false,
+        });
         
 },
 finalize() {
