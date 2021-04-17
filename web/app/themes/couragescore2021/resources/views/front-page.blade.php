@@ -36,6 +36,9 @@
         {!! $allStars['paragraph'] !!}
       </div>
       </div>
+      <div class="section-footer">
+        <a class="button" href="{{ $allStars['link'] }}">All Stars</a>
+      </div>
       <div id="starList" class="row">
       @php $allStarList = App::getAllStars() @endphp
     @for ($i = 0; $i < 6; $i++)
@@ -47,9 +50,6 @@
       @php wp_reset_postdata() @endphp
     @endfor
     </div>
-    <div class="section-footer">
-      <a class="button" href="{{ $allStars['link'] }}">Hall of Shame</a>
-    </div>
     </div>
   </section>
   @endif
@@ -59,10 +59,16 @@
   <section id="hallOfShame">
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
           <h2>{{ $hallOfShame['title'] }}</h2>
           {!! $hallOfShame['paragraph'] !!}
           <a class="button" href="{{ $hallOfShame['link'] }}">Hall of Shame</a>
+        </div>
+      </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+           
         </div>
         <div class="col-md-6">
           <div id="carousel">
@@ -78,7 +84,6 @@
             <div class="arrow nextArrow"><i class="fas fa-caret-right"></i></div>
           </div>
         </div>
-      </div>
     </div>
   </section>
   @endif

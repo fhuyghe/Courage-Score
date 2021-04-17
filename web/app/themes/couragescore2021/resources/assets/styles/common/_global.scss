@@ -28,6 +28,11 @@ p{
     font-family: $lato;
     line-height: 1.7em;
 
+    &.narrow{
+        max-width: 800px;
+        margin: 0 auto $grid-gutter;
+    }
+
     a{
         display: inline-block;
         //border-bottom: 1px dotted theme-color(black);
@@ -60,8 +65,8 @@ a.button,
     transition: .25s;
 
     &:hover{
-        color: inherit;
-        border-color: theme-color(green);
+        color: theme-color(white);
+        background-color: theme-color(black);
     }
 }
 
@@ -77,9 +82,19 @@ h3{
     font-size: 1.25em;
 }
 
+h4{
+    font-size: 1.4em;
+}
+
 h6,
 .legend{
     font-family: $lato;
+}
+
+@include media-breakpoint-up(md){
+.wp-block-column:first-child{
+        padding-right: $grid-gutter;
+    }
 }
 
 //Social links

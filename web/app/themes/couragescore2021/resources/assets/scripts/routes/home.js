@@ -142,8 +142,8 @@ export default {
     $('#carousel').slick({
       dots: false,
       infinite: true,
-      centerMode: false,
-      slidesToShow: 4,
+      centerMode: true,
+      slidesToShow: 3,
       slidesToScroll: 1,
       prevArrow: $('.prevArrow'),
       nextArrow: $('.nextArrow'),

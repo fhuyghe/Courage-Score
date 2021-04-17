@@ -3,7 +3,9 @@
     <div class="row">
       <div class="col-md-8">
         <div class="logo">
-          <a class="brand" href="{{ home_url('/') }}">{{ get_bloginfo('name', 'display') }}</a>
+          <a class="brand" href="{{ home_url('/') }}">
+            <img src="@asset('images/couragescore-logo_300.png')" />
+          </a>
         </div>
         @include('partials.contact-links')
         <div class="copyright">
@@ -11,7 +13,7 @@
         </div>
       </div>
       <div class="col-md-4">
-        <h3>{{ get_field('footer_newsletter_title', 'option') }}</h3>
+        <p class="signup-title">{{ get_field('footer_newsletter_title', 'option') }}</p>
         @include('partials.newsletter-form')
         @include('partials.social-links')
       </div>

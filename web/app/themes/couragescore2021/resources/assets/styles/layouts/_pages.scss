@@ -1,7 +1,7 @@
 // All Pages
 .page{
     .page-header{
-        padding-top: $grid-gutter * 2;
+        padding: $grid-gutter * 2 0;
         text-align: center;
     }
 }
@@ -147,6 +147,11 @@
                     padding: 0 $grid-gutter;
                 }
             }
+
+        }
+        
+        .section-footer{
+            margin-bottom: $grid-gutter;
         }
 
         #starList{
@@ -189,6 +194,26 @@
 
     #hallOfShame{
         background-color: theme-color(grey);
+
+        .container{
+            position: relative;
+
+            .row{
+                position: absolute;
+                z-index: 2;
+                width: 50%;
+            }
+        }
+
+        .slick-slide{
+            .rep-block{
+                padding: 10px;
+
+                .portrait{
+                    width: 100%;
+                }
+            }
+        }
 
         .arrows{
             display: flex;
@@ -276,8 +301,8 @@
             justify-content: center;
 
             .photo{
-                flex: 0 0 80px;
-                margin: $grid-gutter / 2;
+                flex: 0 0 70px;
+                margin: $grid-gutter / 3;
             }
         }
     }
@@ -305,7 +330,7 @@
 
         .partner{
             text-align: center;
-            margin-bottom: $grid-gutter;
+            margin-bottom: $grid-gutter * 2;
 
             img{
                 max-height: 70px;
@@ -363,14 +388,10 @@
             order: 3;
             flex: 1 0 100%;
         }
-        
-        @include media-breakpoint-up(md){
-
-        }
 
         @include media-breakpoint-up(lg){
             flex-flow: column wrap;
-            max-height: 110px;
+            max-height: 150px;
             align-content: space-between;
 
             .rep-name-title{
@@ -405,10 +426,20 @@
             margin-bottom: 5px;
         }
 
-        h3{
+        h3,
+        h4{
             font-family: $lato;
             font-weight: 400;
             font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        h4{
+            font-size: .9em;
+        }
+
+        .grade{
+            margin-top: 10px;
         }
     }
 }

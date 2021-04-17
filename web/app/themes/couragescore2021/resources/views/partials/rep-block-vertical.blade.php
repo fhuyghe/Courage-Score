@@ -3,7 +3,9 @@
 
 <div class="rep-block vertical">
     <div class="portrait">
-      {!! get_the_post_thumbnail( $post->ID, 'thumbnail' );  !!}
+      <a href="{{ get_the_permalink($post->ID) }}">
+      {!! get_the_post_thumbnail( $post->ID, 'medium' );  !!}
+      </a>
     </div>
     <div class="rep-name-title">
       <h3>
@@ -12,7 +14,7 @@
           </a>
       </h3>
       <h4 class="body">State <span class="body">{{ get_field('senate_or_assembly', $post->ID) }}</span></h4>
-  </div>
-    District {{ get_field('district', $post->ID) }}
+      <h4 class="district">District {{ get_field('district', $post->ID) }}</h4>
+    </div>
     @include('partials.grade-display')
 </div>
