@@ -11,8 +11,13 @@
           @include('partials.search')
         @endif
       </div> --}}
-      <div class="col" id="social">
-        @include('partials.social-links')
+      <div class="col" id="topRight">
+        <div id="social">
+          @include('partials.social-links')
+        </div>
+        <div id="languages">
+          {!! App\languages_list() !!}
+        </div>
       </div>
       <button class="hamburger hamburger--arrow" type="button">
         <span class="hamburger-box">
@@ -27,6 +32,7 @@
         @endif
       </nav>
       @include('partials.social-links')
+      {!! App\languages_list() !!}
     </div>
   </div>
 </header>

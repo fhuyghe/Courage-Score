@@ -307,3 +307,26 @@ function register_custom_yoast_variables() {
 add_action('wpseo_register_extra_replacements', __NAMESPACE__ . '\register_custom_yoast_variables');
 
 
+// Language List
+function languages_list() {
+    $list = '';
+    if (function_exists('icl_get_languages')) {
+        $languages = icl_get_languages('skip_missing=0&orderby=code');
+        if(1 < count($languages)){
+            $list .=  '<ul class="language-switcher">';
+            foreach($languages as $l){
+                if($l['active']) {
+                    $list .=  '<li class="active">';
+                } else {
+                    $list .=  '<li>';
+                }
+                    $list .=  '<a href="'.$l['url'].'">';
+                    $list .=  icl_disp_language($l['language_code']);
+                    $list .=  '</a>';
+                    $list .=  '</li>';
+            }
+            $list .= '</ul>';
+        }
+    }
+    return $list;
+}

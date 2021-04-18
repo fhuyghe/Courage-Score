@@ -104,7 +104,7 @@
                  <img src="{{ $rep['photo']['url'] }}"/>
                 </div>
                 <div class="rep-name-title">
-                  <h3>{{ $rep['name'] }} </h3>
+                  <h3>{!! $rep['name'] !!} </h3>
                   <h5>Score</h5>
                   <p> {{ $rep['score'] }}</p>
                   <h5>Previous Position</h5>

@@ -457,35 +457,6 @@ function wpml_custom_args() {
     return $html;
 }
 
-function languages_list(){
-    if (function_exists('icl_get_languages')) {
-        $languages = icl_get_languages('skip_missing=0&orderby=code');
-        if(1 < count($languages)){
-            $street = (isset($_GET['street'])) ? $_GET['street'] : '';
-            $city = (isset($_GET['city'])) ? $_GET['city'] : '';
-            $zip = (isset($_GET['zip'])) ? $_GET['zip'] : '';
-            $lang = (isset($_GET['lang'])) ? $_GET['lang'] : '';
-            $address = 'street='.str_replace(' ', '+', $street);
-            $address .= '&city='.str_replace(' ', '+', $city);
-            $address .= '&zip='.$zip;
-            // $address .= '&lang='.$lang;
-            echo '<ul class="top-links cf">';
-            foreach($languages as $l){
-                if(!$l['active']) echo '<li data-active-lang="'.ICL_LANGUAGE_CODE.'">';                
-                // if(!empty( $address )){
-                //     if(!$l['active']) echo '<a href="'.$l['url'].'?'.$address.'">';
-                // } else {
-                    if(!$l['active']) echo '<a href="'.$l['url'].'">';
-                // }
-                if(!$l['active']) echo icl_disp_language($l['native_name']);
-                if(!$l['active']) echo '</a>';
-                if(!$l['active']) echo '</li>';
-            }
-            echo '</ul>';
-        }
-    }
-}
-
 function retrieve_cs_score_replacement() {
     global $post;
     if(get_field('progressive_voting_by_member')){

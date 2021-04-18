@@ -10,7 +10,7 @@
     <div class="rep-name-title">
       <h3>
           <a href="{{ get_the_permalink($post->ID) }}">
-              {{ get_the_title($post->ID) }}
+              {!! get_the_title($post->ID) !!}
           </a>
       </h3>
       <h4 class="body">State <span class="body">{{ get_field('senate_or_assembly', $post->ID) }}</span></h4>

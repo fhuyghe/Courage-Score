@@ -32,13 +32,47 @@ header.banner{
     }
   }
   
-  #social{
+  #topRight{
     display: none;
-    text-align: right;
-    padding-top: 5px;
-
+    
     @include media-breakpoint-up(md){
-      display: block;
+      padding-top: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      #languages{
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .language-switcher{
+    padding-left: 0;
+    list-style: none;
+    text-transform: uppercase;
+    margin-bottom: 0;
+
+    li{
+      display: inline-block;
+      border-right: 1px solid theme-color(black);
+      padding-right: 5px;
+      margin-right: 5px;
+
+      a:hover{
+        color: theme-color(darkgrey);
+      }
+
+      &:last-child{
+        padding-right: 0;
+        margin-right: 0;
+        border-right: 0;
+      }
+
+      &.active a{
+        cursor: default;
+        color: theme-color(darkgrey);
+      }
     }
   }
 
@@ -123,7 +157,8 @@ header.banner{
 }
 
 .nav-wrap{
-  .social{
+  .social,
+  .language-switcher{
     display: none;
   }
 }
