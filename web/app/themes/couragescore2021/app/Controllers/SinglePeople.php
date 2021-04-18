@@ -15,6 +15,7 @@ class SinglePeople extends Controller
         $data['scores'] = get_field('progressive_voting_by_member');
         $data['partners_scores'] = get_field('partners_scores');
         $data['contributions'] = get_field('corporate_contributions_to_legislator');
+        $data['titles'] = get_field('single_representatives', 'option');
 
 	    return $data;
     }

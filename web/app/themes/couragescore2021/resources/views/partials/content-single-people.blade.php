@@ -117,7 +117,7 @@ $senateAssembly = get_field('senate_or_assembly');
   
   @if($contributions)
   <section id="contributions">
-    <h2>Contributions</h2>
+    <h2>{{ $data['titles']['contributions_title'] }}</h2>
     <table id="contributionsTable">
       <thead>
       <tr>
@@ -163,7 +163,7 @@ $senateAssembly = get_field('senate_or_assembly');
 
   @if($partners_scores)
     <section id="partnersScores">
-      <h2>Partners Scores</h2>
+      <h2>{{ $data['titles']['partners_scores_title'] }}</h2>
       <table id="partnersScoresTable">
         <thead>
         <tr>
