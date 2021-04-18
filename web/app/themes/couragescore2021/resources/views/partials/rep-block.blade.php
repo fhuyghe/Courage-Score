@@ -9,10 +9,16 @@
       {!! get_the_post_thumbnail( $post->ID, 'thumbnail' );  !!}
     </div>
   </div>
-  @php $excerpt = get_field('hall_of_shame_slider_text_block', $post->ID) @endphp
-  @if($excerpt)
-    <div class="excerpt">
-      {!! $excerpt !!}
-    </div>
+  @php 
+    $hallOfShameList = App::getHallOfShame();
+    $allStarList = App::getAllStars(); 
+  @endphp
+  @if(in_array($post, $hallOfShameList) || in_array($post, $allStarList))
+    @php $excerpt = get_field('hall_of_shame_slider_text_block', $post->ID) @endphp
+    @if($excerpt)
+      <div class="excerpt">
+        {!! $excerpt !!}
+      </div>
+    @endif
   @endif
 </div>

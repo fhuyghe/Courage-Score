@@ -64,9 +64,15 @@ $senateAssembly = get_field('senate_or_assembly');
 
   {{-- Main content --}}
   <div class="col-md-7" id="sections">
-  <div class="entry-content">
-    @php the_content() @endphp
-  </div>
+    @php 
+      $hallOfShameList = App::getHallOfShame();
+      $allStarList = App::getAllStars(); 
+    @endphp
+    @if(in_array($post, $hallOfShameList) || in_array($post, $allStarList))
+      <div class="entry-content">
+        @php the_content() @endphp
+      </div>
+    @endif
 
   <section id="bills">
     
