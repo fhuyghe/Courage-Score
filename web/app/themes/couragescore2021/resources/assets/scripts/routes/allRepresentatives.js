@@ -6,6 +6,7 @@ export default {
     $('#representativesTable').DataTable({
       searching: false,
       paging: false,
+      responsive: true,
       columnDefs: [
         { 'visible': false, 'targets': 0 },
       ],

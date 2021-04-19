@@ -17,6 +17,7 @@ define('BILLTRACK_API', getenv('BILLTRACK_API'));
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('sage/main.css', asset_path('styles/main.css'), false, null);
     wp_enqueue_script('sage/main.js', asset_path('scripts/main.js'), ['jquery'], null, true);
+    wp_enqueue_script('sage/responsive-datatables', '//cdn.datatables.net/responsive/2.2.7/js/dataTables.responsive.js', ['jquery'], null, true);
     $ajax_params = array(
         'ajax_url' => admin_url('admin-ajax.php'),
         'ajax_nonce' => wp_create_nonce('my_nonce'),

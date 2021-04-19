@@ -305,6 +305,14 @@ tr.rep{
     td{
         border-bottom: 1px solid theme-color(black);
         vertical-align: middle;
+
+        &.name{
+            white-space: nowrap;
+
+            img{
+                margin-right: 10px;
+            }
+        }
     }
 
     img{

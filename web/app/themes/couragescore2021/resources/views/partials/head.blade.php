@@ -14,9 +14,6 @@
   {{-- Font Awesome --}}
   <script src="https://kit.fontawesome.com/28ecd9ba70.js" crossorigin="anonymous"></script>
 
-  {{-- Action Kit --}}
-  <script type="text/javascript" src="https://act.couragecampaign.org/resources/actionkit.js"></script>
-
   {{-- Favicon --}}
   <link rel="apple-touch-icon" sizes="180x180" href="@asset('images/favicon/apple-touch-icon.png')">
   <link rel="icon" type="image/png" sizes="32x32" href="@asset('images/favicon/favicon-32x32.png')">
