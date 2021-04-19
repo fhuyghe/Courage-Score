@@ -36,7 +36,7 @@
 
 @if(!$thank_you_message)
 <div id="contact-form" class="contact-form">
-	<h3 class="title"><?php _e('Contact', 'progressive');?> <?php the_title();?></h3>
+	<h3 class="title"><?php _e('Contact', 'sage');?> <?php the_title();?></h3>
 	<form class="ak-form" name="act" method="POST" action="https://act.couragecampaign.org/act/" accept-charset="utf-8">
 		<input type="hidden" name="page" value="{{ $post->post_name }}">
 		<div class="ak-grid-row">
@@ -69,7 +69,7 @@
 							<textarea id="id_comment" name="action_comment" placeholder="Add your own message..."></textarea>
 						</div>
 						<button type="submit" class="ak-submit-button">Send</button>
-						<p><?php _e('NOTE: Although you may be disappointed with your representative, please be respectful. Use this opportunity to offer constructive feedback. Please abstain from negative, disparaging language, including, but not limited to: expletives, comments about race, gender identity, sexual orientation, ethnicity or religion, and anything specific to appearance.', 'progressive');?></p>
+						<p><?php _e('NOTE: Although you may be disappointed with your representative, please be respectful. Use this opportunity to offer constructive feedback. Please abstain from negative, disparaging language, including, but not limited to: expletives, comments about race, gender identity, sexual orientation, ethnicity or religion, and anything specific to appearance.', 'sage');?></p>
 					</div>
 				</div>  
 			</div>
@@ -78,11 +78,11 @@
 	
 	@else
 
-	<h3 class="title"><?php _e('Thank you!', 'progressive');?></h3>
+	<h3 class="title"><?php _e('Thank you!', 'sage');?></h3>
 	<div class="p-single__form">
 		<div class="ak-form">
 			<div id="ak-fieldbox-user_custom_message" class="col-xs-12">
-				<div class="text" style="display: block; padding: 20px;"><?php _e('Thank you for sharing your thoughts with your legislator. Close this window to return to <a href="http://www.couragescore.org">CourageScore.org', 'progressive');?></div>
+				<div class="text" style="display: block; padding: 20px;"><?php _e('Thank you for sharing your thoughts with your legislator. Close this window to return to <a href="http://www.couragescore.org">CourageScore.org', 'sage');?></div>
 			</div>
 		</div>
 

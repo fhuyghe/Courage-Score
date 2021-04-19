@@ -79,7 +79,7 @@
     "wpackagist-plugin/wp-fastest-cache": "^0.9.0.9",
     "wpackagist-plugin/wordpress-seo":"^15.0",
     "wpackagist-plugin/yoast-test-helper":"1.12",
-    "wpackagist-plugin/social-warfare":"4.2.1",
+    "wpackagist-plugin/popup-builder":"3.68.4",
     "13milliseconds/sitepress-multilingual-cms": "dev-master",
     "13milliseconds/wpml-string-translation": "dev-master",
     "13milliseconds/wpml-translation-management": "dev-master"
