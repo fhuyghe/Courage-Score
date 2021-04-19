@@ -401,6 +401,18 @@
         .page-header{
             display: none;
         }
+
+        .logo{
+            margin-bottom: $grid-gutter;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+            img{
+                width: 80%;
+            }
+        }
     }
 }
 
