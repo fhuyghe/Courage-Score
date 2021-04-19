@@ -74,7 +74,7 @@ $senateAssembly = get_field('senate_or_assembly');
     @endphp
     @if(in_array($post, $hallOfShameList) || in_array($post, $allStarList))
       <div class="entry-content">
-        @php the_content() @endphp
+        {!! $data['additional_text'] !!}
       </div>
     @endif
 
