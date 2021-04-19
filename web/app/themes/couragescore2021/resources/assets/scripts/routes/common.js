@@ -12,11 +12,28 @@ export default {
     });
 
     //Popover
-    $('[data-toggle="popover-click"]').popover({
-      //placement: 'left',
-      trigger: 'click',
+    var element = '[data-toggle="popover-click"]';
+    $(element).popover({
       html: true,
     });
+
+    $('body').on('click', function (e) {
+        
+        //Use each to hide Popovers with the same class
+        $(element).each(function(index, elm) {
+            hidePopover(elm, e);
+        }); 
+    });
+
+    // hide any open popovers when anywhere else in the body is clicked
+    var hidePopover = function(element, e){
+      if (!$(element).is(e.target) && $(element).has(e.target).length === 0 && $('.popover').has(e.target).length === 0){
+        $(element).popover('hide');
+      }
+    }
+
+
+
     $('[data-toggle="popover"]').popover({
       //placement: 'left',
       trigger: 'hover',
@@ -28,3 +45,5 @@ export default {
     // JavaScript to be fired on all pages, after page specific JS is fired
   },
 };
+
+  
