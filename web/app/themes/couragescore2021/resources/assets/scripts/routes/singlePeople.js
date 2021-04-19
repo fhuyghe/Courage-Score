@@ -59,6 +59,7 @@ export default {
     // Votes Table
     
         var voteTable = $('#billsTable').DataTable({
+            info: false,
             columnDefs: [
                 {
                     targets: 0,
@@ -66,6 +67,10 @@ export default {
                 },
                 {
                     targets: 1,
+                    visible: false,
+                },
+                {
+                    targets: 2,
                     visible: false,
                 },
             ],
@@ -79,9 +84,23 @@ export default {
                 .search( 'floor_votes', true, false )
                 .draw();
 
+        voteTable
+                .column(1)
+                .search( $('#yearsFilter').val() , true, false )
+                .draw();
+
         //Filter by Topic
         $('#topics').on('change', function () {
             var val = $(this).val();
+            voteTable
+                .column(0)
+                .search( val ? val : '', true, false )
+                .draw();
+        });
+
+        //Filter by year
+        $('#yearsFilter').on('change', function () {
+            let val = $(this).val();
             voteTable
                 .column(1)
                 .search( val ? val : '', true, false )

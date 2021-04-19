@@ -24,14 +24,29 @@ class SinglePeople extends Controller
     static function votes($year){ 
         $year = intval($year);
         $votes = get_field('voting');
-        $votesByYear = $votes ? array_filter($votes, function($vote) use ($year){
-            if($vote['bill_number']):
-            return date("Y", strtotime(get_field('floor_voted_date',$vote['bill_number']))) == $year
-                    || 
-                    date("Y", strtotime($vote['vote_date'])) == $year;
-            endif;
-            }) : [];
+        $continue = true;
+        $votesByYear = [];
 
-            return $votesByYear;
+        if($votes):
+        //While there is a voting history, get votes by year
+            while($continue){
+                $thisYear = array_filter($votes, function($vote) use ($year){
+                    if($vote['bill_number']):
+                    return date("Y", strtotime(get_field('floor_voted_date',$vote['bill_number']))) == $year
+                            || 
+                            date("Y", strtotime($vote['vote_date'])) == $year;
+                    endif;
+                    });
+
+                if(!empty($thisYear)){
+                    $votesByYear[$year] = $thisYear;
+                    $year--;
+                } else {
+                    $continue = false;
+                }
+            }
+        endif;
+
+        return $votesByYear;
     }
 }

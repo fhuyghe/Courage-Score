@@ -5,6 +5,9 @@
     <td class="type">
         {{ $vote['floorcommittee'] }}
     </td>
+    <td class="year">
+        {{ $currentYear }}
+    </td>
     <td class="categories"> 
         <ul>
         @php $topics = get_the_terms($bill->ID, 'vote-topic') @endphp
