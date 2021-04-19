@@ -3,9 +3,11 @@
 
 <div class="rep-block vertical">
     <div class="portrait">
+      <div class="portrait-wrap">
       <a href="{{ get_the_permalink($post->ID) }}">
       {!! get_the_post_thumbnail( $post->ID, 'medium' );  !!}
       </a>
+    </div>
     </div>
     <div class="rep-name-title">
       <h3>

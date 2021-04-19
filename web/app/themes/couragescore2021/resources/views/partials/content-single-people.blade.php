@@ -20,7 +20,9 @@ $senateAssembly = get_field('senate_or_assembly');
         <div class="top">
           @include('partials.rep-name-title')
           <div class="portrait">
+          <div class="portrait-wrap">
             {!! get_the_post_thumbnail( $post->ID, 'thumbnail' );  !!}
+          </div>
           </div>
         </div>
         <div class="rep-info">
