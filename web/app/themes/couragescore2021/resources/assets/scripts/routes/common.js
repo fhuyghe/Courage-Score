@@ -13,22 +13,24 @@ export default {
 
     //Popover
     var element = '[data-toggle="popover-click"]';
-    $(element).popover({
-      html: true,
-    });
-
-    $('body').on('click', function (e) {
-        
-        //Use each to hide Popovers with the same class
-        $(element).each(function(index, elm) {
-            hidePopover(elm, e);
-        }); 
-    });
-
-    // hide any open popovers when anywhere else in the body is clicked
-    var hidePopover = function(element, e){
-      if (!$(element).is(e.target) && $(element).has(e.target).length === 0 && $('.popover').has(e.target).length === 0){
-        $(element).popover('hide');
+    if (element.length) {
+      $(element).popover({
+        html: true,
+      });
+  
+      $('body').on('click', function (e) {
+          
+          //Use each to hide Popovers with the same class
+          $(element).each(function(index, elm) {
+              hidePopover(elm, e);
+          }); 
+      });
+  
+      // hide any open popovers when anywhere else in the body is clicked
+      var hidePopover = function(element, e){
+        if (!$(element).is(e.target) && $(element).has(e.target).length === 0 && $('.popover').has(e.target).length === 0){
+          $(element).popover('hide');
+        }
       }
     }
 

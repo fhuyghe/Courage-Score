@@ -96,7 +96,7 @@
         <h2>{{ $honorableMentions['title'] }}</h2>
         {!! $honorableMentions['paragraph'] !!}
       </div>
-        <div class="row">
+        <div id="honorableWrap" class="row">
         @foreach ($honorableMentions['representatives'] as $rep)
             <div class="col-md-4">
               <div class="rep-block vertical">

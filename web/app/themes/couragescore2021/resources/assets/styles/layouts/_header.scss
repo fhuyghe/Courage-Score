@@ -13,11 +13,13 @@ header.banner{
     height: $headerHeightDesktop;
   }
 
-  .container{
-    height: 100%;
-    display: flex;
-    flex-flow: column;
-    justify-content: space-between;
+  @include media-breakpoint-up(md){
+    .container{
+      height: 100%;
+      display: flex;
+      flex-flow: column;
+      justify-content: space-between;
+    }
   }
 }
 

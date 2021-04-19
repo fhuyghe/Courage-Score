@@ -168,5 +168,53 @@ export default {
         },
       ],
     });
+    
+    /*****************/
+    // All Stars Carousel
+    /*****************/
+    $('#starList').slick({
+      dots: false,
+      arrows: false,
+      infinite: true,
+      centerMode: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 900,
+          settings: {
+            slidesToShow: 1,
+          },
+        },
+        {
+          breakpoint: 99999,
+          settings: 'unslick',
+        },
+      ],
+    });
+    
+    /*****************/
+    // Honorable mentions Carousel
+    /*****************/
+    $('#honorableWrap').slick({
+      dots: false,
+      arrows: false,
+      infinite: true,
+      centerMode: true,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      responsive: [
+        {
+          breakpoint: 900,
+          settings: {
+            slidesToShow: 1,
+          },
+        },
+        {
+          breakpoint: 99999,
+          settings: 'unslick',
+        },
+      ],
+    });
   },
 };
