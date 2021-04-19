@@ -47,9 +47,11 @@ $senateAssembly = get_field('senate_or_assembly');
       <div id="mapContainer"></div>
     </section>
 
-    <section id="contact">
-      <a id="contactToggle">Contact <i class="far fa-arrow-right"></i></a>
-    </section>
+    @if($score !== 'na')
+      <section id="contact"> 
+        <a id="contactToggle">Contact <i class="far fa-arrow-right"></i></a>
+      </section>
+    @endif
 
     <section id="submenu">
       <ul>
@@ -76,46 +78,13 @@ $senateAssembly = get_field('senate_or_assembly');
       </div>
     @endif
 
-  <section id="bills">
-    
-    <div id="tableTop">
-      <h2>Votes</h2>
-
-      @php $topics = get_terms('vote-topic') @endphp
-      <select id="topics">
-        <option value="" selected>Filter by topic</option>
-        @foreach ($topics as $topic)
-            <option value="{{ $topic->slug }}">{{ $topic->name }}</option>
-        @endforeach
-      </select>
-    </div>
-
-    <div id="floorCommittee">
-      <button data-val="floor_votes" class="active">Floor Vote</button>
-      <button data-val="committee_votes">Committee Vote</button> 
-    </div>
-
-    @if($votes)
-      <table id="billsTable">
-        <thead>
-        <tr>
-          <th>Type</th>
-          <th>Categories</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th></th>
-          <th>Vote</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($votes as $vote)
-          @include('partials.vote-row')
-        @endforeach
-      </tbody>
-      </table>
-    @endif
-  </section>
-
+  @if($score == 'na')
+    <h4>
+      {{ $data['titles']['no_score_available_text'] }}
+    </h4>
+  @else
+      @include('partials.single-people-bills')
+  @endif
   
   @if($contributions)
   <section id="contributions">
@@ -152,7 +121,7 @@ $senateAssembly = get_field('senate_or_assembly');
             @endif
           </td>
           <td><i class="fal fa-info-circle"
-            data-toggle="popover" 
+            data-toggle="popover-click" 
             data-content="{{ $source }}"
             title="Sources" ></i>
         </td>

@@ -1,8 +1,7 @@
 import 'datatables.net'
-import Sticky from 'sticky-js'
+//import Sticky from 'sticky-js'
 import '@fancyapps/fancybox/dist/jquery.fancybox'
 import * as turf from '@turf/turf'
-import '@popperjs/core'
 
 export default {
     init() {
@@ -110,19 +109,12 @@ finalize() {
   // JavaScript to be fired on the home page, after the init JS
     
     //Sticky Element
-    var sticky = new Sticky('.sticky');
-    sticky.update();
+    // var sticky = new Sticky('.sticky');
+    // sticky.update();
 
-    $(window).on('resize', function () {
-        sticky.update();
-    })
-
-    //Popover
-    $('[data-toggle="popover"]').popover({
-        placement: 'left',
-        trigger: 'hover',
-        html: true,
-    });
+    // $(window).on('resize', function () {
+    //     sticky.update();
+    // })
 
     //Fancybox launch
     $('#contact').fancybox({

@@ -1,3 +1,5 @@
+import '@popperjs/core'
+
 export default {
   init() {
 
@@ -9,6 +11,17 @@ export default {
       $('.nav-wrap').toggleClass('active');
     });
 
+    //Popover
+    $('[data-toggle="popover-click"]').popover({
+      //placement: 'left',
+      trigger: 'click',
+      html: true,
+    });
+    $('[data-toggle="popover"]').popover({
+      //placement: 'left',
+      trigger: 'hover',
+      html: true,
+    });
     
   },
   finalize() {

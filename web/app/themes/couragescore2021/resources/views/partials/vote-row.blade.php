@@ -25,7 +25,10 @@
 
     <td class="info">
         @if($opposed)
-            <i class="fal fa-info-circle" data-toggle="popover" title="Opposed Bill" data-content="This is a bad bill."></i>
+            <i class="fal fa-info-circle" 
+            data-toggle="popover" 
+            title="Opposed Bill" 
+            data-content="This is a bad bill."></i>
         @endif
     </td>
 

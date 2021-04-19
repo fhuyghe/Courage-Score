@@ -15,7 +15,7 @@
         {{ get_field('party') == 'democrat' ? 'D' : 'R' }}
     </td>
     <td class="score">
-        {{ App\get_score($post) }}
+        @include('partials.score-display')
     </td>
     <td class="grade">
         @include('partials.grade-display')

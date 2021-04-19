@@ -221,6 +221,16 @@ table{
     }
 }
 
+//Popper toggles
+[data-toggle="popover-click"]{
+    cursor: pointer;
+    transition: .25s;
+
+    &:hover{
+        color: theme-color(blue);
+    }
+}
+
 //Representative Info
 .rep-name-title{
     h3{

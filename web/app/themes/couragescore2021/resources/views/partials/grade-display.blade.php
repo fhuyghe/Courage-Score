@@ -9,5 +9,9 @@
 @endphp
 
 <div class="grade {{ $color }}">
-    {{ $letter }}
+    @if($letter == 'NA')
+        N/A
+    @else
+        {{ $letter }}
+    @endif
 </div>

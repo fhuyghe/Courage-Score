@@ -101,7 +101,9 @@
             <div class="col-md-4">
               <div class="rep-block vertical">
                 <div class="portrait">
+                  <div class="portrait-wrap">
                  <img src="{{ $rep['photo']['url'] }}"/>
+                </div>
                 </div>
                 <div class="rep-name-title">
                   <h3>{!! $rep['name'] !!} </h3>
