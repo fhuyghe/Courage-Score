@@ -136,6 +136,11 @@ finalize() {
             },
         },
     });
+
+    //Print the page
+    $('#print').on('click', function () {
+        window.print();
+     });
     
     //Copy the URL
     $('#link').on('click', function () {
@@ -159,6 +164,8 @@ finalize() {
             alert.classList.add('alert-danger');
         }
         document.body.appendChild(alert);
+
+        //Destroy alert
         setTimeout(function () {
             document.body.removeChild(alert);
         }, 3000);
