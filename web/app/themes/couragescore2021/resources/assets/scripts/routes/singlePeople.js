@@ -126,16 +126,44 @@ finalize() {
 
     //Fancybox launch
     $('#contact').fancybox({
-            src  : '#contact-form',
-            type : 'inline',
-            opts : {
-                afterShow : function() {
-                    // actionkit.forms.initPage();
-                    // actionkit.forms.contextRoot = 'https://act.couragecampaign.org/context/';
-                    // actionkit.forms.initForm('act')
-                },
+        src  : '#contact-form',
+        type : 'inline',
+        opts : {
+            afterShow : function() {
+                // actionkit.forms.initPage();
+                // actionkit.forms.contextRoot = 'https://act.couragecampaign.org/context/';
+                // actionkit.forms.initForm('act')
             },
-        });
+        },
+    });
+    
+    //Copy the URL
+    $('#link').on('click', function () {
+        //Copy
+        var input = document.createElement('textarea');
+        input.innerHTML = window.location;
+        document.body.appendChild(input);
+        input.select();
+        var result = document.execCommand('copy');
+        document.body.removeChild(input);
+
+        // Create an alert
+        let alert = document.createElement('div');
+        alert.setAttribute('role', 'alert');
+        alert.classList.add('alert');
+        if (result) {
+            alert.appendChild(document.createTextNode('URL copied'))
+            alert.classList.add('alert-success');
+        } else {
+            alert.appendChild(document.createTextNode('Failed to copy URL'));
+            alert.classList.add('alert-danger');
+        }
+        document.body.appendChild(alert);
+        setTimeout(function () {
+            document.body.removeChild(alert);
+        }, 3000);
+    }
+    );
     
 },
 };

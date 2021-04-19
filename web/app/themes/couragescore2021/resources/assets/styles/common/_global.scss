@@ -95,6 +95,14 @@ h6,
     font-family: $lato;
 }
 
+.alert{
+    position: fixed;
+    bottom: 0;
+    max-width: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
 @include media-breakpoint-up(md){
 .wp-block-column:first-child{
         padding-right: $grid-gutter;
