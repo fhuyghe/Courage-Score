@@ -1,6 +1,10 @@
 @php global $post; @endphp
 
-@php the_content() @endphp
+<div class="page-header">
+    <h1>{!! App::title() !!}</h1>
+    @php the_content() @endphp
+</div>
+
 @php 
 $withLink = []; 
 $withLink = [];
@@ -42,7 +46,7 @@ endforeach;
         </div>
 </section>
 
-<section>
+<section id="extra">
     {!! get_field('partners_without_scorecards') !!}
 </section>
     
