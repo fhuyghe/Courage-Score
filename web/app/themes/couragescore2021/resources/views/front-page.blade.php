@@ -6,7 +6,7 @@
 
   <section id="searchResults">
     <div class="container">
-      <h2>You Representatives</h2>
+      <h2>Your Representatives</h2>
       <h5 id="address"></h5>
       <div class="row">
         <div class="col-md-6">

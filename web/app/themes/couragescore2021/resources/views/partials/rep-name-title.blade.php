@@ -1,7 +1,7 @@
 <div class="rep-name-title">
     <h3>
         <a href="{{ get_the_permalink($post->ID) }}">
-            {!! get_the_title($post->ID) !!}test
+            {!! get_the_title($post->ID) !!}
         </a>
         @include('partials.grade-display')
     </h3>

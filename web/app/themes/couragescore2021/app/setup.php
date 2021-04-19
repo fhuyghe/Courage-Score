@@ -395,10 +395,13 @@ function getDistrict(){
             $divisions[$district_type] = $district_number;
         }
     }
+
+    $assemblyRep = \App::getLegislator('assembly', $divisions['sldl']);
+    $senateRep = \App::getLegislator('senate', $divisions['sldu']);
     //Assembly result
-    $district_info[0] = template('partials.rep-block', ['post' => \App::getLegislator('assembly', $divisions['sldl'])]);
+    $district_info[0] = $assemblyRep ? template('partials.rep-block', ['post' => $assemblyRep]) : 'No representative found for this assembly district.';
     //Senate result
-    $district_info[1] = template('partials.rep-block', ['post' => \App::getLegislator('senate', $divisions['sldu'])]);
+    $district_info[1] = $senateRep ? template('partials.rep-block', ['post' => $senateRep]) : 'No representative found for this senate district.';
     return( $district_info );
 }
 
@@ -416,7 +419,7 @@ function get_district_data( $district_type , $district_id){
     if( true == $cached_data ){
          return  $cached_data;
     }else{
-        $url = "https://v3.openstates.org/people?jurisdiction=ca&org_classification=$district_type&district=$district_id&apikey=6ece8713-9334-4204-a913-dea301f01663";// . OPENSTATES_API;
+        $url = "https://v3.openstates.org/people?jurisdiction=ca&org_classification=$district_type&district=$district_id&apikey=" . OPENSTATES_API;
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);

@@ -110,7 +110,6 @@ export default {
           address,
         },
         success: function (response) {
-          console.log(response);
           let searchResults = document.getElementById('searchResults');
 
           //Populate address

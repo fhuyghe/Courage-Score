@@ -35,6 +35,7 @@ class App extends Controller
     public static function getLegislator($body, $district){
         $args = array(
             'post_type'     => 'people',
+            'post_status'        => 'publish',
             'showposts' => 1,
             'meta_query'	=> array(
                 'relation'		=> 'AND',
