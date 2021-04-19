@@ -1,5 +1,5 @@
 <tr class="rep {{ get_field('senate_or_assembly') }}">
-    <td class="body">
+    <td>
         {{ get_field('senate_or_assembly') }}
     </td>
     <td class="name">

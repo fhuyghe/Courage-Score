@@ -32,7 +32,9 @@
         @endif
       </nav>
       @include('partials.social-links')
-      {!! App\languages_list() !!}
+      <div id="languages">
+        {!! App\languages_list() !!}
+      </div>
     </div>
   </div>
 </header>

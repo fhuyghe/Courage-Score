@@ -26,7 +26,7 @@ export default {
 
     // Get Legislator info
     const districtNumber = $('.district').html();
-    const senateAssembly = $('.body').html() == 'assembly' ? 1 : 0;
+    const senateAssembly = $('.body').html() == 'assembly' ? 0 : 1;
 
     //Add their layer to the map
         let districtUrl = 'https://map.dfg.ca.gov/arcgis/rest/services/Political/boundaries/MapServer/' + senateAssembly + '/query?where=district%3D' + districtNumber + '&f=geojson';
