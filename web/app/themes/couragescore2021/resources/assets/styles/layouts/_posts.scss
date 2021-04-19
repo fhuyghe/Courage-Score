@@ -135,6 +135,16 @@
 
             #billsTable{
                 width: 100%!important;
+
+                th:nth-child(3):after{
+                    content: '';
+                }
+            }
+        }
+
+        #partnersScores{
+            .dataTables_info{
+                display: none;
             }
         }
     }

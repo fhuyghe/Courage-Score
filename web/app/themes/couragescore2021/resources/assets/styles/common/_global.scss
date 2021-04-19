@@ -154,7 +154,7 @@ table{
     }
 }
 
-.dataTables_wrapper{ 
+.dataTables_wrapper{
     .dataTables_length{
         display: none;
     }
@@ -164,19 +164,37 @@ table{
     }
     
     .dataTables_paginate {
-    .paginate_button{
-        border: 0;
-        border-radius: 0;
-
-        &.current,
-        &.current:hover{
-            background: theme-color(black);
-            color: theme-color(white)!important;
-            outline: 0;
+        .paginate_button{
             border: 0;
             border-radius: 0;
+
+            &.current,
+            &.current:hover{
+                background: theme-color(black);
+                color: theme-color(white)!important;
+                outline: 0;
+                border: 0;
+                border-radius: 0;
+            }
         }
     }
+
+    .sorting{
+        &:after{
+            content: '▼';
+            opacity: .3;
+            padding-left: 5px;
+            font-size: .7em;
+        }
+
+        &.sorting_desc:after{
+            content: '▲';
+            opacity: 1;
+        }
+
+        &.sorting_asc:after{
+            opacity: 1;
+        }
     }
 }
 
