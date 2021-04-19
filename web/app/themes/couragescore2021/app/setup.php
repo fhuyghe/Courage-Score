@@ -151,6 +151,16 @@ add_action('after_setup_theme', function () {
     });
 });
 
+//Filter for deep ACF queries
+function my_posts_where( $where ) {
+	
+	$where = str_replace("meta_key = 'voting_history_$", "meta_key LIKE 'voting_history_%", $where);
+
+	return $where;
+}
+
+add_filter('posts_where', __NAMESPACE__ . '\\my_posts_where');
+
 // Register ACF options pages
 if( function_exists('acf_add_options_page') ) {
     
@@ -257,7 +267,7 @@ function People_custom_init()
     'show_ui' => true, 
     'show_in_menu' => true, 
     'query_var' => true,
-    'rewrite' => array( 'slug' => 'legislator' ),
+    'rewrite' => array( 'slug' => 'representative' ),
     'capability_type' => 'post',
     'has_archive' => true, 
     'hierarchical' => false,
@@ -295,7 +305,7 @@ function Votes_custom_init()
     'show_in_menu' => true, 
     'menu-icon' => 'dashicons-media-document',
     'query_var' => true,
-    'rewrite' => true,
+    'rewrite' => array( 'slug' => 'bill' ),
     'capability_type' => 'post',
     'has_archive' => true, 
     'hierarchical' => false,

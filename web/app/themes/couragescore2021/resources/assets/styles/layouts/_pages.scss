@@ -317,6 +317,18 @@
     }
 }
 
+//Bills
+.page.bills{
+    #tableWrap{
+        max-width: 700px;
+        margin: auto;
+    }
+
+    tbody{
+        transition: .25s;
+    }
+}
+
 // Partners
 .page.partners{
     #partners{

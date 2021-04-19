@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+  <div class="container">
   @include('partials.page-header')
 
   @if (!have_posts())
@@ -9,4 +10,5 @@
     </div>
     {!! get_search_form(false) !!}
   @endif
+  </div>
 @endsection

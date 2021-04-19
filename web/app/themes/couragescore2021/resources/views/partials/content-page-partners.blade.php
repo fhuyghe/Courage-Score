@@ -14,8 +14,8 @@ foreach ($partners as $partner):
 endforeach;
 @endphp
 
+<div class="container">
 <section id="partners">
-    <div class="container">
         <div class="row">
             @foreach ($withLink as $post)
             @php setup_postdata($post) @endphp
@@ -40,6 +40,13 @@ endforeach;
                 @php wp_reset_postdata($post) @endphp
             @endforeach
         </div>
+</section>
+
+<section>
+    {!! get_field('partners_without_scorecards') !!}
+</section>
+    
+    <section>
         <div class="row">
             @foreach ($withoutLink as $post)
             @php setup_postdata($post) @endphp

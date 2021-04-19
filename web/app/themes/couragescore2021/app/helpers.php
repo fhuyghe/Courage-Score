@@ -173,6 +173,23 @@ add_action('wp_ajax_get_votes_per_year', __NAMESPACE__ .'\\get_votes_per_year' )
 add_action('wp_ajax_nopriv_get_votes_per_year', __NAMESPACE__ .'\\get_votes_per_year' );
 
 
+// Get Bills per year
+function get_bills_per_year() {
+    $year = $_REQUEST['year'];
+    $bills = \PageBills::bills($year);
+
+    $new_rows = [];
+    foreach($bills as $bill){
+        $new_rows[] = [ get_the_title($bill->ID), get_field('title', $bill->ID)];
+    } 
+
+    wp_send_json_success($new_rows);
+}
+
+add_action('wp_ajax_get_bills_per_year', __NAMESPACE__ .'\\get_bills_per_year' );
+add_action('wp_ajax_nopriv_get_bills_per_year', __NAMESPACE__ .'\\get_bills_per_year' );
+
+
 //Get Rep Scores
 function get_score($post) {
 
