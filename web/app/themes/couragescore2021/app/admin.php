@@ -389,8 +389,8 @@ function update_votes($scorecardID){
         $billtrack_id = get_field("billtrack_id", $person->ID);
         if(empty($billtrack_id))
             $billtrack_id = get_person_id($person->ID);
-        if($a_ts > $limitts)
-           continue;
+        // if($a_ts > $limitts)
+        //    continue;
         $first_person = $person;
         break;
     }
