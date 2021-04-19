@@ -37,6 +37,10 @@
             background-position: center;
             margin: $grid-gutter / 2 0;
 
+            .mobile-bg{
+                display: none;
+            }
+
             .content{
                 position: absolute;
                 top: 50%;
@@ -90,8 +94,10 @@
             .wp-block-columns{
                 margin-bottom: $grid-gutter * 2;
 
+                @include media-breakpoint-down(sm){
                 &:nth-of-type(even){
-                    flex-flow: column-reverse;
+                    flex-flow: column-reverse;    
+                    }
                 }
             }
         }
