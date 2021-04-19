@@ -57,10 +57,10 @@ $senateAssembly = get_field('senate_or_assembly');
       <ul>
         <li><a href="#bills">Votes</a></li>
         @if($contributions)
-          <li><a href="#contributions">Contributions</a></li>
+          <li><a href="#contributions">{{ $data['titles']['contributions_title'] }}</a></li>
         @endif
         @if($partners_scores)
-          <li><a href="#partnersScores">Partner Scores</a></li>
+          <li><a href="#partnersScores">{{ $data['titles']['partners_scores_title'] }}</a></li>
         @endif
       </ul>
     </section>
