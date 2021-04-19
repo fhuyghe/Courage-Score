@@ -202,6 +202,12 @@ header.banner{
       margin-top: 25px;
     }
 
+    .language-switcher{
+      display: block;
+      margin-top: $grid-gutter;
+      font-size: 1.5em;
+    }
+
     .nav{
       flex-flow: column;
       text-align: center;
