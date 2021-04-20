@@ -55,7 +55,13 @@
 
             .top{
                 display: flex;
+                flex-flow: row wrap;
                 padding-bottom: $grid-gutter;
+
+                .grade-wrap{
+                    flex: 1;
+                    padding: 0 5px;
+                }
 
                 .rep-name-title{
                     flex: 1;
