@@ -170,6 +170,8 @@
 
             #billsTable{
                 width: 100%!important;
+                opacity: 0;
+                transition: .5s;
 
                 th:nth-child(3):after{
                     content: '';

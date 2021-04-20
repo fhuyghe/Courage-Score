@@ -59,6 +59,9 @@ export default {
     
         var voteTable = $('#billsTable').DataTable({
             info: false,
+            initComplete: function() {
+                $('#billsTable').css('opacity', 1);
+            },
             columnDefs: [
                 {
                     targets: 0,
