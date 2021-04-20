@@ -188,10 +188,10 @@ export default {
                         color = 'yellow';
                         letter = 'C';
                     } else if(score < 90 && score > 79){
-                        color = 'green';
+                        color = 'blue';
                         letter = 'B';
                     } else if( score > 89){
-                        color = 'blue';
+                        color = 'green';
                         letter = 'A';
 
                         if(score == 100){

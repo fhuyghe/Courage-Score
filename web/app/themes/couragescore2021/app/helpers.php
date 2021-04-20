@@ -278,9 +278,9 @@ function get_color($score){
     } elseif($score < 80 && $score > 69){
         $color = 'yellow';
     } elseif($score < 90 && $score > 79){
-        $color = 'green';
-    } elseif( $score > 89){
         $color = 'blue';
+    } elseif( $score > 89){
+        $color = 'green';
     }
 
     return $color;
