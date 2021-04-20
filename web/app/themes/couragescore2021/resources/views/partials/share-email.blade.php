@@ -1,8 +1,4 @@
 
-<script type="text/javascript">
-    actionkit.forms.contextRoot = 'https://act.couragecampaign.org/context/';
-    actionkit.forms.initForm('act');
-</script>
 
 @php
     $score = App\get_score($post);
@@ -89,3 +85,8 @@
 	</div>
 	@endif
 </div>
+
+<script type="text/javascript">
+    // actionkit.forms.contextRoot = 'https://act.couragecampaign.org/context/';
+    // actionkit.forms.initForm('act');
+</script>

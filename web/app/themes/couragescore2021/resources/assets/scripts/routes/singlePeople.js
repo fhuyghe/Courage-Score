@@ -2,6 +2,7 @@ import 'datatables.net'
 //import Sticky from 'sticky-js'
 import '@fancyapps/fancybox/dist/jquery.fancybox'
 import * as turf from '@turf/turf'
+import actionkit from '../util/actionkit'
 
 export default {
     init() {
@@ -213,9 +214,9 @@ finalize() {
         type : 'inline',
         opts : {
             afterShow : function() {
-                // actionkit.forms.initPage();
-                // actionkit.forms.contextRoot = 'https://act.couragecampaign.org/context/';
-                // actionkit.forms.initForm('act')
+                actionkit.forms.initPage();
+                actionkit.forms.contextRoot = 'https://act.couragecampaign.org/context/';
+                actionkit.forms.initForm('act')
             },
         },
     });

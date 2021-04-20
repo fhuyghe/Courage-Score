@@ -279,6 +279,21 @@
     #tableWrap{
         max-width: 800px;
         margin: $grid-gutter auto;
+        font-size: .8em;
+
+        th{
+            padding: 5px;
+        }
+
+        .dtr-details{
+            list-style: none;
+            padding-left: 0;
+
+            .dtr-title{
+                font-weight: bold;
+            }
+        }
+        
     }
 }
 

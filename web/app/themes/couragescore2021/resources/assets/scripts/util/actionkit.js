@@ -227,6 +227,8 @@ forms.loadContext = function() {
     if ( ak.args.ar ) contextArgs.ar = ak.args.ar;
     if ( ak.args.update ) contextArgs.ar = 1;
     if ( ak.args.akdebug ) contextArgs.akdebug = 1;
+    // needed for 3ds account switcher:
+    if ( ak.args.payment_account ) contextArgs.payment_account = ak.args.payment_account;
     contextArgs.required = forms.required();
     if ( ak.form.want_progress ) contextArgs.want_progress = 1;
     if ( ak.form.template ) 
@@ -726,8 +728,10 @@ forms.initUQD = function(iframe, options){
     }
     /*
       Listen for unloading of the UQD form, and go ahead with redirect to the TY page if the donation has been made.
+
       UQD notifies when the donation has been charged and recorded, but not when the action's been recorded. Other than listening
       for UQD initiating a redirect of the child form, there isn't a good way to know if the action's been recorded.
+
       As a fallback, if the donation/step/journey has finished but no redirect initiated, redirect to TY 5 seconds later.
      */
     var sendToAfterActionOnce = function(){
@@ -1313,10 +1317,10 @@ forms.fixStateAndZipRequirement = function(required) {
     }
     if (forms.isUnitedStates()) {
         // If this is a US form, don't require postal/region
-        required = required.filter(field => field != 'postal' && field != 'region')
+        required = required.filter(function(field) { return field != 'postal' && field != 'region'})
     } else {
         // Likewise, if this is a non-US form, don't require zip/state
-        required = required.filter(field => field != 'zip' && field != 'state')
+        required = required.filter(function(field) { return field != 'zip' && field != 'state'})
     }
     return required;
 }

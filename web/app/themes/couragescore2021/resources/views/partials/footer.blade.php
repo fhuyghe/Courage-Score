@@ -20,7 +20,3 @@
     </div>
   </div>
 </footer>
-
-
-{{-- Action Kit --}}
-<script type="text/javascript" src="https://act.couragecampaign.org/resources/actionkit.js"></script>
