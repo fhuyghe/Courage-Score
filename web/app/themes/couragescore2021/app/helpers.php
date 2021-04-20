@@ -210,6 +210,15 @@ function get_score($post) {
     return $score;
 }
 
+function get_scores() {
+    $postID = $_GET['postID'];
+    $scores = get_field('progressive_voting_by_member', $postID);
+
+    wp_send_json_success($scores);
+}
+add_action('wp_ajax_get_scores', __NAMESPACE__ .'\\get_scores' );
+add_action('wp_ajax_nopriv_get_scores', __NAMESPACE__ .'\\get_scores' );
+
 function get_auto_score($votes) {
 
     // Courage Score

@@ -18,7 +18,17 @@ $senateAssembly = get_field('senate_or_assembly');
       @include('partials.badge')
       <div class="rep-block">
         <div class="top">
-          @include('partials.rep-name-title')
+          <div class="rep-name-title">
+            <h3>
+              {!! get_the_title($post->ID) !!}
+              @include('partials.grade-display')
+            </h3>
+            <h4>State <span class="body">{{ get_field('senate_or_assembly', $post->ID) }}</span></h4>
+            @php $leadership = get_field('leadership_position', $post->ID) @endphp
+            @if($leadership)
+                <h4 class="leadership">{{ $leadership }}</h4>
+            @endif
+        </div> 
           <div class="portrait">
           <div class="portrait-wrap">
             {!! get_the_post_thumbnail( $post->ID, 'thumbnail' );  !!}
@@ -38,7 +48,7 @@ $senateAssembly = get_field('senate_or_assembly');
               <tr>
                 <td >{{ $senateAssembly == 'senate' ? 'SD' : 'AD' }}-<span class="district">{{ get_field('district', $post->ID) }}</span></td>
                 <td class="party">{{ get_field('party', $post->ID) }}</td>
-                <td class="score">@include('partials.score-display')</td>
+                <td>@include('partials.score-display')</td>
               </tr>
             </tbody>
           </table>
@@ -68,6 +78,17 @@ $senateAssembly = get_field('senate_or_assembly');
 
   {{-- Main content --}}
   <div class="col-md-7" id="sections">
+    <section id="yearsFilter" data-id="{{ $post->ID }}">
+      <ul>
+      <li><a data-year="">All Time</a></li>
+
+      @php $allYears = array_keys($votes) @endphp
+      @foreach ($allYears as $yearOption)  
+        <li><a data-year="{{ $yearOption }}" @if($yearOption == $year)class="active"@endif>{{ $yearOption }}</a></li>
+      @endforeach
+      </ul>
+    </section>
+
     @php 
       $hallOfShameList = App::getHallOfShame();
       $allStarList = App::getAllStars(); 

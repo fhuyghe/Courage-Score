@@ -50,7 +50,6 @@ export default {
                 },
             });
 
-            console.log(districtUrl, response);
             var bbox = turf.bbox(response);
             map.fitBounds(bbox, {padding: 20});
         });
@@ -93,14 +92,84 @@ export default {
         $('#topics').on('change', function () {
             var val = $(this).val();
             voteTable
-                .column(0)
+                .column(2)
                 .search( val ? val : '', true, false )
                 .draw();
         });
 
         //Filter by year
-        $('#yearsFilter').on('change', function () {
-            let val = $(this).val();
+        $('#yearsFilter a').on('click', function () {
+            let val = $(this).data('year');
+            let postID = $('#yearsFilter').data('id');
+
+            $('#yearsFilter a').removeClass('active');
+            $(this).addClass('active');
+
+            
+            //Get new score
+            let score = 0
+            $('#general').css('opacity', .5);
+
+            $.ajax({
+                url : ajax_object.ajax_url,
+                data : {
+                  action: 'get_scores',
+                  postID: postID,
+                },
+              })
+                .done(function (res) {
+                    if (val) {
+                        res.data.forEach(row => {
+                            if (row.years == val ) {
+                                score = row.score;
+                            }
+                        });
+                        
+                    } else {
+                        //Calculate the average
+                        let sum = 0;
+                        res.data.forEach(row => {
+                            sum += parseInt(row.score);
+                        });
+                        score = Math.round(sum / res.data.length);
+                    }
+
+                    //Add new score                   
+                    $('.score').html(score);
+
+                    //Get new grade
+                    let color = '';
+                    let letter = '';
+                    if ( score == 'na' || !score ){
+                        color = 'grey';
+                        letter = 'N/A';
+                    } else if (score < 60){
+                        color = 'red';
+                        letter = 'F';
+                    } else if(score < 70 && score > 59){
+                        color = 'orange';
+                        letter = 'D';
+                    } else if(score < 80 && score > 69){
+                        color = 'yellow';
+                        letter = 'C';
+                    } else if(score < 90 && score > 79){
+                        color = 'green';
+                        letter = 'B';
+                    } else if( score > 89){
+                        color = 'blue';
+                        letter = 'A';
+
+                        if(score == 100){
+                            letter = 'A+';
+                        }
+                    }
+                    let grade = $('.grade')
+                    grade.attr('class', 'grade ' + color);
+                    grade.html(letter);
+                    $('#general').css('opacity', 1);
+              });
+
+            //Update years
             voteTable
                 .column(1)
                 .search( val ? val : '', true, false )

@@ -2,17 +2,6 @@
     <div id="tableTop">
       <h2>Votes</h2>
 
-      <select id="yearsFilter">
-        <option value="{{ $year }}" selected>{{ $year }}</option>
-
-        @php $allYears = array_keys($votes) @endphp
-        @foreach ($allYears as $otherYear)
-          @if($otherYear < $year)
-            <option value="{{ $otherYear }}">{{ $otherYear }}</option>
-          @endif
-        @endforeach
-      </select>
-
       @php $topics = get_terms('vote-topic') @endphp
       <select id="topics">
         <option value="" selected>Filter by topic</option>

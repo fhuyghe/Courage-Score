@@ -44,6 +44,7 @@
         background-color: theme-color(grey);
         border-radius: 10px;
         padding: $grid-gutter;
+        transition: .5s;
 
         .rep-block{
             padding: 0;
@@ -76,6 +77,40 @@
 
         .color-red{
             color: theme-color(red);
+        }
+
+        #yearsFilter{
+            ul{
+                padding: 0;
+                margin: 0;
+                list-style: none;
+                text-transform: uppercase;
+
+                li{
+                    border-right: 1px solid theme-color(darkgrey);
+                    display: inline-block;
+                    padding: 2px 10px;
+
+                    &:first-child{
+                        padding-left: 0;
+                    }
+                    
+                    &:last-child{
+                        border-right: 0;
+                    }
+
+                    a{
+                        color: theme-color(darkgrey);
+                        transition: .25s;
+                        cursor: pointer;
+                        
+                        &.active,
+                        &:hover{
+                            color: theme-color(black);
+                        }
+                    }
+                }
+            }
         }
 
         
@@ -184,10 +219,8 @@
             li{
                 display: block;
                 margin-bottom: 5px;
-
-                a{
-                    text-transform: uppercase;
-                }
+                text-transform: uppercase;
+                font-weight: 600;
             }
         }
     }
