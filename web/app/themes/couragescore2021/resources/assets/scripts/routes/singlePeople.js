@@ -4,6 +4,8 @@ import '@fancyapps/fancybox/dist/jquery.fancybox'
 import * as turf from '@turf/turf'
 import actionkit from '../util/actionkit'
 
+// /*global google*/
+
 export default {
     init() {
         
@@ -27,17 +29,47 @@ export default {
 
     // Get Legislator info
     const districtNumber = $('.district').html();
-    const senateAssembly = $('.body').html() == 'assembly' ? 0 : 1;
+        const senateAssembly = $('.body').html() == 'assembly' ? 0 : 1;
 
     //Add their layer to the map
         let districtUrl = 'https://map.dfg.ca.gov/arcgis/rest/services/Political/boundaries/MapServer/' + senateAssembly + '/query?where=district%3D' + districtNumber + '&f=geojson';
+        
+        // $.ajax({
+        //     url : '../../app/themes/couragescore2021/resources/assets/geo/assembly/district-1.txt',
+        //     dataType: 'text',
+        //     success : function (data) {
+        //         let districtCoords = [eval(data)];
+        //         var districtPolygon = new google.maps.Polygon({
+        //             paths: districtCoords,
+        //             strokeColor: '#FF0000',
+        //             strokeOpacity: 0.8,
+        //             strokeWeight: 2,
+        //             fillColor: '#FF0000',
+        //             fillOpacity: 0.35,
+        //         });
+        //         console.log(districtPolygon)
+        //         var myMap = new google.maps.Map($('.textwidget'));
+        //         districtPolygon.setMap(myMap);
+                
+        //         myMap.data.togeoJSON(function (res) { 
+        //             console.log(res);
+        //         });
+        //     },
+        // });
 
         $.getJSON(districtUrl, function (response) {
             console.log(districtUrl, response);
-
+            drawMap(map, response);
+        }).fail(function () {
+            //Rely on local maps to get the info
+            
+        });
+    });
+        
+        function drawMap(map, mapJSON) {
             map.addSource('districts', {
                 'type': 'geojson',
-                'data': response,
+                'data': mapJSON,
             });
             
             map.addLayer({
@@ -51,10 +83,9 @@ export default {
                 },
             });
 
-            var bbox = turf.bbox(response);
+            var bbox = turf.bbox(mapJSON);
             map.fitBounds(bbox, {padding: 20});
-        });
-    });
+        }
         
     // Votes Table
     
@@ -89,7 +120,7 @@ export default {
 
         voteTable
                 .column(1)
-                .search( $('#yearsFilter').val() , true, false )
+                .search( $('#yearsFilter a.active').data('year') , true, false )
                 .draw();
 
         //Filter by Topic
