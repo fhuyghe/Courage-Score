@@ -1,7 +1,8 @@
 @php global $post @endphp
 
 <section id="tableWrap">
-  <div class="filters">
+  <div class="tableToggle">
+    <button id="">All</button>
     <button id="assembly" class="active">Assembly</button>
     <button id="senate">Senate</button>
   </div>

@@ -11,7 +11,7 @@
       </select>
     </div>
 
-    <div id="floorCommittee">
+    <div id="floorCommittee" class="tableToggle">
       <button data-val="floor_votes" class="active">Floor Vote</button>
       <button data-val="committee_votes">Committee Vote</button>  
     </div>

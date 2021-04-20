@@ -126,6 +126,7 @@ table{
         font-weight: 400;
         text-transform: uppercase;
         font-size: .9em;
+        background-color: theme-color(grey);
     }
 
     td,
@@ -154,6 +155,22 @@ table{
     }
 }
 
+.tableToggle{
+    margin-top: $grid-gutter / 2;
+
+    button{
+        border: 0;
+        outline: 0;
+        background: theme-color(white);
+        padding: 5px 10px;
+
+        &.active{
+            background: theme-color(black);
+            color: theme-color(white);
+        }
+    }
+}
+
 .dataTables_wrapper{
     .dataTables_length{
         display: none;
@@ -161,6 +178,33 @@ table{
 
     .dataTables_info{
         color: theme-color(darkgrey);
+    }
+
+    .dataTables_filter{
+        position: absolute;
+        right: 0;
+        top: -5px;
+        transform: translateY(-100%);
+
+        label{
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        i{
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+        }
+
+        input{
+            padding-right: 25px;
+            border: 0;
+            &:hover{
+                background-color: theme-color(grey);
+            }
+        }
     }
     
     .dataTables_paginate {
@@ -278,6 +322,10 @@ table{
     }
 }
 
+.party{
+    text-transform: capitalize;
+}
+
 .rep-info{
     flex: 1;
 
@@ -292,10 +340,6 @@ table{
 
         tr{
             vertical-align: top;
-        }
-
-        .party{
-            text-transform: capitalize;
         }
     }
 }

@@ -10,7 +10,7 @@
       <tbody>
         <tr>
           <td class="district">{{ get_field('district', $post->ID) }}</td>
-          <td class="party">{{ get_field('party', $post->ID) == 'democrat' ? 'D' : 'R' }}</td>
+          <td class="party">{{ get_field('party', $post->ID)[0] }}</td>
           <td>@include('partials.score-display')</td>
         </tr>
       </tbody>

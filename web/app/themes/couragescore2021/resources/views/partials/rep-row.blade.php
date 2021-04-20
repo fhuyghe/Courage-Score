@@ -12,7 +12,7 @@
         {{ get_field('district') }}
     </td>
     <td class="party">
-        {{ get_field('party') == 'democrat' ? 'D' : 'R' }}
+        {{ get_field('party')[0] }}
     </td>
     <td>
         @include('partials.score-display')
