@@ -15,9 +15,9 @@
         <div id="social">
           @include('partials.social-links')
         </div>
-        <div id="languages">
+        {{-- <div id="languages">
           {!! App\languages_list() !!}
-        </div>
+        </div> --}}
       </div>
       <button class="hamburger hamburger--arrow" type="button">
         <span class="hamburger-box">
@@ -32,9 +32,9 @@
         @endif
       </nav>
       @include('partials.social-links')
-      <div id="languages">
+      {{-- <div id="languages">
         {!! App\languages_list() !!}
-      </div>
+      </div> --}}
     </div>
   </div>
 </header>
