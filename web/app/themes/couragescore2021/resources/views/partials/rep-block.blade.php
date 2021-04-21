@@ -7,7 +7,9 @@
     @include('partials.rep-info')
     <div class="portrait">
       <div class="portrait-wrap">
-      {!! get_the_post_thumbnail( $post->ID, 'thumbnail' );  !!}
+        <a href="{{ get_the_permalink($post->ID) }}">
+          {!! get_the_post_thumbnail( $post->ID, 'thumbnail' );  !!}
+        </a>      
       </div>
     </div>
   </div>

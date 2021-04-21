@@ -85,6 +85,10 @@
         &.active{
             display: block;
         }
+
+        h5{
+            margin-bottom: $grid-gutter * 2;;
+        }
     }
 
     #about{
