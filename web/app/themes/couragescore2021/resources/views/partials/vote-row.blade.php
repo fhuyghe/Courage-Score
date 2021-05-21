@@ -41,7 +41,11 @@
                 <span class="square grey">N/A</span>
                 @break
             @case('a')
-                <span class="square yellow">No Vote</span>
+                @if($vote['excused'])
+                    <span class="square grey">Excused</span>
+                @else
+                    <span class="square yellow">No Vote</span>
+                @endif
                 @break
             @case('n')
                 <span class="square {{ $opposed ? 'green' : 'red' }}">Oppose</span>
