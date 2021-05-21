@@ -5,7 +5,21 @@ export default {
 
     // JavaScript to be fired on all pages
 
-    //Hmaburger
+    // Newsletter
+    $('input[type="submit"]').on('click', function () {
+      // Get the parent wrap
+      let parentWrap = $(this).parents('.newsletter-wrap');
+      
+      // the form is hidden, display success
+      setTimeout(function () {
+        if ($('.actionkit-widget', parentWrap).is(':hidden')) {
+          $('.signup-success', parentWrap).show();
+        }
+       }, 1000)
+      
+    })
+
+    //Hamburger
     $('.hamburger').on('click', function () {
       $(this).toggleClass('is-active');
       $('.nav-wrap').toggleClass('active');
