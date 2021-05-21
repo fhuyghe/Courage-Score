@@ -545,3 +545,53 @@ div.grade{
         }
     }
 }
+
+// Popup Builder
+#sgpb-popup-dialog-main-div{
+    border-radius: 0;
+    background-color: theme-color(grey)!important;
+    background-image: url('../images/email-popup.png');
+    background-size: cover;
+    background-position: center;
+    box-shadow: none!important;
+    border-bottom: 0!important;
+    width: 700px!important;
+
+    .sg-popup-builder-content{
+        padding: $grid-gutter * 2 $grid-gutter;
+
+        .sgpb-popup-builder-content-html{
+            text-align: center;
+            max-width: 400px;
+            margin: auto;
+        }
+    }
+
+    #actionkit-embed-form{
+        input{
+            width: 100%;
+            font-size: .8em;
+            padding: 5px;
+
+            &[type="email"]{
+                text-align: center;
+                border-bottom-color: theme-color(black);
+            }
+
+            &[type="submit"]{
+                background: theme-color(black);
+                color: theme-color(white);
+                border: 0;
+            }
+        }
+    }
+}
+
+.sgpb-popup-close-button-1{
+    bottom: auto!important;
+    top: 9px;
+}
+
+.sgpb-popup-overlay{
+    background: none;
+}
