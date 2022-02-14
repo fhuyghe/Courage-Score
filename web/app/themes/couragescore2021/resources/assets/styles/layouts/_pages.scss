@@ -456,11 +456,12 @@
 //Legislator Blocks
 .rep-block{
     background-color: theme-color(grey);
-    padding: $grid-gutter;
+    padding: $grid-gutter / 2;
     margin-bottom: $grid-gutter;
     scroll-margin-top: $headerHeight + $grid-gutter;
-
+    
     @include media-breakpoint-up(md){
+        padding: $grid-gutter;
         scroll-margin-top: $headerHeightDesktop + $grid-gutter;
     }
 
@@ -486,7 +487,7 @@
 
         @include media-breakpoint-up(lg){
             flex-flow: column wrap;
-            max-height: 170px;
+            max-height: 250px;
             align-content: space-between;
 
             .rep-name-title{
