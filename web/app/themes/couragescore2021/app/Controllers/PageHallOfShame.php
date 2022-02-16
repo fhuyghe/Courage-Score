@@ -10,6 +10,7 @@ class PageHallOfShame extends Controller
         $data = [];
 
         $data['hallOfShame'] = get_field('people_list');
+        $data['dishonorable_mentions'] = get_field('dishonorable_mentions');
 
 	    return $data;
     }

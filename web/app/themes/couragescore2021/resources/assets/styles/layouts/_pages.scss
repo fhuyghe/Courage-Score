@@ -232,34 +232,6 @@
         }
     }
 
-    #honorableMentions{
-        .rep-block{
-            background-color: transparent;
-
-            .portrait{
-                width: 100%;
-            }
-
-            h3{
-                font-family: $gilam;
-                font-weight: 600;
-                font-size: 1.5em;
-                margin: $grid-gutter / 2 0;
-            }
-
-            h5{
-                font-family: $gilam;
-                font-size: .8em;
-                text-transform: uppercase;
-                margin-bottom: 0;
-            }
-
-            p{
-                line-height: 1;
-            }
-        }
-    }
-
     .main section{
         padding: 50px 0;
         
@@ -328,6 +300,37 @@
             .photo{
                 flex: 0 0 70px;
                 margin: $grid-gutter / 3;
+            }
+        }
+    }
+
+    #dishonorableMentions,
+    #honorableMentions{
+        margin-top: $grid-gutter * 2;
+        
+        .rep-block{
+            background-color: transparent;
+
+            .portrait{
+                width: 100%;
+            }
+
+            h3{
+                font-family: $gilam;
+                font-weight: 600;
+                font-size: 1.5em;
+                margin: $grid-gutter / 2 0;
+            }
+
+            h5{
+                font-family: $gilam;
+                font-size: .8em;
+                text-transform: uppercase;
+                margin-bottom: 0;
+            }
+
+            p{
+                line-height: 1;
             }
         }
     }

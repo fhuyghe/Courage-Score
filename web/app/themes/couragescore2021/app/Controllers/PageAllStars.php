@@ -10,6 +10,7 @@ class PageAllStars extends Controller
         $data = [];
 
         $data['allStars'] = get_field('people_list');
+        $data['honorable_mentions'] = get_field('honorable_mentions');
 
 	    return $data;
     }
