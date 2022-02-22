@@ -235,6 +235,26 @@ function load_votes_menu_callback() {
 }
 add_action('admin_menu', __NAMESPACE__ . '\\load_votes_submenu');
 
+/************************* */
+//Load Scores Submenu page
+/************************* */
+function load_scores_submenu() {
+    add_submenu_page(
+        'tools.php',
+        'Load Scores',
+        'Load Scores',
+        'manage_options',
+        'load-scores',
+        __NAMESPACE__ . '\\load_scores_menu_callback',
+        null
+    );
+}
+
+function load_scores_menu_callback() {
+    echo template('partials.admin-load-scores');
+}
+add_action('admin_menu', __NAMESPACE__ . '\\load_scores_submenu');
+
 
 if ( function_exists( 'add_theme_support' ) ) {
 	add_theme_support( 'post-thumbnails' );

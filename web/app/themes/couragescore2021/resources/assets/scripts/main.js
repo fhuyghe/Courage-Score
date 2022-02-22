@@ -11,6 +11,7 @@ import home from './routes/home';
 import aboutUs from './routes/about';
 import singlePeople from './routes/singlePeople';
 import allRepresentatives from './routes/allRepresentatives';
+import templateCustomScore from './routes/customScore';
 import bills from './routes/bills';
 
 /** Populate Router instance with DOM routes */
@@ -24,6 +25,7 @@ const routes = new Router({
   singlePeople,
   allRepresentatives,
   bills,
+  templateCustomScore,
 });
 
 // Load Events

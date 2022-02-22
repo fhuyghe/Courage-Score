@@ -115,6 +115,33 @@ function get_bills_by_scorecard(){
 }
 add_action('wp_ajax_get_bills_by_scorecard', __NAMESPACE__ .'\\get_bills_by_scorecard' );
 
+// GET SCORES BY SCORECARD
+function get_scores_by_scorecard(){
+     set_time_limit(0);
+    /*** API Request ***/ 
+    $authorization = "Authorization: apikey " . BILLTRACK_API;
+    
+    $url = 'https://www.billtrack50.com/BT50Api/2.0/json/Scorecards/'. $_GET['scorecardID'] .'/legislators';
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    $response = curl_exec($ch);
+
+    curl_close($ch);
+    $response_a = json_decode($response);
+
+    $legislators = $response_a->legislators;
+    //$bill_list_full = $bill_list_full + $bills;
+
+    wp_send_json_success($legislators);
+}
+add_action('wp_ajax_get_scores_by_scorecard', __NAMESPACE__ .'\\get_scores_by_scorecard' );
+
 function get_bill_summary($bill_id){
     /*** API Request ***/ 
     $authorization = "Authorization: apiKey " . BILLTRACK_API;
@@ -162,6 +189,59 @@ function get_bill_votes($bill_id){
     //return $response_a;
     return $votes_arr;
 }
+
+/*******************/
+// UPDATE SCORES
+/*******************/
+
+function update_score(){
+
+    $legislator = $_GET['legislator'];
+    $scorecard =  $_GET['scorecard'];
+    
+    // Find out if bill is in the DB
+    $legislator_query = new \WP_Query(array(
+        'post_type'         => 'people',
+        'post_status'       => array('draft', 'publish'),
+        'meta_query'        => array(
+            array(
+                'key' => 'billtrack_id',
+                'value' => $legislator['legislatorID'],
+                'compare' => '=',
+            )
+        )
+    ));
+    $wp_legislator = $legislator_query->posts[0];
+
+    if(!$legislator_query->have_posts()) wp_send_json_error('No legislator');
+
+    //Add score to legislator
+    $row = array(
+        'name'   => $scorecard,
+        'score'   => floor($legislator['voteIndex']),
+    );
+
+    // Get existing alternate scores
+    $rows = get_field('alternate_scores', $wp_legislator->ID);
+    
+    if($rows){
+        foreach($rows as $key=>$val){
+            if($val['name'] == $scorecard){
+                // Update the value
+                update_row('alternate_scores', $key + 1, $row, $wp_legislator->ID);
+                wp_send_json_success('Updated');
+            }
+        }
+    }
+    
+    // Create the row
+    add_row('alternate_scores', $row,  $wp_legislator->ID);
+    wp_send_json_success('Created');
+}
+
+add_action('wp_ajax_update_score', __NAMESPACE__ .'\\update_score' );
+add_action('wp_ajax_nopriv_update_score', __NAMESPACE__ .'\\update_score' );
+    
 
 /*******************/
 // UPDATE BILLS

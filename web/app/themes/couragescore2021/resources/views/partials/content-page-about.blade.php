@@ -1,6 +1,6 @@
 @php the_content() @endphp
 
-<section id="endorsers">
+{{-- <section id="endorsers">
     <h2>Endorsers</h2>
     <div class="row logos-wrap">
         @foreach ($data['logos'] as $logo)
@@ -11,4 +11,4 @@
             </div>
         @endforeach
     </div>
-</section>
+</section> --}}
