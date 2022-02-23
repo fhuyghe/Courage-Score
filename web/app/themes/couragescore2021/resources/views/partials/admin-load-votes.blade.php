@@ -48,9 +48,13 @@ $scorecards = $scorecardsImport->scorecards;
                 success: function (response) {
                     console.log(response);
                     currentNumber = parseInt($('#voteNumber').html());
-                    $('#voteNumber').html(currentNumber + response.data.votes.length);
-                    $('#previewTitle').html(' Votes');
-                    $('#previewList').append('<li>' + response.data.name + ' - ' + response.data.votes.length + ' votes</li>');
+                    if(response.data.votes){
+                        $('#voteNumber').html(currentNumber + response.data.votes.length);
+                        $('#previewTitle').html(' Votes');
+                        $('#previewList').append('<li>' + response.data.name + ' - ' + response.data.votes.length + ' votes</li>');
+                    } else {
+                        $('#previewList').append('<li>' + response.data.name + ' - no votes</li>');
+                    }
 
                     if(response.success){
                         update_one();
