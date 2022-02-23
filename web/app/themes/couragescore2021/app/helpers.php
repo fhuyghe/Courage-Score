@@ -299,6 +299,9 @@ function get_industry($tag){
         case 'realestate':
             $industry = 'Real Estate';
             break;
+        case 'healthinsurance':
+            $industry = 'Health Insurance';
+            break;
         }
 
     return $industry;

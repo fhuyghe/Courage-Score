@@ -405,7 +405,7 @@ function get_votes_by_scorecard_and_legislator_id($scorecardID, $person_id){
     /*** API Request ***/ 
     $authorization = "Authorization: apikey " . BILLTRACK_API;
     
-    $url = 'https://www.billtrack50.com/BT50Api/2.0/json/scorecards/'.$scorecardID.'/legislators/'. $person_id .'/votes';
+    $url = 'https://www.billtrack50.com/BT50Api/2.0/json/scorecards/'.$scorecardID. '/legislators/' . $person_id .'/votes';
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
@@ -476,7 +476,7 @@ function update_votes($scorecardID){
     }
 
     if(!$first_person) // too early to update
-    wp_send_json_error("all people entries are up to date");
+        wp_send_json_error("all people entries are up to date");
 
     update_field("last_update_attempt_ts", time(), $first_person->ID);
 
@@ -499,6 +499,7 @@ function update_votes($scorecardID){
                 'showposts'       => 1,
                 'post_status'       => array('draft', 'publish'),
             ));
+
             if($bills_query){
                 foreach($bills_query as $bill_post){
                     $billtrack_bill_id = get_field('billtrack_id',$bill_post->ID);
@@ -511,6 +512,7 @@ function update_votes($scorecardID){
                         $vote_label = 'a';
                     }
                     $vote_date = date("Ymd", strtotime($vote->voteDate));
+
                     if(have_rows('voting_history', $bill_post->ID)){
                         while (have_rows('voting_history',$bill_post->ID)) {
                             the_row();
