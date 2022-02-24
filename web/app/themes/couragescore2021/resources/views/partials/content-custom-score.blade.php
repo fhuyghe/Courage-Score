@@ -1,7 +1,9 @@
 @php global $post @endphp
 @php $score_select = get_field('score') @endphp
 
-@php the_content() @endphp
+<div class="intro">
+  @php the_content() @endphp
+</div>
 
 <section id="tableWrap">
   <div class="tableToggle">
