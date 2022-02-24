@@ -1,6 +1,8 @@
 @php global $post @endphp
 @php $score_select = get_field('score') @endphp
 
+@php the_content() @endphp
+
 <section id="tableWrap">
   <div class="tableToggle">
     <button id="">All</button>
@@ -16,7 +18,7 @@
       <th>Party</th>
       <th>Score</th>
       <th>Grade</th>
-    </tr>
+    </tr> 
   </thead>
   <tbody>
     @foreach($representatives as $post)
