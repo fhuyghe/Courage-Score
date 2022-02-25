@@ -11,7 +11,8 @@
       <h3><a href="{{ get_permalink($repObject) }}">{{ $title }} {!! $repObject->post_title !!}</a></h3>
 
       <h5>Score</h5>
-      <p> {{ $repObject->post_title }}</p>
+      @php $score = App\get_score($repObject); @endphp
+      <p>{{ $score }}</p>
 
       <h5>Party</h5>
       <p>@if(get_field('party', $repObject) == 'democrat') D @else R @endif</p>
