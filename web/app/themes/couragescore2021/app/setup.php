@@ -363,8 +363,35 @@ function Partners_custom_init()
     'hierarchical' => false,
     'menu_position' => null,
     'supports' => array('title','thumbnail'),
+    'taxonomies' => array('partner-category')
   ); 
   register_post_type('partner',$args);
+}
+
+add_action( 'init',  __NAMESPACE__ . '\\create_partner_taxonomies' );
+function create_partner_taxonomies() 
+{
+  // Add new taxonomy, make it hierarchical (like categories)
+  $labels = array(
+    'name' => _x( 'Categories', 'taxonomy general name' ),
+    'singular_name' => _x( 'Category', 'taxonomy singular name' ),
+    'search_items' =>  __( 'Search Categories' ),
+    'all_items' => __( 'All Categories' ),
+    'parent_item' => __( 'Parent Category' ),
+    'parent_item_colon' => __( 'Parent Category:' ),
+    'edit_item' => __( 'Edit Category' ), 
+    'update_item' => __( 'Update Category' ),
+    'add_new_item' => __( 'Add New Category' ),
+    'new_item_name' => __( 'New Category Name' ),
+    'menu_name' => __( 'Categories' ),
+  );    
+
+  register_taxonomy('partner-category','partner', array(
+    'public'=>true,
+    'hierarchical' => true,
+    'labels' => $labels,
+    'show_ui' => true,
+    ));
 }
 
 
