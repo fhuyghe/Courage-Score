@@ -18,7 +18,7 @@
       <p>@if(get_field('party', $repObject) == 'democrat') D @else R @endif</p>
 
       <h5>District</h5>
-      <p>{{ $rep['district'] }}</p>
+      <p>{{ get_field('district', $repObject) }}</p>
 
     </div>
   @else
