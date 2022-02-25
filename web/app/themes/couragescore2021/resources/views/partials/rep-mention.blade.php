@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="rep-name-title">
-      @php $title = get_field('senate_or_assembly', $repObject->ID) == 'senate' ? 'Sen.' : 'Assm.' @endphp
+      @php $title = get_field('senate_or_assembly', $repObject->ID) == 'senate' ? 'Sen.' : 'Asm.' @endphp
       <h3><a href="{{ get_permalink($repObject) }}">{{ $title }} {!! $repObject->post_title !!}</a></h3>
 
       <h5>Score</h5>
