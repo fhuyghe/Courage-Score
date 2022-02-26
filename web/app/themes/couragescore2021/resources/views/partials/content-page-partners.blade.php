@@ -30,17 +30,19 @@ endforeach;
                     @else
                     <h3>{{ the_title() }}</h3>
                     @endif
-                    </a>
-
-                    @php $scorecard_link = get_field('scorecard_link') @endphp
-                    @if($scorecard_link)
-                    <p>
-                        <a href="{{ $scorecard_link }}" target="blank">
-                            Scorecard
-                        </a>
-                    </p>
-                    @endif
-                </div>
+                </a>
+                
+                @php $scorecard_link = get_field('scorecard_link') @endphp
+                @if($scorecard_link)
+                @if(has_term("official", "partner-category"))
+                <p>
+                            <a href="{{ $scorecard_link }}" target="blank">
+                                Scorecard
+                            </a>
+                        </p>
+                        @endif
+                        @endif
+                    </div>
                 @php wp_reset_postdata($post) @endphp
             @endforeach
         </div>
