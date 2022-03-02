@@ -19,21 +19,23 @@
     </div>
     
     <div class="rep-info">
+    
       <div>
-        <h5>Score</h5>
-        @php $score = App\get_score($repObject); @endphp
-        <p>{{ $score }}</p>
-      </div>
+        <h5>District</h5>
+        <p>{{ get_field('district', $repObject) }}</p>
+      </div>      
       
       <div>
         <h5>Party</h5>
         <p>@if(get_field('party', $repObject) == 'democrat') D @else R @endif</p>
       </div>
-      
+
       <div>
-        <h5>District</h5>
-        <p>{{ get_field('district', $repObject) }}</p>
+        <h5>Score</h5>
+        @php $score = App\get_score($repObject); @endphp
+        <p>{{ $score }}</p>
       </div>
+
     </div>
     </div>
   @else
