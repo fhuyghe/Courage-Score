@@ -328,19 +328,24 @@ table{
 
 .rep-info{
     flex: 1;
+    display: flex;
+    border-top: 1px solid theme-color(darkgrey);
+    padding-top: 10px;
 
-    table{
-        width: 100%;
-        border-top: 1px solid theme-color(darkgrey);
+    &>div{
+        flex: 1;
+    }
 
-        th{
-            padding-top: 10px;
-            padding-left: 0;
-        }
+    h5{
+        font-family: $gilam;
+        font-size: .8em;
+        text-transform: uppercase;
+        margin-bottom: 0;
+    }
 
-        tr{
-            vertical-align: top;
-        }
+    p{
+        line-height: 1;
+        margin-bottom: 0;
     }
 }
 

@@ -312,28 +312,27 @@
         }
         
         .rep-block{
-            background-color: transparent;
+            display: flex;
+            flex-direction: row-reverse;
 
-            .portrait{
-                width: 100%;
+            .rep-content{
+                flex: 1;
+                padding-right: 20px;
             }
 
             h3{
                 font-family: $gilam;
                 font-weight: 600;
                 font-size: 1.5em;
-                margin: $grid-gutter / 2 0;
+                margin: 0;
             }
 
-            h5{
-                font-family: $gilam;
-                font-size: .8em;
-                text-transform: uppercase;
-                margin-bottom: 0;
+            h4{
+                margin-bottom: $grid-gutter / 2;
             }
 
-            p{
-                line-height: 1;
+            .explanation{
+                margin: -10px 0 10px;
             }
         }
     }
@@ -495,7 +494,7 @@
 
         @include media-breakpoint-up(lg){
             flex-flow: column wrap;
-            max-height: 250px;
+            max-height: 240px;
             align-content: space-between;
 
             .rep-name-title{
@@ -549,6 +548,13 @@
             font-weight: 400;
             font-size: 1em;
             margin-bottom: 5px;
+        }
+
+        h5{
+            font-family: $gilam;
+            font-size: .8em;
+            text-transform: uppercase;
+            margin-bottom: 0;
         }
 
         h4{

@@ -31,7 +31,7 @@
       </div>
         <div id="honorableWrap" class="row">
         @foreach ($dishonorableMentions['representatives'] as $rep)
-            <div class="col-md-4">
+            <div class="col-md-6">
               @include('partials.rep-mention')
             </div>
         @endforeach
