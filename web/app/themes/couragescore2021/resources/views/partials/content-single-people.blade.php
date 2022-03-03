@@ -91,11 +91,7 @@ $senateAssembly = get_field('senate_or_assembly');
       </ul>
     </section>
 
-    @php 
-      $hallOfShameList = App::getHallOfShame();
-      $allStarList = App::getAllStars(); 
-    @endphp
-    @if(in_array($post, $hallOfShameList) || in_array($post, $allStarList))
+    @if($data['additional_text'])
       <div class="entry-content">
         {!! $data['additional_text'] !!}
       </div>
