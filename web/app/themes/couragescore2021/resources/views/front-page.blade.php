@@ -88,4 +88,23 @@
   </section>
   @endif
 
+  {{-- Custom Scorecard --}}
+  @php $scorecardBanner = $data['custom_scorecard_banner'] @endphp
+  @if($scorecardBanner)
+  <section id="scorecardBanner">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 image">
+          <img src="{{ $scorecardBanner['image']['url'] }}"/>
+        </div>
+        <div class="col-md-6 text">
+          <h2>{{ $scorecardBanner['title'] }}</h2>
+          <p>{!! $scorecardBanner['text'] !!}</p>
+          <a class="button" href="{{ $scorecardBanner['link'] }}">{{ $scorecardBanner['button_text'] }}</a>
+        </div>
+      </div>
+      </div>
+  </section>
+  @endif
+
 @endsection
