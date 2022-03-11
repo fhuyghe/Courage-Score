@@ -38,22 +38,22 @@ $senateAssembly = get_field('senate_or_assembly');
           </div>
         </div>
         <div class="rep-info">
-          <table>
-            <thead>
-              <tr>
-                <th>District</th>
-                <th>Party</th>
-                <th>Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td >{{ $senateAssembly == 'senate' ? 'SD' : 'AD' }}-<span class="district">{{ get_field('district', $post->ID) }}</span></td>
-                <td class="party">{{ get_field('party', $post->ID) }}</td>
-                <td>@include('partials.score-display')</td>
-              </tr>
-            </tbody>
-          </table>
+          <div>
+            <h5>District</h5>
+            <p class="district">
+              {{ $senateAssembly == 'senate' ? 'SD' : 'AD' }}-<span class="district">{{ get_field('district', $post->ID) }}</span>
+            </p>
+          </div>
+          
+          <div>
+            <h5>Party</h5>
+            <p class="party">{{ get_field('party', $post->ID) }}</p>
+          </div>
+          
+          <div>
+            <h5>Score</h5>
+            @include('partials.score-display')
+          </div>
       </div>
       </div>
       <div id="mapContainer"></div>
