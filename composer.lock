@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "aa1584c438cc007cba3fa1210a13f7e4",
+    "content-hash": "6d8f43c61a1c033240a24258bc453d8e",
     "packages": [
         {
             "name": "13milliseconds/sitepress-multilingual-cms",
@@ -119,7 +119,7 @@
         },
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
-            "version": "5.9.6",
+            "version": "5.12.1",
             "dist": {
                 "type": "zip",
                 "url": "https://connect.advancedcustomfields.com/index.php?a=download&p=pro&k={%ACF_PRO_KEY}&t={%version}"
@@ -283,10 +283,10 @@
         },
         {
             "name": "deliciousbrains-plugin/wp-migrate-db-pro",
-            "version": "1.9.14",
+            "version": "2.2.2",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.deliciousbrains.com/?wc-api=delicious-brains&request=composer_download&package=wp-migrate-db-pro&version=1.9.14&composer_key=8DAF13E16CC13B06BE314F3D5684DA29"
+                "url": "https://composer.deliciousbrains.com/?wc-api=delicious-brains&request=composer_download&package=wp-migrate-db-pro&version=2.2.2&composer_key=8DAF13E16CC13B06BE314F3D5684DA29"
             },
             "require": {
                 "composer/installers": "~1.0 || ~2.0"
@@ -295,10 +295,10 @@
         },
         {
             "name": "deliciousbrains-plugin/wp-migrate-db-pro-media-files",
-            "version": "1.4.16",
+            "version": "2.1.0",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.deliciousbrains.com/?wc-api=delicious-brains&request=composer_download&package=wp-migrate-db-pro-media-files&version=1.4.16&composer_key=8DAF13E16CC13B06BE314F3D5684DA29"
+                "url": "https://composer.deliciousbrains.com/?wc-api=delicious-brains&request=composer_download&package=wp-migrate-db-pro-media-files&version=2.1.0&composer_key=8DAF13E16CC13B06BE314F3D5684DA29"
             },
             "require": {
                 "composer/installers": "~1.0 || ~2.0"
@@ -1219,15 +1219,15 @@
         },
         {
             "name": "wpackagist-plugin/popup-builder",
-            "version": "3.84",
+            "version": "4.1.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/popup-builder/",
-                "reference": "tags/3.84"
+                "reference": "tags/4.1.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/popup-builder.3.84.zip"
+                "url": "https://downloads.wordpress.org/plugin/popup-builder.4.1.4.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -1237,15 +1237,15 @@
         },
         {
             "name": "wpackagist-plugin/wordpress-seo",
-            "version": "16.9",
+            "version": "18.4.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wordpress-seo/",
-                "reference": "tags/16.9"
+                "reference": "tags/18.4.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.16.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.18.4.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
