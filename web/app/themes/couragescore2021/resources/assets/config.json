@@ -1,9 +1,7 @@
 {
-  "headers": { "Access-Control-Allow-Origin": "*" },
   "entry": {
     "main": [
       "./scripts/main.js",
-      "./scripts/admin.js",
       "./styles/main.scss"
     ],
     "customizer": [
@@ -13,7 +11,7 @@
   "publicPath": "/app/themes/couragescore2021",
   "devUrl": "http://couragescore.test",
   "proxyUrl": "http://localhost:3004",
-  "cacheBusting": "[name]_[hash:8]",
+  "cacheBusting": "[name]_[contenthash]",
   "watch": [
     "app/**/*.php",
     "config/**/*.php",
