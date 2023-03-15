@@ -592,6 +592,17 @@
     }
 }
 
+//Donate Page
+.page.donate{
+    .wp-block-columns{
+        flex-direction: column-reverse;
+
+        @include media-breakpoint-up(md){
+            flex-direction: row;
+        }
+    }
+}
+
 // Custom Score
 .template-custom-score{
     .page-header{
