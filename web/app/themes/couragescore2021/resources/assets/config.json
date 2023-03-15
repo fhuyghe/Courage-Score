@@ -10,7 +10,7 @@
   },
   "publicPath": "/app/themes/couragescore2021",
   "devUrl": "http://couragescore.test",
-  "proxyUrl": "http://localhost:3004",
+  "proxyUrl": "http://localhost:3000",
   "cacheBusting": "[name]_[contenthash]",
   "watch": [
     "app/**/*.php",

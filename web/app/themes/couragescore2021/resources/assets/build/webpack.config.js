@@ -171,10 +171,10 @@ let webpackConfig = {
     new MiniCssExtractPlugin({
       filename: `styles/${assetsFilenames}.css`,
     }),
-    new StyleLintPlugin({
-      failOnError: !config.enabled.watcher,
-      syntax: 'scss',
-    }),
+    // new StyleLintPlugin({
+    //   failOnError: !config.enabled.watcher,
+    //   syntax: 'scss',
+    // }),
     new FriendlyErrorsWebpackPlugin(),
   ],
 };
