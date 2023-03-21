@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:13milliseconds/sitepress-multilingual-cms.git",
-                "reference": "9096b61dbdcd8ec977ddd4f84e8f715042459318"
+                "reference": "736d8a69b879149781f5443303166c6fd4f6b6fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/13milliseconds/sitepress-multilingual-cms/zipball/9096b61dbdcd8ec977ddd4f84e8f715042459318",
-                "reference": "9096b61dbdcd8ec977ddd4f84e8f715042459318",
+                "url": "https://api.github.com/repos/13milliseconds/sitepress-multilingual-cms/zipball/736d8a69b879149781f5443303166c6fd4f6b6fc",
+                "reference": "736d8a69b879149781f5443303166c6fd4f6b6fc",
                 "shasum": ""
             },
             "require": {
@@ -41,7 +41,7 @@
                 "source": "https://github.com/13milliseconds/sitepress-multilingual-cms/tree/master",
                 "issues": "https://github.com/13milliseconds/sitepress-multilingual-cms/issues"
             },
-            "time": "2023-03-16T16:16:05+00:00"
+            "time": "2023-03-21T16:47:27+00:00"
         },
         {
             "name": "13milliseconds/wpml-acfml",
@@ -5388,12 +5388,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "0aad20933686be0e30c54a0e1adf36b3b6dc7173"
+                "reference": "ea4755f8932eb1bd1c1152495811e9edb7cf3301"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0aad20933686be0e30c54a0e1adf36b3b6dc7173",
-                "reference": "0aad20933686be0e30c54a0e1adf36b3b6dc7173",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/ea4755f8932eb1bd1c1152495811e9edb7cf3301",
+                "reference": "ea4755f8932eb1bd1c1152495811e9edb7cf3301",
                 "shasum": ""
             },
             "conflict": {
@@ -5497,7 +5497,7 @@
                 "elgg/elgg": "<3.3.24|>=4,<4.0.5",
                 "encore/laravel-admin": "<=1.8.19",
                 "endroid/qr-code-bundle": "<3.4.2",
-                "enshrined/svg-sanitize": "<0.15",
+                "enshrined/svg-sanitize": "<0.16",
                 "erusev/parsedown": "<1.7.2",
                 "ether/logs": "<3.0.4",
                 "exceedone/exment": "<4.4.3|>=5,<5.0.3",
@@ -5605,6 +5605,7 @@
                 "kimai/kimai": "<1.1",
                 "kitodo/presentation": "<3.1.2",
                 "klaviyo/magento2-extension": ">=1,<3",
+                "knplabs/knp-snappy": "<=1.4.1",
                 "krayin/laravel-crm": "<1.2.2",
                 "kreait/firebase-php": ">=3.2,<3.8.1",
                 "la-haute-societe/tcpdf": "<6.2.22",
@@ -5973,7 +5974,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-15T23:04:16+00:00"
+            "time": "2023-03-20T21:03:58+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
