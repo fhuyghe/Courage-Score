@@ -1,0 +1,8 @@
+{
+    "search.useGlobalIgnoreFiles": true,
+    "search.useParentIgnoreFiles": true,
+    "files.exclude": {
+        "public/**": true,
+        "vendor": true
+    }
+}

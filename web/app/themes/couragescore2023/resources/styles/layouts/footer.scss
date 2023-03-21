@@ -1,0 +1,55 @@
+footer.content-info{
+    padding: $grid-gutter * 2 0;
+    border-top: 1px solid $black;
+
+    .copyright{
+        font-size: .8em;
+    }
+
+    .logo{
+        margin-bottom: 10px;
+
+        img{
+            max-height: 30px;
+        }
+    }
+
+    .contact{
+        font-size: .9em;
+        margin-bottom: 10px;
+    }
+
+    .newsletter-wrap{
+        margin-bottom: calc($grid-gutter / 2);
+        
+        form{
+            display: flex;
+        }
+
+        input{
+            padding: 5px 10px;
+            border-radius: 0;
+        }
+
+        input[type="text"]{
+            flex: 1;
+            border: 1px solid $grey;
+
+            &::placeholder{
+                color: $darkgrey;
+            }
+        }
+
+        input[type="submit"]{
+            background-color: $black;
+            color: $white;
+            border: 0;
+        }
+
+    }
+
+    .signup-title{
+        font-size: 1.1em;
+        margin-bottom: 5px;
+    }
+}
