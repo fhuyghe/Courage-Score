@@ -29,8 +29,8 @@ $gilam:"Gilam", sans-serif;
 
 @font-face {
   font-family: 'Gilam';
-  src: url('../../fonts/Gilam-Semibold.woff2') format('woff2'),
-      url('../../fonts/Gilam-Semibold.woff') format('woff');
+  src: url('~@fonts/Gilam-Semibold.woff2') format('woff2'),
+      url('~@fonts/Gilam-Semibold.woff') format('woff');
   font-weight: bold;
   font-style: normal; 
   font-display: swap;

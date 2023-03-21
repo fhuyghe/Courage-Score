@@ -12,7 +12,8 @@ domReady(async () => {
         
     //Maps
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZnJpZW5kc29mZnJpZW5kcyIsImEiOiJjajlldnkwbDIyODJmMnlsZ2Z2MjJrZGplIn0.uSr8TFD1-mXrGRfjt1_h5Q';
+    if ($('#mapContainer').length > 0){
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZnJpZW5kc29mZnJpZW5kcyIsImEiOiJjajlldnkwbDIyODJmMnlsZ2Z2MjJrZGplIn0.uSr8TFD1-mXrGRfjt1_h5Q';
     var map = new mapboxgl.Map({
     container: 'mapContainer',
     style: 'mapbox://styles/friendsoffriends/ckmf19pegd66m17p8xofezhuw',
@@ -65,11 +66,12 @@ domReady(async () => {
             
         });
     });
+}
         
         function drawMap(map, mapJSON) {
             map.addSource('districts', {
                 'type': 'geojson',
-                'data': mapJSON,
+                'data': mapJSON, 
             });
             
             map.addLayer({

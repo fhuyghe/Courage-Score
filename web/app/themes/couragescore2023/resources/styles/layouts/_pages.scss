@@ -155,27 +155,6 @@
                     }
                 }
             }
-                
-            @include media-breakpoint-up(md){
-
-                .rep-block{
-
-                    // &:nth-child(1),
-                    // &:nth-child(2),
-                    // &:nth-child(6){
-                    //     flex: 0 0 12.5%;
-                    //     max-width: 12.5%;
-                    // }
-    
-                    // &:nth-child(3){
-                    //     margin-top: $grid-gutter;
-                    // }
-    
-                    // &:nth-child(5){
-                    //     margin-top: $grid-gutter * 4;
-                    // }
-                }
-            }
         }
     }
 
@@ -337,13 +316,10 @@
         }
         
         .rep-block{
-            display: flex;
-            flex-direction: row-reverse;
-
-            .rep-content{
-                flex: 1;
-                padding-right: 20px;
-            }
+            grid-template-areas: 
+            "topInfo Photo"
+            "explanation explanation"
+            "bottomInfo bottomInfo";
 
             h3{
                 font-family: $gilam;
@@ -357,6 +333,7 @@
             }
 
             .explanation{
+                grid-area: explanation;
                 margin: -10px 0 10px;
             }
         }
@@ -498,38 +475,39 @@
     }
 
     .top{
-        display: flex;
-        flex-flow: row-reverse wrap;
-
+        display: grid; 
+        grid-template-areas: 
+        "topInfo Photo"
+        "bottomInfo bottomInfo";
+        grid-template-columns: auto 120px;
+        gap: 0 $grid-gutter;
+        
         .portrait{
-            flex: 0 0 120px;
-
+            grid-area: Photo;
         }
 
         .rep-name-title{
-            flex: 1;
-            margin-left: calc($grid-gutter / 2);
+            grid-area: topInfo;
         }
 
         .rep-info{
+            grid-area: bottomInfo;
             margin-top: 10px;
-            order: 3;
-            flex: 1 0 100%;
         }
 
         @include media-breakpoint-up(lg){
-            flex-flow: column wrap;
-            max-height: 240px;
-            align-content: space-between;
+
+            grid-template-areas: 
+            "topInfo Photo"
+            "bottomInfo Photo";
+            grid-template-columns: auto 120px;
 
             .rep-name-title{
                 margin-left: 0;
                 margin-right: 10px;
-                width: 68%;
             }
 
             .rep-info{
-                order: 0;
                 padding-right: $grid-gutter;
             }
         }

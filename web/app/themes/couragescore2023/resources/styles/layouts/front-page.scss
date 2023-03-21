@@ -145,27 +145,6 @@
                     }
                 }
             }
-                
-            @include media-breakpoint-up(md){
-
-                .rep-block{
-
-                    // &:nth-child(1),
-                    // &:nth-child(2),
-                    // &:nth-child(6){
-                    //     flex: 0 0 12.5%;
-                    //     max-width: 12.5%;
-                    // }
-    
-                    // &:nth-child(3){
-                    //     margin-top: $grid-gutter;
-                    // }
-    
-                    // &:nth-child(5){
-                    //     margin-top: $grid-gutter * 4;
-                    // }
-                }
-            }
         }
     }
 

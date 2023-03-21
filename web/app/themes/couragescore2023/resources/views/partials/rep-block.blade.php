@@ -5,6 +5,7 @@
   <div class="top">
     @include('partials.rep-name-title')
     @include('partials.rep-info')
+    
     <div class="portrait">
       <div class="portrait-wrap">
         <a href="{{ get_the_permalink($post->ID) }}">

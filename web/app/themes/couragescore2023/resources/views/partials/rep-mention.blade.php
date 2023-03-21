@@ -1,23 +1,24 @@
 @php $repObject = $rep['representative'] @endphp
 <div class="rep-block">
   @if($repObject)
-    <div class="portrait">
-      <div class="portrait-wrap">
-        {!! get_the_post_thumbnail($repObject, 'medium') !!}
-      </div>
+  <div class="portrait">
+    <div class="portrait-wrap">
+      {!! get_the_post_thumbnail($repObject, 'medium') !!}
     </div>
-    <div class="rep-content">
+  </div> 
+
     <div class="rep-name-title">
       <h3><a href="{{ get_permalink($repObject) }}">{!! $repObject->post_title !!}</a></h3>
       @php $title = get_field('senate_or_assembly', $repObject->ID) == 'senate' ? 'Senator' : 'Assembly Member' @endphp
       <h4>{{ $rep['former'] ? 'Former ' : '' }}{{ $title }}</h4>
-      @if($rep['explanation'])
-        <div class="explanation">
-          {{ $rep['explanation'] }}
-        </div>
-      @endif
-    </div>
+    </div> 
     
+    @if($rep['explanation'])
+      <div class="explanation">
+        {{ $rep['explanation'] }}
+      </div>
+    @endif
+
     <div class="rep-info">
     
       <div>
@@ -37,7 +38,7 @@
       </div>
 
     </div>
-    </div>
+  </div>
   @else
   <div class="portrait">
       <div class="portrait-wrap">

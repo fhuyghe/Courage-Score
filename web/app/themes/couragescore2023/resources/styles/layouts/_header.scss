@@ -163,6 +163,7 @@ header.banner{
 
 .hamburger{
   margin-right: calc($grid-gutter / 2);
+  width: 40px;
 
   @include media-breakpoint-up(md){
     display: none;

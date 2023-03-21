@@ -22,13 +22,13 @@ export default async (app) => {
      * Directory contents to be included in the compilation
      * @see {@link https://bud.js.org/docs/bud.assets/}
      */
-    .assets(['images'])
+    .assets(['images', 'fonts'])
 
     /**
      * Matched files trigger a page reload when modified
      * @see {@link https://bud.js.org/docs/bud.watch/}
      */
-    .watch(['resources/views', 'app'])
+    .watch(['resources/views', 'resources/views/partials', 'resources/styles', 'app'])
 
     /**
      * Proxy origin (`WP_HOME`)
