@@ -49,24 +49,8 @@
         .rep-block{
             padding: 0;
 
-            .portrait{
-                width: 100px;
-            }
-
             .top{
-                display: flex;
-                flex-flow: row wrap;
-                padding-bottom: $grid-gutter;
-
-                .grade-wrap{
-                    flex: 1;
-                    padding: 0 5px;
-                }
-
-                .rep-name-title{
-                    flex: 1;
-                    padding-right: $grid-gutter;
-                }
+                padding-bottom: $grid-gutter/2;
             }
         }
     }

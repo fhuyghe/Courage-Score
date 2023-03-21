@@ -316,10 +316,20 @@
         }
         
         .rep-block{
+            display: grid;
             grid-template-areas: 
             "topInfo Photo"
             "explanation explanation"
             "bottomInfo bottomInfo";
+            grid-template-columns: auto 120px;
+            gap: 0 $grid-gutter;
+
+            @include media-breakpoint-up(lg){
+                grid-template-areas: 
+                "topInfo Photo"
+                "explanation Photo"
+                "bottomInfo bottomInfo";
+            }
 
             h3{
                 font-family: $gilam;
@@ -334,7 +344,7 @@
 
             .explanation{
                 grid-area: explanation;
-                margin: -10px 0 10px;
+                padding: $grid-gutter / 2 0;
             }
         }
     }
@@ -474,6 +484,18 @@
         scroll-margin-top: $headerHeightDesktop + $grid-gutter;
     }
 
+    .portrait{
+        grid-area: Photo;
+    }
+
+    .rep-name-title{
+        grid-area: topInfo;
+    }
+
+    .rep-info{
+        grid-area: bottomInfo;
+    }
+
     .top{
         display: grid; 
         grid-template-areas: 
@@ -481,17 +503,7 @@
         "bottomInfo bottomInfo";
         grid-template-columns: auto 120px;
         gap: 0 $grid-gutter;
-        
-        .portrait{
-            grid-area: Photo;
-        }
-
-        .rep-name-title{
-            grid-area: topInfo;
-        }
-
         .rep-info{
-            grid-area: bottomInfo;
             margin-top: 10px;
         }
 

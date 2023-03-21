@@ -177,7 +177,7 @@ header.banner{
   }
 }
 
-@include media-breakpoint-down(sm){
+@include media-breakpoint-down(md){
   .nav-wrap{
     position: fixed;
     width: 100%;

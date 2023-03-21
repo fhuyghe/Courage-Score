@@ -28,7 +28,7 @@ export default async (app) => {
      * Matched files trigger a page reload when modified
      * @see {@link https://bud.js.org/docs/bud.watch/}
      */
-    .watch(['resources/views', 'resources/views/partials', 'resources/styles', 'app'])
+    .watch('resources/views', 'resources/styles', 'app')
 
     /**
      * Proxy origin (`WP_HOME`)

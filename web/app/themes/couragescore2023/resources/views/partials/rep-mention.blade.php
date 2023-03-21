@@ -20,7 +20,6 @@
     @endif
 
     <div class="rep-info">
-    
       <div>
         <h5>District</h5>
         <p>{{ get_field('district', $repObject) }}</p>
@@ -36,10 +35,10 @@
         @php $score = App\get_score($repObject); @endphp
         <p>{{ $score }}</p>
       </div>
-
     </div>
-  </div>
+
   @else
+  
   <div class="portrait">
       <div class="portrait-wrap">
          <img src="{{ $rep['photo']['url'] }}"/>
