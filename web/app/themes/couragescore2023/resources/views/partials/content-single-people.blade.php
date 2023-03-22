@@ -69,8 +69,9 @@ $senateAssembly = get_field('senate_or_assembly');
         <div class="rep-info">
           <div>
             <h5>District</h5>
-            <p class="district">
-              {{ $senateAssembly == 'senate' ? 'SD' : 'AD' }}-<span class="district">{{ get_field('district', $post->ID) }}</span>
+            @php $districtNumber = get_field('district', $post->ID) @endphp
+            <p class="district" data-number={{$districtNumber}}>
+              {{ $senateAssembly == 'senate' ? 'SD' : 'AD' }}-<span>{{ $districtNumber }}</span>
             </p>
           </div>
           

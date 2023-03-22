@@ -13,14 +13,15 @@ domReady(async () => {
     //Maps
 
     if ($('#mapContainer').length > 0){
-        mapboxgl.accessToken = 'pk.eyJ1IjoiZnJpZW5kc29mZnJpZW5kcyIsImEiOiJjajlldnkwbDIyODJmMnlsZ2Z2MjJrZGplIn0.uSr8TFD1-mXrGRfjt1_h5Q';
-    var map = new mapboxgl.Map({
-    container: 'mapContainer',
-    style: 'mapbox://styles/friendsoffriends/ckmf19pegd66m17p8xofezhuw',
-    trackResize: true,
-    center: [-119.8287148, 35.1651863],
-    zoom: 4,
-    maxBounds: [[-130.580095, 30.3674814], [-110.9696226, 44.0922698]],
+        console.log('Initialize Mapbox');
+        mapboxgl.accessToken = MAPBOX_TOKEN;
+        var map = new mapboxgl.Map({
+        container: 'mapContainer',
+        style: 'mapbox://styles/friendsoffriends/ckmf19pegd66m17p8xofezhuw',
+        trackResize: true,
+        center: [-119.8287148, 35.1651863],
+        zoom: 4,
+        maxBounds: [[-130.580095, 30.3674814], [-110.9696226, 44.0922698]],
     });
 
     map.resize();
@@ -29,11 +30,12 @@ domReady(async () => {
     map.resize();
 
     // Get Legislator info
-    const districtNumber = $('.district').html();
-        const senateAssembly = $('.body').html() == 'assembly' ? 0 : 1;
+    const districtNumber = $('.district').data('number');
+    const senateAssembly = $('.body').html() == 'assembly' ? 0 : 1;
 
     //Add their layer to the map
-        let districtUrl = 'https://map.dfg.ca.gov/arcgis/rest/services/Political/boundaries/MapServer/' + senateAssembly + '/query?where=district%3D' + districtNumber + '&f=geojson';
+    let districtUrl = 'https://map.dfg.ca.gov/arcgis/rest/services/Political/boundaries/MapServer/' + senateAssembly + '/query?where=district%3D' + districtNumber + '&f=geojson';
+    console.log(districtNumber)
         
         // $.ajax({
         //     url : '../../app/themes/couragescore2021/resources/assets/geo/assembly/district-1.txt',

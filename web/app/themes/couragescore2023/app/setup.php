@@ -26,6 +26,7 @@ add_action('wp_enqueue_scripts', function () {
     bundle('app')->enqueue()->localize('ajax_object', $ajax_params);;
 }, 100);
 
+
 /**
  * Register the theme assets with the block editor.
  *
