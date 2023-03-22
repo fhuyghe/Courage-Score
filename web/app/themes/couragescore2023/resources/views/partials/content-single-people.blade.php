@@ -171,7 +171,7 @@ $senateAssembly = get_field('senate_or_assembly');
           </td>
           <td><i class="fal fa-info-circle"
             data-toggle="popover-click" 
-            data-content="{{ $source }}"
+            data-bs-content="{{ $source }}"
             title="Sources" ></i>
         </td>
         </tr>

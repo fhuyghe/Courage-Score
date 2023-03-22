@@ -31,7 +31,7 @@
             <i class="fal fa-info-circle" 
             data-toggle="popover" 
             title="Opposed Bill" 
-            data-content="This is a bad bill."></i>
+            data-bs-content="This is a bad bill."></i>
         @endif
     </td>
 

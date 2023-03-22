@@ -1,4 +1,4 @@
-import 'bootstrap';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import domReady from '@roots/sage/client/dom-ready';
 
 //import './modules/popper.js'
@@ -30,8 +30,14 @@ domReady(async () => {
     $('.nav-wrap').toggleClass('active');
   });
 
-  if($('.single-people')){
+  if($('.single-people').length > 0){
+    console.log('Loaded Single People script');
     import('./routes/singlePeople.js')
+  }
+
+  if($('[data-toggle="popover"]').length > 0){
+    console.log('Loaded Popper');
+    import('./modules/popper.js');
   }
 });
 

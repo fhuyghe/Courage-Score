@@ -50,6 +50,7 @@ export default async (app) => {
 
     .provide({
       jquery: ["jQuery", "$"],
+      Popper: 'popper.js/dist/umd/popper.js',
     })
 
     /**

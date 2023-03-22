@@ -61,7 +61,6 @@ domReady(async () => {
         // });
 
         $.getJSON(districtUrl, function (response) {
-            console.log(districtUrl, response);
             drawMap(map, response);
         }).fail(function () {
             //Rely on local maps to get the info
