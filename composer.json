@@ -55,7 +55,7 @@
       "type": "package",
       "package": {
         "name": "advanced-custom-fields/advanced-custom-fields-pro",
-        "version": "5.12.1",
+        "version": "6.0.7",
         "type": "wordpress-plugin",
         "dist": {
           "type": "zip",
@@ -80,10 +80,10 @@
     "roots/wp-password-bcrypt": "1.1.0",
     "deliciousbrains-plugin/wp-migrate-db-pro": "2.2.2",
     "deliciousbrains-plugin/wp-migrate-db-pro-media-files": "^2.1.0",
-    "advanced-custom-fields/advanced-custom-fields-pro": "5.12.1",
-    "wpackagist-plugin/wp-fastest-cache": "^0.9.0.9",
+    "advanced-custom-fields/advanced-custom-fields-pro": "6.0.7",
+    "wpackagist-plugin/wp-fastest-cache": "^1.1.2",
     "wpackagist-plugin/wordpress-seo":"20.3",
-    "wpackagist-plugin/popup-builder":"4.1.4",
+    "wpackagist-plugin/popup-builder":"4.1.14",
     "13milliseconds/sitepress-multilingual-cms": "dev-master",
     "13milliseconds/wpml-string-translation": "dev-master",
     "13milliseconds/wpml-acfml": "dev-main",
