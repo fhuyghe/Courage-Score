@@ -2,8 +2,6 @@
 
 @section('content')
 
-  {{ $top['title'] }}
-
   @include('partials.frontpage-top')
 
   <section id="searchResults">
