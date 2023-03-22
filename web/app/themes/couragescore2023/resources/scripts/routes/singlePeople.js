@@ -35,7 +35,6 @@ domReady(async () => {
 
     //Add their layer to the map
     let districtUrl = 'https://map.dfg.ca.gov/arcgis/rest/services/Political/boundaries/MapServer/' + senateAssembly + '/query?where=district%3D' + districtNumber + '&f=geojson';
-    console.log(districtNumber)
         
         // $.ajax({
         //     url : '../../app/themes/couragescore2021/resources/assets/geo/assembly/district-1.txt',

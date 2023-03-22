@@ -39,28 +39,7 @@ class App extends Composer
         return get_bloginfo('name', 'display');
     }
 
-    public function getLegislator($body, $district){
-        $args = array(
-            'post_type'     => 'people',
-            'post_status'        => 'publish',
-            'showposts' => 1,
-            'meta_query'	=> array(
-                'relation'		=> 'AND',
-                array(
-                    'key'	 	=> 'district',
-                    'value'	  	=> $district,
-                    'compare' 	=> '='
-                ),
-                array(
-                    'key'	  	=> 'senate_or_assembly',
-                    'value'	  	=> $body,
-                    'compare' 	=> '='
-                )
-            )
-	    );
-	    $the_query = new WP_Query( $args );
-	    return $the_query->posts[0];
-    }
+    
 
     public function getAllStars(){
         return get_field('people_list', 3214);

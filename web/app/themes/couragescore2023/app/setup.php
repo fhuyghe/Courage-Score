@@ -5,6 +5,7 @@
  */
 
 namespace App;
+use WP_Query;
 
 use function Roots\bundle;
 
@@ -18,8 +19,12 @@ define('BILLTRACK_API', getenv('BILLTRACK_API'));
  * @return void
  */
 add_action('wp_enqueue_scripts', function () {
+
+    $is_dev_request = getenv('WP_ENV') == 'development';
+    $rest_url = $is_dev_request ? 'http://localhost:3000/wp/wp-admin/admin-ajax.php' : admin_url('admin-ajax.php');
+
     $ajax_params = array(
-        'ajax_url' => admin_url('admin-ajax.php'),
+        'ajax_url' => $rest_url,
         'ajax_nonce' => wp_create_nonce('my_nonce'),
     );
 
@@ -202,7 +207,7 @@ function load_bills_submenu() {
 }
 
 function load_bills_menu_callback() {
-    echo template('partials.admin-load-bills');
+    echo view('partials.admin-load-bills')->render();
 }
 add_action('admin_menu', __NAMESPACE__ . '\\load_bills_submenu');
 
@@ -222,7 +227,7 @@ function load_votes_submenu() {
 }
 
 function load_votes_menu_callback() {
-    echo template('partials.admin-load-votes');
+    echo view('partials.admin-load-votes')->render();
 }
 add_action('admin_menu', __NAMESPACE__ . '\\load_votes_submenu');
 
@@ -242,7 +247,7 @@ function load_scores_submenu() {
 }
 
 function load_scores_menu_callback() {
-    echo template('partials.admin-load-scores');
+    echo view('partials.admin-load-scores')->render();
 }
 add_action('admin_menu', __NAMESPACE__ . '\\load_scores_submenu');
 
@@ -412,6 +417,29 @@ function create_vote_topics_taxonomies()
     ));
 }
 
+function getLegislator($body, $district){
+    $args = array(
+        'post_type'     => 'people',
+        'post_status'        => 'publish',
+        'showposts' => 1,
+        'meta_query'	=> array(
+            'relation'		=> 'AND',
+            array(
+                'key'	 	=> 'district',
+                'value'	  	=> $district,
+                'compare' 	=> '='
+            ),
+            array(
+                'key'	  	=> 'senate_or_assembly',
+                'value'	  	=> $body,
+                'compare' 	=> '='
+            )
+        )
+    );
+    $the_query = new WP_Query( $args );
+    return $the_query->posts[0];
+}
+
 // Get the district numbers based on your address.
 function getDistrict(){
     // example address 1228 O St , Sacramento, CA, 95814
@@ -436,13 +464,13 @@ function getDistrict(){
             $divisions[$district_type] = $district_number;
         }
     }
-
-    $assemblyRep = \App::getLegislator('assembly', $divisions['sldl']);
-    $senateRep = \App::getLegislator('senate', $divisions['sldu']);
+    
+    $assemblyRep = array_key_exists('sldl', $divisions) ? getLegislator('assembly', $divisions['sldl']) : null;
+    $senateRep = array_key_exists('sldu', $divisions) ? getLegislator('senate', $divisions['sldu']) : null;
     //Assembly result
-    $district_info[0] = $assemblyRep ? template('partials.rep-block', ['post' => $assemblyRep]) : 'No representative found for this assembly district.';
+    $district_info[0] = $assemblyRep ? view('partials.rep-block', ['post' => $assemblyRep])->render() : 'No representative found for this assembly district.';
     //Senate result
-    $district_info[1] = $senateRep ? template('partials.rep-block', ['post' => $senateRep]) : 'No representative found for this senate district.';
+    $district_info[1] = $senateRep ? view('partials.rep-block', ['post' => $senateRep])->render() : 'No representative found for this senate district.';
     return( $district_info );
 }
 
