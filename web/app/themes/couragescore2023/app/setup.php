@@ -468,9 +468,13 @@ function getDistrict(){
     $assemblyRep = array_key_exists('sldl', $divisions) ? getLegislator('assembly', $divisions['sldl']) : null;
     $senateRep = array_key_exists('sldu', $divisions) ? getLegislator('senate', $divisions['sldu']) : null;
     //Assembly result
-    $district_info[0] = $assemblyRep ? view('partials.rep-block', ['post' => $assemblyRep])->render() : 'No representative found for this assembly district.';
+    $district_info[0] = $assemblyRep 
+        ? view('partials.rep-block', ['post' => $assemblyRep])->render() 
+        : '<div class="norep"><i class="fal fa-exclamation-circle"></i> No representative found for this assembly district.</div>';
     //Senate result
-    $district_info[1] = $senateRep ? view('partials.rep-block', ['post' => $senateRep])->render() : 'No representative found for this senate district.';
+    $district_info[1] = $senateRep 
+        ? view('partials.rep-block', ['post' => $senateRep])->render() 
+        : '<div class="norep"><i class="fal fa-exclamation-circle"></i> No representative found for this senate district.</div>';
     return( $district_info );
 }
 

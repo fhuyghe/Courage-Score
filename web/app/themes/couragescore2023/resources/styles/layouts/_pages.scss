@@ -1,11 +1,11 @@
 // All Pages
 .page{
     .page-header{
-        padding: $grid-gutter * 2 0 $grid-gutter;
+        padding: calc($grid-gutter * 2) 0 $grid-gutter;
         text-align: center;
         
         @include media-breakpoint-up(md){
-            padding: $grid-gutter * 2 0;
+            padding: calc($grid-gutter * 2) 0;
         }
     }
 }
@@ -88,6 +88,11 @@
 
         #address{
             margin-bottom: $grid-gutter * 2;
+        }
+
+        .norep{
+            background-color: $grey;
+            padding: $grid-gutter;
         }
     }
 
@@ -344,7 +349,7 @@
 
             .explanation{
                 grid-area: explanation;
-                padding: $grid-gutter / 2 0;
+                padding: calc($grid-gutter / 2) 0;
             }
         }
     }

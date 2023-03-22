@@ -568,7 +568,7 @@ div.grade{
     width: 700px!important;
 
     .sg-popup-builder-content{
-        padding: $grid-gutter * 2 $grid-gutter;
+        padding: calc($grid-gutter * 2) $grid-gutter;
 
         .sgpb-popup-builder-content-html{
             text-align: center;

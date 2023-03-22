@@ -34,7 +34,8 @@ domReady(async () => {
     const senateAssembly = $('.body').html() == 'assembly' ? 0 : 1;
 
     //Add their layer to the map
-    let districtUrl = 'https://map.dfg.ca.gov/arcgis/rest/services/Political/boundaries/MapServer/' + senateAssembly + '/query?where=district%3D' + districtNumber + '&f=geojson';
+    //let districtUrl = 'https://map.dfg.ca.gov/arcgis/rest/services/Political/boundaries/MapServer/' + senateAssembly + '/query?where=district%3D' + districtNumber + '&f=geojson';
+    let districtUrl = 'https://services3.arcgis.com/fdvHcZVgB2QSRNkL/ArcGIS/rest/services/Legislative/FeatureServer/' + senateAssembly + '/query?where=OBJECTID=' + districtNumber + '&f=geojson';
         
         // $.ajax({
         //     url : '../../app/themes/couragescore2021/resources/assets/geo/assembly/district-1.txt',

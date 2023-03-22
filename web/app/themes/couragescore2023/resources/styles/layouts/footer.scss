@@ -1,5 +1,5 @@
 footer.content-info{
-    padding: $grid-gutter * 2 0;
+    padding: calc($grid-gutter * 2) 0;
     border-top: 1px solid $black;
 
     .copyright{
