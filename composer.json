@@ -84,6 +84,7 @@
     "wpackagist-plugin/wp-fastest-cache": "^1.1.2",
     "wpackagist-plugin/wordpress-seo":"20.3",
     "wpackagist-plugin/popup-builder":"4.1.14",
+    "wpackagist-plugin/official-facebook-pixel":"3.0.8",
     "13milliseconds/sitepress-multilingual-cms": "dev-master",
     "13milliseconds/wpml-string-translation": "dev-master",
     "13milliseconds/wpml-acfml": "dev-main",
