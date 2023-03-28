@@ -64,19 +64,27 @@ $scorecards = $scorecardsImport->scorecards;
                 $('#previewList li').css('opacity', .5);
 
                 //Update Bills one at a time
+                //bills.length = 1;
                 bills.forEach(bill => {
+                    console.log('Before Ajax call: ', bill);
                     $.ajax({
-                    // eslint-disable-next-line no-undef
-                    url : ajax_object.ajax_url,
-                    data : {
-                    action: 'update_bill',
-                    bill,
-                    },
-                    success: function (response) {
-                        console.log(response.data);
-                        $('#previewList li[data-id=' + bill.billID + ']').css('opacity', 1);
-                    }
-                }); 
+                        // eslint-disable-next-line no-undef
+                        url : ajax_object.ajax_url,
+                        method: 'POST',
+                        data : {
+                            action: 'update_bill',
+                            nonce: ajax_object.ajax_nonce,
+                            bill: bill,
+                        },
+                        success: function (response) {
+                            console.log('Response: ' + response.data);
+                            $('#previewList li[data-id=' + bill.billID + ']').css('opacity', 1);
+                        },
+                        error: function (response) {
+                            console.log('Error: ' + response.data);
+                            $('#previewList li[data-id=' + bill.billID + ']').css('opacity', 1).css('color', 'red');
+                        }
+                    }); 
                 });
 
                 $('#updateSubmit').html('Updated');

@@ -31,6 +31,16 @@ add_action('wp_enqueue_scripts', function () {
     bundle('app')->enqueue()->localize('ajax_object', $ajax_params);;
 }, 100);
 
+add_action('admin_enqueue_scripts', function () {
+    $ajax_params = array(
+        'ajax_url' => admin_url('admin-ajax.php'),
+        'ajax_nonce' => wp_create_nonce('my_nonce'),
+    );
+
+    wp_enqueue_script('sage/admin.js', asset('scripts/admin.js'), ['jquery'], null, true);
+    wp_localize_script('sage/admin.js', 'ajax_object', $ajax_params);
+});
+
 
 /**
  * Register the theme assets with the block editor.
@@ -908,25 +918,34 @@ add_action('wp_ajax_nopriv_update_score', __NAMESPACE__ .'\\update_score' );
 
 function update_bill(){
 
-$bill = $_GET['bill'];
+    if (!isset($_POST)) {
+        wp_send_json_error('No bill');
+    }
 
-// Find out if bill is in the DB
-$bills_query = new \WP_Query(array(
-    'post_type'         => 'vote',
-    'post_status'       => array('draft', 'publish'),
-    'meta_query'        => array(
-        array(
-            'key' => 'billtrack_id',
-            'value' => $bill['billID'],
-            'compare' => '=',
-        )
-    )
-));
-$wp_bill = $bills_query->posts[0];
+    $bill = $_POST['bill'];
+    //wp_send_json_success($bill['billID']);
+    //wp_send_json_success(var_export($bill, true));
 
-// Create post if bill doesn't exist
-if ( !$bills_query->have_posts()){
-    // Create post object
+    // Find out if bill is in the DB
+    $args = array(
+        'post_type'         => 'vote',
+        'post_status'       => array('draft', 'publish'),
+        'meta_query'        => array(
+            array(
+                'key' => 'billtrack_id',
+                'value' => $bill['billID'],
+                'compare' => '=',
+                )
+            )
+        );
+
+        $bills_query = new WP_Query($args);
+        $wp_bill = $bills_query->have_posts() ? $bills_query->posts[0] : null;
+        //wp_send_json_success(var_export($bills_query, true));
+        
+        // Create post if bill doesn't exist
+        if ( !$bills_query->have_posts()){
+            // Create post object
     $bill_summary = get_bill_summary($bill['billID']);
     
     $new_bill = array(
