@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:13milliseconds/sitepress-multilingual-cms.git",
-                "reference": "736d8a69b879149781f5443303166c6fd4f6b6fc"
+                "reference": "74afe521a4c7f6a6567e9687d792cdb93964b7e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/13milliseconds/sitepress-multilingual-cms/zipball/736d8a69b879149781f5443303166c6fd4f6b6fc",
-                "reference": "736d8a69b879149781f5443303166c6fd4f6b6fc",
+                "url": "https://api.github.com/repos/13milliseconds/sitepress-multilingual-cms/zipball/74afe521a4c7f6a6567e9687d792cdb93964b7e6",
+                "reference": "74afe521a4c7f6a6567e9687d792cdb93964b7e6",
                 "shasum": ""
             },
             "require": {
@@ -41,7 +41,7 @@
                 "source": "https://github.com/13milliseconds/sitepress-multilingual-cms/tree/master",
                 "issues": "https://github.com/13milliseconds/sitepress-multilingual-cms/issues"
             },
-            "time": "2023-03-21T16:47:27+00:00"
+            "time": "2023-03-29T13:27:42+00:00"
         },
         {
             "name": "13milliseconds/wpml-acfml",
@@ -49,12 +49,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:13milliseconds/wpml-acfml.git",
-                "reference": "111fa3d76b9084bc8ca68e7d4ef2ff75db150270"
+                "reference": "9ef6f26f9cf010a3cb4959e8323016567969acfc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/13milliseconds/wpml-acfml/zipball/111fa3d76b9084bc8ca68e7d4ef2ff75db150270",
-                "reference": "111fa3d76b9084bc8ca68e7d4ef2ff75db150270",
+                "url": "https://api.github.com/repos/13milliseconds/wpml-acfml/zipball/9ef6f26f9cf010a3cb4959e8323016567969acfc",
+                "reference": "9ef6f26f9cf010a3cb4959e8323016567969acfc",
                 "shasum": ""
             },
             "require": {
@@ -78,7 +78,7 @@
                 "source": "https://github.com/13milliseconds/wpml-acfml/tree/main",
                 "issues": "https://github.com/13milliseconds/wpml-acfml/issues"
             },
-            "time": "2022-03-31T14:21:51+00:00"
+            "time": "2023-03-29T13:31:45+00:00"
         },
         {
             "name": "13milliseconds/wpml-string-translation",
@@ -86,12 +86,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:13milliseconds/wpml-string-translation.git",
-                "reference": "eb040bfd90ab6eaac6aacf0aefab568d6789440a"
+                "reference": "c87050008e89d267c3613b72477f92e46564662b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/13milliseconds/wpml-string-translation/zipball/eb040bfd90ab6eaac6aacf0aefab568d6789440a",
-                "reference": "eb040bfd90ab6eaac6aacf0aefab568d6789440a",
+                "url": "https://api.github.com/repos/13milliseconds/wpml-string-translation/zipball/c87050008e89d267c3613b72477f92e46564662b",
+                "reference": "c87050008e89d267c3613b72477f92e46564662b",
                 "shasum": ""
             },
             "require": {
@@ -115,7 +115,7 @@
                 "source": "https://github.com/13milliseconds/wpml-string-translation/tree/master",
                 "issues": "https://github.com/13milliseconds/wpml-string-translation/issues"
             },
-            "time": "2023-03-16T16:16:44+00:00"
+            "time": "2023-03-29T13:26:58+00:00"
         },
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -732,16 +732,16 @@
         },
         {
             "name": "illuminate/bus",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/bus.git",
-                "reference": "c7f09872054f2b361f8ed9e9e988b3c9be06c596"
+                "reference": "f724dbe9ac4a215d76f41f2766a8dae4fb53463a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/bus/zipball/c7f09872054f2b361f8ed9e9e988b3c9be06c596",
-                "reference": "c7f09872054f2b361f8ed9e9e988b3c9be06c596",
+                "url": "https://api.github.com/repos/illuminate/bus/zipball/f724dbe9ac4a215d76f41f2766a8dae4fb53463a",
+                "reference": "f724dbe9ac4a215d76f41f2766a8dae4fb53463a",
                 "shasum": ""
             },
             "require": {
@@ -781,11 +781,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-11-25T07:56:47+00:00"
+            "time": "2023-03-10T20:58:15+00:00"
         },
         {
             "name": "illuminate/cache",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/cache.git",
@@ -847,7 +847,7 @@
         },
         {
             "name": "illuminate/collections",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/collections.git",
@@ -902,7 +902,7 @@
         },
         {
             "name": "illuminate/conditionable",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/conditionable.git",
@@ -948,7 +948,7 @@
         },
         {
             "name": "illuminate/config",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/config.git",
@@ -996,16 +996,16 @@
         },
         {
             "name": "illuminate/console",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/console.git",
-                "reference": "d61ea985b3b5912e0ca5b9d95c1caf21eee5b74c"
+                "reference": "8dcc6e3bd7e25f72771878506681cccbc25dc041"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/console/zipball/d61ea985b3b5912e0ca5b9d95c1caf21eee5b74c",
-                "reference": "d61ea985b3b5912e0ca5b9d95c1caf21eee5b74c",
+                "url": "https://api.github.com/repos/illuminate/console/zipball/8dcc6e3bd7e25f72771878506681cccbc25dc041",
+                "reference": "8dcc6e3bd7e25f72771878506681cccbc25dc041",
                 "shasum": ""
             },
             "require": {
@@ -1056,11 +1056,11 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-02-07T17:06:46+00:00"
+            "time": "2023-03-13T03:00:40+00:00"
         },
         {
             "name": "illuminate/container",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/container.git",
@@ -1111,7 +1111,7 @@
         },
         {
             "name": "illuminate/contracts",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/contracts.git",
@@ -1159,7 +1159,7 @@
         },
         {
             "name": "illuminate/events",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/events.git",
@@ -1214,7 +1214,7 @@
         },
         {
             "name": "illuminate/filesystem",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/filesystem.git",
@@ -1278,7 +1278,7 @@
         },
         {
             "name": "illuminate/http",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/http.git",
@@ -1338,7 +1338,7 @@
         },
         {
             "name": "illuminate/log",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/log.git",
@@ -1387,7 +1387,7 @@
         },
         {
             "name": "illuminate/macroable",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/macroable.git",
@@ -1433,7 +1433,7 @@
         },
         {
             "name": "illuminate/pipeline",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/pipeline.git",
@@ -1481,7 +1481,7 @@
         },
         {
             "name": "illuminate/routing",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/routing.git",
@@ -1545,7 +1545,7 @@
         },
         {
             "name": "illuminate/session",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/session.git",
@@ -1602,16 +1602,16 @@
         },
         {
             "name": "illuminate/support",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/support.git",
-                "reference": "63dcb4523ccdfc01cdf5be17791f07cc20982a1e"
+                "reference": "199e5250735d0c49fe0385360451659690ff71a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/support/zipball/63dcb4523ccdfc01cdf5be17791f07cc20982a1e",
-                "reference": "63dcb4523ccdfc01cdf5be17791f07cc20982a1e",
+                "url": "https://api.github.com/repos/illuminate/support/zipball/199e5250735d0c49fe0385360451659690ff71a3",
+                "reference": "199e5250735d0c49fe0385360451659690ff71a3",
                 "shasum": ""
             },
             "require": {
@@ -1669,20 +1669,20 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-02-13T16:54:43+00:00"
+            "time": "2023-03-13T01:37:31+00:00"
         },
         {
             "name": "illuminate/view",
-            "version": "v9.52.4",
+            "version": "v9.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/view.git",
-                "reference": "f263ca8f106e5a6290671384684dd27ae30b7f9b"
+                "reference": "0215165781b3269cdbecdfe63ffddd0e6cecfd6e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/illuminate/view/zipball/f263ca8f106e5a6290671384684dd27ae30b7f9b",
-                "reference": "f263ca8f106e5a6290671384684dd27ae30b7f9b",
+                "url": "https://api.github.com/repos/illuminate/view/zipball/0215165781b3269cdbecdfe63ffddd0e6cecfd6e",
+                "reference": "0215165781b3269cdbecdfe63ffddd0e6cecfd6e",
                 "shasum": ""
             },
             "require": {
@@ -1723,7 +1723,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2023-02-08T14:36:30+00:00"
+            "time": "2023-03-13T01:21:46+00:00"
         },
         {
             "name": "league/flysystem",
@@ -5406,12 +5406,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "ca6f1d633e0a8d82bd27376fe7e27a92500417f1"
+                "reference": "08c832d96735c46a9d5849a5412fc4304e12d242"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/ca6f1d633e0a8d82bd27376fe7e27a92500417f1",
-                "reference": "ca6f1d633e0a8d82bd27376fe7e27a92500417f1",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/08c832d96735c46a9d5849a5412fc4304e12d242",
+                "reference": "08c832d96735c46a9d5849a5412fc4304e12d242",
                 "shasum": ""
             },
             "conflict": {
@@ -5797,6 +5797,7 @@
                 "simplesamlphp/simplesamlphp-module-openid": "<1",
                 "simplesamlphp/simplesamlphp-module-openidprovider": "<0.9",
                 "simplito/elliptic-php": "<1.0.6",
+                "sitegeist/fluid-components": "<3.5",
                 "slim/slim": "<2.6",
                 "smarty/smarty": "<3.1.47|>=4,<4.2.1",
                 "snipe/snipe-it": "<=6.0.14|>= 6.0.0-RC-1, <= 6.0.0-RC-5",
@@ -5992,7 +5993,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-24T00:14:17+00:00"
+            "time": "2023-03-27T09:04:40+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
