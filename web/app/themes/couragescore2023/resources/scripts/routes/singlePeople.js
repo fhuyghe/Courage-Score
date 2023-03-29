@@ -182,7 +182,7 @@ domReady(async () => {
                     //Get new grade
                     let color = '';
                     let letter = '';
-                    if ( score == 'na' || !score ){
+                    if ( score == 'na' || score  == null ){
                         color = 'grey';
                         letter = 'N/A';
                     } else if (score < 60){
