@@ -865,11 +865,13 @@ function get_bill_votes($bill_id){
 
 function update_score(){
 
-    $legislator = $_GET['legislator'];
-    $scorecard =  $_GET['scorecard'];
+    $legislator = $_POST['legislator'];
+    $scorecard =  $_POST['scorecard'];
+
+    
     
     // Find out if bill is in the DB
-    $legislator_query = new \WP_Query(array(
+    $args = array(
         'post_type'         => 'people',
         'post_status'       => array('draft', 'publish'),
         'meta_query'        => array(
@@ -879,10 +881,15 @@ function update_score(){
                 'compare' => '=',
             )
         )
-    ));
-    $wp_legislator = $legislator_query->posts[0];
+            );
 
-    if(!$legislator_query->have_posts()) wp_send_json_error('No legislator');
+    $legislator_query = new WP_Query($args);
+
+    if(!$legislator_query->have_posts()){
+        wp_send_json_error('No legislator');
+    }
+
+    $wp_legislator = $legislator_query->posts[0];
 
     //Add score to legislator
     $row = array(
@@ -905,7 +912,7 @@ function update_score(){
     
     // Create the row
     add_row('alternate_scores', $row,  $wp_legislator->ID);
-    wp_send_json_success('Created');
+    wp_send_json_success('Score added');
 }
 
 add_action('wp_ajax_update_score', __NAMESPACE__ .'\\update_score' );

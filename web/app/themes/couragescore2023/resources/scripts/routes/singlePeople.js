@@ -148,15 +148,18 @@ domReady(async () => {
             let score = 0
             $('#general').css('opacity', .5);
 
+            console.log('loading');
+
             $.ajax({
                 url : ajax_object.ajax_url,
-                dataType: 'application/json',
+                method: 'GET',
                 data : {
                   action: 'get_scores',
+                  nonce: ajax_object.ajax_nonce,
                   postID: postID,
                 },
               })
-                .done(function (res) {
+                .success(function (res) {
                     console.log('loaded');
                     if (val) {
                         res.data.forEach(row => {

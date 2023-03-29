@@ -38,9 +38,11 @@ $scorecards = $scorecardsImport->scorecards;
             $.ajax({
                 // eslint-disable-next-line no-undef
                 url : ajax_object.ajax_url,
+                method: 'GET',
                 data : {
-                action: 'get_scores_by_scorecard',
-                scorecardID: $('#scorecards').val(),
+                    action: 'get_scores_by_scorecard',
+                    nonce: ajax_object.ajax_nonce,
+                    scorecardID: $('#scorecards').val(),
                 },
                 success: function (response) {
                     console.log(response);
@@ -68,20 +70,28 @@ $scorecards = $scorecardsImport->scorecards;
                 $('#previewList li').css('opacity', .5);
 
                 //Update Bills one at a time
+                legislators.length = 1;
                 legislators.forEach(legislator => {
                     $.ajax({
                         // eslint-disable-next-line no-undef
                         url : ajax_object.ajax_url,
+                        method: 'POST',
                         data : {
-                        action: 'update_score',
-                        legislator,
-                        scorecard
+                            action: 'update_score',
+                            nonce: ajax_object.ajax_nonce,
+                            legislator,
+                            scorecard
                         },
                         success: function (response) {
                             $('#previewList li[data-id=' + legislator.legislatorID + ']').css('opacity', 1);
                             $('#previewList li[data-id=' + legislator.legislatorID + ']').append(' - ' + response.data);
                             if(response.data == 'No legislator') 
                                 $('#previewList li[data-id=' + legislator.legislatorID + ']').css('color', 'red');
+                        },
+                        error: function (response) {
+                            $('#previewList li[data-id=' + legislator.legislatorID + ']').css('opacity', 1);
+                            $('#previewList li[data-id=' + legislator.legislatorID + ']').append(' - ' + response.data);
+                            $('#previewList li[data-id=' + legislator.legislatorID + ']').css('color', 'red');
                         }
                     }); 
                 });
