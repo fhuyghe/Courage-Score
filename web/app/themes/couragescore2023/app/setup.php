@@ -1044,44 +1044,43 @@ add_action('wp_ajax_nopriv_update_bill', __NAMESPACE__ .'\\update_bill' );
 
 //Get People's Billtrack ID
 function get_person_id( $post_id ){
-    if ( $post_id ){
-        $person_name = get_the_title( $post_id );
+    if ( !$post_id )
+        return;
 
-        $person_name = str_replace('&#8217;', "'", $person_name);
-        
-        /*** Person's Last Name ***/
-        $pieces = explode(' ', $person_name);
-        $person_last_name = array_pop($pieces);
-        /*************************/
-        
-        /*** API Request ***/ 
-        $authorization = "Authorization: apikey " . BILLTRACK_API;
-        $url = 'https://www.billtrack50.com/BT50Api/2.0/json/legislators?legislatorName='. $person_last_name .'&stateCodes=CA';
+    $person_name = get_the_title( $post_id );
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-        $response = curl_exec($ch);
+    $person_name = str_replace('&#8217;', "'", $person_name);
+    
+    /*** Person's Last Name ***/
+    $pieces = explode(' ', $person_name);
+    $person_last_name = array_pop($pieces);
+    /*************************/
+    
+    /*** API Request ***/ 
+    $authorization = "Authorization: apikey " . BILLTRACK_API;
+    $url = 'https://www.billtrack50.com/BT50Api/2.0/json/legislators?legislatorName='. $person_last_name .'&stateCodes=CA';
 
-        curl_close($ch);
-        $response_a = json_decode($response);
-        $found_legislators = $response_a->legislators;
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' , $authorization ));
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    $response = curl_exec($ch);
 
-        if($found_legislators){
-            foreach($found_legislators as $legislator){
-                if ($person_name == $legislator->name){
-                    update_field('billtrack_id', $legislator->legislatorID,  $post_id );
-                    return $legislator->legislatorID;                 
-                }
+    curl_close($ch);
+    $response_a = json_decode($response);
+    $found_legislators = $response_a->legislators;
+
+    if($found_legislators){
+        foreach($found_legislators as $legislator){
+            if ($person_name == $legislator->name){
+                update_field('billtrack_id', $legislator->legislatorID,  $post_id );
+                return $legislator->legislatorID;                 
             }
         }
-    } else {
-        return ;
     }
 }
 
