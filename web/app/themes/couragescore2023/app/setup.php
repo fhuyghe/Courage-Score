@@ -1109,42 +1109,22 @@ function get_votes_by_scorecard_and_legislator_id($scorecardID, $person_id){
     return  $votes;
 }
 
-function update_votes($scorecardID){
-    $scorecardID = $_GET['scorecardID'];
 
-    //zero all empty "update" fields
-    $all_people = get_posts(array(
-        'post_type' => 'people',
-        'numberposts' => 1,
-        'suppress_filters' => false,
-        'post_status' => 'publish',
-    ));
-    foreach($all_people as $person){
-        $a_ts = get_field("last_update_attempt_ts", $person->ID);
-        $s_ts = get_field("last_update_success_ts", $person->ID);
+// ***************************************
+// **** GET REPS TO UPDATE
+// ***************************************
 
-        if($a_ts == "" || is_null($a_ts))
-            update_field("last_update_attempt_ts", 0, $person->ID);
-        if($s_ts == "" || is_null($s_ts))
-            update_field("last_update_success_ts", 0, $person->ID);
-    }
-    
-    //get first person ordered by "last_update_attempt_ts", later filtered by "billtrack_id" not null
+function get_reps_to_update(){
     $all_people = get_posts(array(
         'post_type' => 'people',
         'numberposts' => -1,
         'suppress_filters' => false,
         'post_status' => 'publish',
-        'meta_key' => 'last_update_attempt_ts',
-        'orderby' => "meta_value",
         'order' => "ASC"
     ));
 
+    $response = array();
 
-    if(!$all_people)
-        die("can't get people's list from DB");
-
-    $first_person = false;
     $nowts = time();
     $limitts = $nowts - 10*60*60; //-10 hours
 
@@ -1152,22 +1132,53 @@ function update_votes($scorecardID){
         $a_ts = get_field("last_update_attempt_ts", $person->ID);
         $s_ts = get_field("last_update_success_ts", $person->ID);
         $billtrack_id = get_field("billtrack_id", $person->ID);
-        if(empty($billtrack_id))
+
+        //If no attempt before, zero in the counters
+        if($a_ts == "" || is_null($a_ts))
+            update_field("last_update_attempt_ts", 0, $person->ID);
+        if($s_ts == "" || is_null($s_ts))
+            update_field("last_update_success_ts", 0, $person->ID);
+
+        // If missing IF, get it
+        if(empty($billtrack_id)){
             $billtrack_id = get_person_id($person->ID);
-        if($a_ts > $limitts)
-           continue;
-        $first_person = $person;
-        break;
+            update_field("billtrack_id", $billtrack_id, $person->ID);
+        }
+
+        // If recent attempt, ignore
+        if($a_ts < $limitts)
+            $response[] = array(
+                'ID' => $person->ID,
+                'name' => $person->post_title,
+                'billtrack_id' => $billtrack_id
+            );
     }
 
-    if(!$first_person) // too early to update
-        wp_send_json_error("all people entries are up to date");
+    wp_send_json_success($response);
+}
 
-    update_field("last_update_attempt_ts", time(), $first_person->ID);
+add_action('wp_ajax_get_reps_to_update', __NAMESPACE__ .'\\get_reps_to_update' );
+add_action('wp_ajax_nopriv_get_reps_to_update', __NAMESPACE__ .'\\get_reps_to_update' );
 
-    $person = $first_person;
 
-    $votes = get_votes_by_scorecard_and_legislator_id($scorecardID, get_field('billtrack_id', $person->ID));
+
+
+// ***************************************
+// **** UPDATE VOTES
+// ***************************************
+
+function update_votes($scorecardID){
+    $scorecardID = $_POST['scorecardID'];
+    $person = $_POST['rep'];
+    // too early to update
+    if(!$person) 
+        wp_send_json_error("No update to be made");
+
+    
+    update_field("last_update_attempt_ts", time(), $person['ID']);
+
+
+    $votes = get_votes_by_scorecard_and_legislator_id($scorecardID, $person['billtrack_id']);
 
     if($votes){
         foreach($votes as $vote){                            
@@ -1220,13 +1231,13 @@ function update_votes($scorecardID){
                     );
                      
                     $row_exists = 0;
-                    if(have_rows('voting',$person->ID)): while(have_rows('voting',$person->ID)): the_row();
+                    if(have_rows('voting',$person['ID'])): while(have_rows('voting',$person['ID'])): the_row();
                         if( get_sub_field('bill_id') == $billtrack_bill_id && get_sub_field('vote') == $vote_label && get_sub_field('vote_date') == $vote_date && get_sub_field('floorcommittee') == $floor_committee ):
                             $row_exists = 1;
                         endif;
                     endwhile; endif;
                     if($row_exists == 0){
-                        $i = add_row( 'voting', $row, $person->ID );
+                        $i = add_row( 'voting', $row, $person['ID'] );
                     }
                     unset($billtrack_bill_id);
                     unset($vote_label);
@@ -1239,13 +1250,12 @@ function update_votes($scorecardID){
     }
 
     $response = [
-        "name" => get_the_title( $first_person->ID ),
-        "votes" => $votes
+        "votes" => count($votes)
     ];
 
     unset($votes);
 
-    update_field("last_update_success_ts", time(), $person->ID);
+    update_field("last_update_success_ts", time(), $person['ID']);
     wp_send_json_success($response);
    
    return true;

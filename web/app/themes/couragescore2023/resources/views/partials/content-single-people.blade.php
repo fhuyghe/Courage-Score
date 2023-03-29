@@ -1,15 +1,15 @@
 @php 
 $year = get_field('score_year', 'option');
 
-function getVotes($year){ 
-        $year = intval($year);
+function getVotes($year){
+        $year = intval($year); 
         $votes = get_field('voting');
-        $continue = true;
+        $missingYear = 0;
         $votesByYear = [];
 
         if($votes):
         //While there is a voting history, get votes by year
-            while($continue){
+            while($missingYear < 2){
                 $thisYear = array_filter($votes, function($vote) use ($year){
                     if($vote['bill_number']):
                     return date("Y", strtotime(get_field('floor_voted_date',$vote['bill_number']))) == $year
@@ -22,7 +22,8 @@ function getVotes($year){
                     $votesByYear[$year] = $thisYear;
                     $year--;
                 } else {
-                    $continue = false;
+                    $year--;
+                    $missingYear++;
                 }
             }
         endif;
@@ -35,6 +36,9 @@ $votes = getVotes($year);
 $score = App\get_score($post);
 $contributions = $contributions;
 $senateAssembly = get_field('senate_or_assembly');
+
+$allYears = array_keys($votes);
+$year = $allYears[0];
 @endphp
 
 <article @php post_class() @endphp>
@@ -114,7 +118,6 @@ $senateAssembly = get_field('senate_or_assembly');
       <ul>
       <li><a data-year="">All Time</a></li>
 
-      @php $allYears = array_keys($votes) @endphp
       @foreach ($allYears as $yearOption)  
         <li><a data-year="{{ $yearOption }}" @if($yearOption == $year)class="active"@endif>{{ $yearOption }}</a></li>
       @endforeach

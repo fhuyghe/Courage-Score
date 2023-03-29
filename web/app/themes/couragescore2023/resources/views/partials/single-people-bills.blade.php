@@ -16,7 +16,7 @@
       <button data-val="committee_votes">Committee Vote</button>  
     </div>
 
-    @if($votes[$year]) 
+    @if($votes) 
       <table id="billsTable">
         <thead>
         <tr>

@@ -10,7 +10,8 @@ $scorecards = $scorecardsImport->scorecards;
             <option value="{{ $scorecard->scorecardID }}">{{ $scorecard->scorecardName }}</option>
         @endforeach
     </select>
-    <button id="updateSubmit">Update Votes</button>
+    <button id="getPossibleUpdates">Get Possible Updates</button>
+    <button id="updateSubmit" disabled>Update Votes</button>
 
     <div id="preview">
         <h2>
@@ -22,46 +23,103 @@ $scorecards = $scorecardsImport->scorecards;
     </div>
 </div>
 
+<style>
+    #preview{
+        display: block;
+        background-color: white;
+        margin-top: 20px;
+        padding: 50px;
+        border-radius: 20px;
+        z-index: 99;
+        position: relative;
+    }
+
+    #previewList{
+        padding: 50px 0px;
+        column-count: 3;
+    }
+</style>
+
 <script>
     (function($) {
-        let bills = [];
+        let repsToUpdate = [];
+        let updateCounter = 0
 
-        // LOAD ALL Votes
-        $('#updateSubmit').on('click', function () {
+        // Display all Reps
+        $('#getPossibleUpdates').on('click', function () {
             console.log('Loading...');
             $('#previewTitle').html('Loading...');
             $(this).attr('disabled', true);
             $('#previewList').html('');
             
-            update_one();
+            find_reps();
             
         });
-        
-        function update_one(){
+
+        // LOAD ALL Votes
+        $('#updateSubmit').on('click', function () {
+            console.log('Updating...');
+            $('#previewTitle').html('Loading...');
+            $(this).attr('disabled', true);
+            
+            var promises = [];
+
+            repsToUpdate.length = 3;
+            update_one(repsToUpdate[updateCounter])
+        });
+
+        function update_one(rep){
+            $('li[data-ID="' + rep.ID +'"]').append(' - updating');
+            $.ajax({
+                    // eslint-disable-next-line no-undef
+                    url : ajax_object.ajax_url,
+                    method: 'POST',
+                    data : {
+                        action: 'update_votes',
+                        nonce: ajax_object.ajax_nonce,
+                        scorecardID: $('#scorecards').val(),
+                        rep
+                    },
+                    success: function (response) {
+                        $('li[data-ID="' + rep.ID +'"]').css('color', 'green');
+                        $('li[data-ID="' + rep.ID +'"]').append(' - ' + response.data.votes + ' votes');
+
+                        //If there is more, run again
+                        if(updateCounter < repsToUpdate.length - 1){
+                            updateCounter++
+                            update_one(repsToUpdate[updateCounter])
+                        }
+
+                    },
+                });
+        }
+
+        function find_reps(){
             $.ajax({
                 // eslint-disable-next-line no-undef
                 url : ajax_object.ajax_url,
+                method: 'GET',
                 data : {
-                action: 'update_votes',
-                scorecardID: $('#scorecards').val(),
+                    action: 'get_reps_to_update',
+                    nonce: ajax_object.ajax_nonce,
                 },
                 success: function (response) {
-                    console.log(response);
-                    currentNumber = parseInt($('#voteNumber').html());
-                    if(response.data.votes){
-                        $('#voteNumber').html(currentNumber + response.data.votes.length);
-                        $('#previewTitle').html(' Votes');
-                        $('#previewList').append('<li>' + response.data.name + ' - ' + response.data.votes.length + ' votes</li>');
+                    $('#getPossibleUpdates').attr('disabled', false);
+                    $('#updateSubmit').attr('disabled', false);
+                    if(response.data){
+                        $('#previewTitle').html('People to update');
+                        repsToUpdate = response.data
+                        repsToUpdate.forEach(rep => {
+                            $('#previewList').append('<li data-ID="' + rep.ID +'" data-billtrackid="' + rep.billtrack_id +'">' + rep.name + '</li>');
+                        });
                     } else {
-                        $('#previewList').append('<li>' + response.data.name + ' - no votes</li>');
-                    }
-
-                    if(response.success){
-                        update_one();
+                        $('#previewTitle').html('Error');
                     }
                 },
             });
         }
+        
+        
         
 	
     })( jQuery );
