@@ -64,7 +64,6 @@ $scorecards = $scorecardsImport->scorecards;
             
             var promises = [];
 
-            repsToUpdate.length = 3;
             update_one(repsToUpdate[updateCounter])
         });
 
