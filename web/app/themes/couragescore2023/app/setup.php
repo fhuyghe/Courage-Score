@@ -1125,7 +1125,7 @@ function get_reps_to_update(){
     $response = array();
 
     $nowts = time();
-    $limitts = $nowts - 10*60*60; //-10 hours
+    $limitts = $nowts - 60*60; //-1 hours
 
     foreach($all_people as $person){
         $a_ts = get_field("last_update_attempt_ts", $person->ID);
