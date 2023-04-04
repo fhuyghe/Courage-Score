@@ -1229,15 +1229,22 @@ function update_votes($scorecardID){
                         'floorcommittee' => $floor_committee,
                     );
                      
-                    $row_exists = 0;
-                    if(have_rows('voting',$person['ID'])): while(have_rows('voting',$person['ID'])): the_row();
+                    $row_exists = false;
+                    $index = 1; //ACF rows index start at 1
+
+                    if(have_rows('voting', $person['ID'])): while(have_rows('voting', $person['ID'])): the_row();
                         if( get_sub_field('bill_id') == $billtrack_bill_id && get_sub_field('vote') == $vote_label && get_sub_field('vote_date') == $vote_date && get_sub_field('floorcommittee') == $floor_committee ):
-                            $row_exists = 1;
+                            update_row('voting', $index, $row, $person['ID']);
+                            $row_exists = true;
+                            break;
                         endif;
+                        $index++;
                     endwhile; endif;
-                    if($row_exists == 0){
+
+                    if($row_exists == false){
                         $i = add_row( 'voting', $row, $person['ID'] );
                     }
+
                     unset($billtrack_bill_id);
                     unset($vote_label);
                     unset($floor_committee);
