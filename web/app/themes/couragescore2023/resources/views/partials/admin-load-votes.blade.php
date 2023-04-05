@@ -44,6 +44,33 @@ $scorecards = $scorecardsImport->scorecards;
     #preview li{
         cursor: pointer;
     }
+
+    #preview li.loading{
+        pointer-events: none;
+        opacity: .5;
+
+        -webkit-animation: pulse 3s infinite ease-in-out;
+        -o-animation: pulse 3s infinite ease-in-out;
+        -ms-animation: pulse 3s infinite ease-in-out; 
+        -moz-animation: pulse 3s infinite ease-in-out; 
+        animation: pulse 3s infinite ease-in-out;
+    }
+    #preview li.loading:after{
+        content: ' - Loading...';
+    }
+
+    @-webkit-keyframes pulse {
+    0% { opacity: 0.7; }
+    50% { opacity: .3; }
+    100% { opacity: 0.7; }
+}
+
+@keyframes pulse {
+    0% { opacity: 0.7; }
+    50% {  opacity: .3; }
+    100% { opacity: 0.7; }
+}
+
 </style>
 
 <script>
@@ -82,7 +109,7 @@ $scorecards = $scorecardsImport->scorecards;
         });
 
         function update_one(rep, repeat){
-            $('li[data-ID="' + rep.ID +'"]').append('<span> - Loading...</span>');
+            $('li[data-ID="' + rep.ID +'"]').addClass('loading');
 
             $.ajax({
                     // eslint-disable-next-line no-undef
@@ -95,7 +122,7 @@ $scorecards = $scorecardsImport->scorecards;
                         rep
                     },
                     success: function (response) {
-                        $('li[data-ID="' + rep.ID +'"] span').remove();
+                        $('li[data-ID="' + rep.ID +'"]').removeClass('loading');
 
                     if(response.success){
                         $('li[data-ID="' + rep.ID +'"]').css('color', 'green');
@@ -108,7 +135,7 @@ $scorecards = $scorecardsImport->scorecards;
                     //If there is more, run again
                     if(repeat & updateCounter < repsToUpdate.length - 1){
                         updateCounter++
-                        update_one(repsToUpdate[updateCounter])
+                        update_one(repsToUpdate[updateCounter], true)
                     }
 
                     },
