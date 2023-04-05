@@ -1172,12 +1172,17 @@ function update_votes($scorecardID){
     // too early to update
     if(!$person) 
         wp_send_json_error("No update to be made");
+        
+    if(!array_key_exists('billtrack_id', $person))
+        wp_send_json_error("No billtrack ID");
 
     
     update_field("last_update_attempt_ts", time(), $person['ID']);
 
 
     $votes = get_votes_by_scorecard_and_legislator_id($scorecardID, $person['billtrack_id']);
+    $votesCreated = 0;
+    $votesUpdated = 0;
 
     if($votes){
         foreach($votes as $vote){                            
@@ -1236,13 +1241,14 @@ function update_votes($scorecardID){
                         if( get_sub_field('bill_id') == $billtrack_bill_id && get_sub_field('vote') == $vote_label && get_sub_field('vote_date') == $vote_date && get_sub_field('floorcommittee') == $floor_committee ):
                             update_row('voting', $index, $row, $person['ID']);
                             $row_exists = true;
-                            break;
+                            $votesUpdated++;
                         endif;
                         $index++;
                     endwhile; endif;
 
                     if($row_exists == false){
                         $i = add_row( 'voting', $row, $person['ID'] );
+                        $votesCreated++;
                     }
 
                     unset($billtrack_bill_id);
@@ -1256,7 +1262,9 @@ function update_votes($scorecardID){
     }
 
     $response = [
-        "votes" => count($votes)
+        "votes" => count($votes),
+        "updated" => $votesUpdated,
+        "created" => $votesCreated,
     ];
 
     unset($votes);

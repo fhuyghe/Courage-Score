@@ -1,3 +1,5 @@
+<script src="https://kit.fontawesome.com/28ecd9ba70.js" crossorigin="anonymous"></script>
+
 @php
 $scorecardsImport = App\get_scorecards();
 $scorecards = $scorecardsImport->scorecards;
@@ -38,6 +40,10 @@ $scorecards = $scorecardsImport->scorecards;
         padding: 50px 0px;
         column-count: 3;
     }
+
+    #preview li{
+        cursor: pointer;
+    }
 </style>
 
 <script>
@@ -62,13 +68,22 @@ $scorecards = $scorecardsImport->scorecards;
             $('#previewTitle').html('Loading...');
             $(this).attr('disabled', true);
             
-            var promises = [];
-
-            update_one(repsToUpdate[updateCounter])
+            update_one(repsToUpdate[updateCounter], true)
         });
 
-        function update_one(rep){
-            $('li[data-ID="' + rep.ID +'"]').append(' - updating');
+        //UPDATE ONE REP
+        $('#preview').on('click', 'li', (e)=>{
+            let rep = {
+                ID: $(e.target).attr('data-ID'),
+                name: $(e.target).html(),
+                billtrack_id: $(e.target).attr('data-billtrackid'),
+            };
+            update_one(rep, false)
+        });
+
+        function update_one(rep, repeat){
+            $('li[data-ID="' + rep.ID +'"]').append('<span> - Loading...</span>');
+
             $.ajax({
                     // eslint-disable-next-line no-undef
                     url : ajax_object.ajax_url,
@@ -80,14 +95,21 @@ $scorecards = $scorecardsImport->scorecards;
                         rep
                     },
                     success: function (response) {
-                        $('li[data-ID="' + rep.ID +'"]').css('color', 'green');
-                        $('li[data-ID="' + rep.ID +'"]').append(' - ' + response.data.votes + ' votes');
+                        $('li[data-ID="' + rep.ID +'"] span').remove();
 
-                        //If there is more, run again
-                        if(updateCounter < repsToUpdate.length - 1){
-                            updateCounter++
-                            update_one(repsToUpdate[updateCounter])
-                        }
+                    if(response.success){
+                        $('li[data-ID="' + rep.ID +'"]').css('color', 'green');
+                        $('li[data-ID="' + rep.ID +'"]').append(' - ' + response.data.created + ' created, ' + response.data.updated + ' updated');
+                    } else {
+                        $('li[data-ID="' + rep.ID +'"]').css('color', 'red');
+                        $('li[data-ID="' + rep.ID +'"]').append(' - ' + response.data);
+                    }
+
+                    //If there is more, run again
+                    if(repeat & updateCounter < repsToUpdate.length - 1){
+                        updateCounter++
+                        update_one(repsToUpdate[updateCounter])
+                    }
 
                     },
                 });
