@@ -8,24 +8,24 @@ function getVotes($year){
         $votesByYear = [];
 
         if($votes):
-        //While there is a voting history, get votes by year
-            while($missingYear < 2){
-                $thisYear = array_filter($votes, function($vote) use ($year){
-                    if($vote['bill_number']):
-                    return date("Y", strtotime(get_field('floor_voted_date',$vote['bill_number']))) == $year
-                            || 
-                            date("Y", strtotime($vote['vote_date'])) == $year;
-                    endif;
-                    });
+        while($missingYear < 2):
+          //Filter 
+          $thisYear = array_filter($votes, function($vote) use ($year){
+            if($vote['bill_number']):
+              return date("Y", strtotime(get_field('floor_voted_date',$vote['bill_number']))) == $year
+                || date("Y", strtotime($vote['vote_date'])) == $year;
+            endif;
+          });
 
-                if(!empty($thisYear)){
-                    $votesByYear[$year] = $thisYear;
-                    $year--;
-                } else {
-                    $year--;
-                    $missingYear++;
-                }
-            }
+          // If the filter found votes, add it
+          if(!empty($thisYear)):
+            $votesByYear[$year] = $thisYear;
+            $year--;
+          else:
+            $year--;
+            $missingYear++;
+          endif;
+        endwhile;
         endif;
 
         return $votesByYear;

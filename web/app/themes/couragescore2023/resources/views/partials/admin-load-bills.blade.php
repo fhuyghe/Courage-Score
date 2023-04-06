@@ -8,7 +8,7 @@ $scorecards = $scorecardsImport->scorecards;
     <select name="scorecards" id="scorecards">
     @foreach(array_reverse($scorecards) as $scorecard):
         <option value="{{ $scorecard->scorecardID }}">{{ $scorecard->scorecardName }}</option>
-    @endforeach
+    @endforeach 
     </select>
     <button id="loadSubmit">Load Bills</button>
     <button id="updateSubmit" disabled>Update All</button>
@@ -17,8 +17,24 @@ $scorecards = $scorecardsImport->scorecards;
         <h2 id="previewTitle"></h2>
         <ul id="previewList"></ul>
     </div>
-    </div>
 </div>
+
+<style>
+     #preview{
+        display: block;
+        background-color: white;
+        margin-top: 20px;
+        padding: 50px;
+        border-radius: 20px;
+        z-index: 99;
+        position: relative;
+    }
+
+    #previewList{
+        padding: 50px 0px;
+        column-count: 3;
+    }
+</style>
 
 <script>
     (function($) {
