@@ -17,6 +17,7 @@
     </div>
 
     @if($votes) 
+    {{ count($votes[2022]) }} Votes
       <table id="billsTable">
         <thead>
         <tr>

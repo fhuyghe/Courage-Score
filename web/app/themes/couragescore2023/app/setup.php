@@ -1237,14 +1237,19 @@ function update_votes($scorecardID){
                     $row_exists = false;
                     $index = 1; //ACF rows index start at 1
 
-                    if(have_rows('voting', $person['ID'])): while(have_rows('voting', $person['ID'])): the_row();
-                        if( get_sub_field('bill_id') == $billtrack_bill_id && get_sub_field('vote') == $vote_label && get_sub_field('vote_date') == $vote_date && get_sub_field('floorcommittee') == $floor_committee ):
+                if(have_rows('voting', $person['ID'])):
+                    while(have_rows('voting', $person['ID'])): the_row();
+                        if( get_sub_field('bill_id') == $billtrack_bill_id 
+                        && get_sub_field('vote') == $vote_label 
+                        && get_sub_field('vote_date') == $vote_date 
+                        && get_sub_field('floorcommittee') == $floor_committee ):
                             update_row('voting', $index, $row, $person['ID']);
                             $row_exists = true;
                             $votesUpdated++;
                         endif;
                         $index++;
-                    endwhile; endif;
+                    endwhile; 
+                endif;
 
                     if($row_exists == false){
                         $i = add_row( 'voting', $row, $person['ID'] );
@@ -1276,6 +1281,51 @@ function update_votes($scorecardID){
 }
 add_action('wp_ajax_update_votes', __NAMESPACE__ .'\\update_votes' );
 add_action('wp_ajax_nopriv_update_votes', __NAMESPACE__ .'\\update_votes' );
+
+// ***************************************
+// **** RESET VOTES
+// ***************************************
+
+function reset_votes(){
+    $year = $_POST['year'];
+    $person = $_POST['rep'];
+    
+    if(!$person) 
+        wp_send_json_error("No update to be made");
+
+    $votesDeleted = [];
+    $index = 1; //ACF rows index start at 1
+
+    $votes = get_field('voting', $person['ID']);
+    if($votes){
+        foreach($votes as $key => $vote){
+            if( substr($vote['vote_date'], 0, 4) == $year 
+                || $vote['vote_date'] == ''
+            ){
+                unset($votes[$key]);
+                array_push($votesDeleted, $vote);
+                //delete_row('voting', $index, $person['ID']);
+                // It takes forever so we can only do a few at a time
+                // if(count($votesDeleted) > 3){ break; }
+            }
+
+            $index++;
+        }
+    }
+
+    update_field('voting', $votes , $person['ID']);
+
+    $response = [
+        "reset" => count($votesDeleted),
+        "votesDeleted" => $votesDeleted,
+    ];
+
+    wp_send_json_success($response);
+   
+   return true;
+}
+add_action('wp_ajax_reset_votes', __NAMESPACE__ .'\\reset_votes' );
+add_action('wp_ajax_nopriv_reset_votes', __NAMESPACE__ .'\\reset_votes' );
 
 //Never used yet
 function get_bill_authors($bill_id){

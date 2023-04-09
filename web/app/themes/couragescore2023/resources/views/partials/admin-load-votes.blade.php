@@ -14,6 +14,7 @@ $scorecards = $scorecardsImport->scorecards;
     </select>
     <button id="getPossibleUpdates">Get Possible Updates</button>
     <button id="updateSubmit" disabled>Update Votes</button>
+    <button id="resetSubmit" disabled>Reset 2022 Votes</button>
 
     <div id="preview">
         <h2>
@@ -97,6 +98,15 @@ $scorecards = $scorecardsImport->scorecards;
             
             update_one(repsToUpdate[updateCounter], true)
         });
+        
+        // RESET ALL Votes
+        $('#resetSubmit').on('click', function () {
+            console.log('Resetting...');
+            $('#previewTitle').html('Resetting...');
+            $(this).attr('disabled', true);
+            
+            reset_one(repsToUpdate[updateCounter], true)
+        });
 
         //UPDATE ONE REP
         $('#preview').on('click', 'li', (e)=>{
@@ -122,6 +132,8 @@ $scorecards = $scorecardsImport->scorecards;
                         rep
                     },
                     success: function (response) {
+                        console.log(response.data)
+
                         $('li[data-ID="' + rep.ID +'"]').removeClass('loading');
 
                     if(response.success){
@@ -141,6 +153,43 @@ $scorecards = $scorecardsImport->scorecards;
                     },
                 });
         }
+        
+        function reset_one(rep, repeat){
+            $('li[data-ID="' + rep.ID +'"]').addClass('loading');
+
+            $.ajax({
+                    // eslint-disable-next-line no-undef
+                    url : ajax_object.ajax_url,
+                    method: 'POST',
+                    data : {
+                        action: 'reset_votes',
+                        nonce: ajax_object.ajax_nonce,
+                        year: 2022,
+                        rep
+                    },
+                    success: function (response) {
+                        console.log(response.data)
+
+                        $('li[data-ID="' + rep.ID +'"]').removeClass('loading');
+
+                    if(response.success){
+                        $('li[data-ID="' + rep.ID +'"]').css('color', 'green');
+                        if (response.data)
+                            $('li[data-ID="' + rep.ID +'"]').append(' - ' + response.data.reset + ' deleted.');
+                    } else {
+                        $('li[data-ID="' + rep.ID +'"]').css('color', 'red');
+                        $('li[data-ID="' + rep.ID +'"]').append(' - ' + response.data);
+                    }
+
+                    //If there is more, run again
+                    if(repeat & updateCounter < repsToUpdate.length - 1){
+                        updateCounter++
+                        reset_one(repsToUpdate[updateCounter], true)
+                    }
+
+                    },
+                });
+        }
 
         function find_reps(){
             $.ajax({
@@ -154,6 +203,7 @@ $scorecards = $scorecardsImport->scorecards;
                 success: function (response) {
                     $('#getPossibleUpdates').attr('disabled', false);
                     $('#updateSubmit').attr('disabled', false);
+                    $('#resetSubmit').attr('disabled', false);
                     if(response.data){
                         $('#previewTitle').html('People to update');
                         repsToUpdate = response.data
