@@ -930,8 +930,6 @@ function update_bill(){
     }
 
     $bill = $_POST['bill'];
-    //wp_send_json_success($bill['billID']);
-    //wp_send_json_success(var_export($bill, true));
 
     // Find out if bill is in the DB
     $args = array(
@@ -953,86 +951,86 @@ function update_bill(){
         // Create post if bill doesn't exist
         if ( !$bills_query->have_posts()){
             // Create post object
-    $bill_summary = get_bill_summary($bill['billID']);
-    
-    $new_bill = array(
-        'post_title'    => $bill['stateBillID'],
-        'post_content'  => $bill_summary,
-        'post_status'   => 'draft',
-        'post_author'   => 1,
-        'post_type' => 'vote',
-    );
-    $new_post_ID = wp_insert_post( $new_bill );
-    update_field('title', $bill['billName'],  $new_post_ID );
-    update_field('billtrack_id', $bill['billID'],  $new_post_ID );
-    update_field('last_update_attempt_ts', 0,  $new_post_ID );
-    update_field('last_update_success_ts', 0,  $new_post_ID );
-
-    // Get post from database
-    $wp_bill_query = new \WP_Query(array(
-        'post_type'     => 'vote',
-        'p'            => $new_post_ID
-    ));
-    $wp_bill = $wp_bill_query->post;
-}
-
-//Check that we didn't try to update it in the last 10 hours
-$limitts = time() - 10*60*60; //-10 hours
-$a_ts = get_field("last_update_attempt_ts", $wp_bill->ID);
-$s_ts = get_field("last_update_success_ts", $wp_bill->ID);
-$billtrack_id = get_field("billtrack_id", $wp_bill->ID);
-$voting_history = get_field('voting_history', $wp_bill->ID);
-
-if(empty($billtrack_id) || $a_ts > $limitts){
-    wp_send_json_error('Already updated');
-}
-
-update_field("last_update_attempt_ts", time(), $wp_bill->ID);
-
-
-//Get votes
-$votes = get_bill_votes($billtrack_id);
-
-//Get current vote IDs
-$voting_history_arr = array();
-if(have_rows('voting_history', $wp_bill->ID)): 
-    while(have_rows('voting_history', $wp_bill->ID)): the_row();
-        $voting_history_arr[] = get_sub_field('vote_id');
-    endwhile; 
-endif;
-
-$updatedVotes = 0;
-
-if($votes){
-    foreach ($votes as $vote) {
-        $vote_id = $vote->voteID;
-        if(!in_array($vote_id, $voting_history_arr)){
-            $updatedVotes++;
-            $vote_date = date("Ymd", strtotime($vote->voteDate));
-            $votes_count = $vote->yesVotes + $vote->noVotes + $vote->otherVotes;
-            if( $votes_count>37 ){ $commitee_floor = 'floor'; } else {$commitee_floor = 'committee';};
-           
-            $row = array(
-                'field_5a5f6d4a0ae1a' =>  $vote_id,
-                'field_5a5f6d5c0ae1b' =>  $vote_date,
-                'field_5a5f6d910ae1c' =>  $commitee_floor,
-                'field_5a61f5744032d' =>  $vote->yesVotes,
-                'field_5a61f58b4032e' =>  $vote->noVotes,
-                'field_5a61f5934032f' =>  $vote->otherVotes
+            $bill_summary = get_bill_summary($bill['billID']);
+            
+            $new_bill = array(
+                'post_title'    => $bill['stateBillID'],
+                'post_content'  => $bill_summary,
+                'post_status'   => 'draft',
+                'post_author'   => 1,
+                'post_type' => 'vote',
             );
-       
-            $i = add_row('field_5a5f6d320ae19', $row, $wp_bill->ID );
-            unset($row);
-            unset($vote_id);
-            unset($vote_date);
-            unset($commitee_floor);
-        }
-    }           
-}
-unset($voting_history_arr);
-update_field("last_update_success_ts", time(), $wp_bill->ID);
+            $new_post_ID = wp_insert_post( $new_bill );
+            update_field('title', $bill['billName'],  $new_post_ID );
+            update_field('billtrack_id', $bill['billID'],  $new_post_ID );
+            update_field('last_update_attempt_ts', 0,  $new_post_ID );
+            update_field('last_update_success_ts', 0,  $new_post_ID );
 
-wp_send_json_success($updatedVotes . 'votes updated');
+            // Get post from database
+            $wp_bill_query = new \WP_Query(array(
+                'post_type'     => 'vote',
+                'p'            => $new_post_ID
+            ));
+            $wp_bill = $wp_bill_query->post;
+        }
+
+    //Check that we didn't try to update it in the last 10 minutes
+    $limitts = time() - 10*60; //-10 minutes
+    $a_ts = get_field("last_update_attempt_ts", $wp_bill->ID);
+    $s_ts = get_field("last_update_success_ts", $wp_bill->ID);
+    $billtrack_id = get_field("billtrack_id", $wp_bill->ID);
+    $voting_history = get_field('voting_history', $wp_bill->ID);
+
+    if(empty($billtrack_id) || $a_ts > $limitts){
+        wp_send_json_error('Already updated');
+    }
+
+    update_field("last_update_attempt_ts", time(), $wp_bill->ID);
+
+
+    //Get votes
+    $votes = get_bill_votes($billtrack_id);
+
+    //Get current vote IDs
+    $voting_history_arr = array();
+    if(have_rows('voting_history', $wp_bill->ID)): 
+        while(have_rows('voting_history', $wp_bill->ID)): the_row();
+            $voting_history_arr[] = get_sub_field('vote_id');
+        endwhile; 
+    endif;
+
+    $updatedVotes = 0;
+
+    if($votes){
+        foreach ($votes as $vote) {
+            $vote_id = $vote->voteID;
+            if(!in_array($vote_id, $voting_history_arr)){
+                $updatedVotes++;
+                $vote_date = date("Ymd", strtotime($vote->voteDate));
+                $votes_count = $vote->yesVotes + $vote->noVotes + $vote->otherVotes;
+                if( $votes_count>37 ){ $commitee_floor = 'floor'; } else {$commitee_floor = 'committee';};
+            
+                $row = array(
+                    'field_5a5f6d4a0ae1a' =>  $vote_id,
+                    'field_5a5f6d5c0ae1b' =>  $vote_date,
+                    'field_5a5f6d910ae1c' =>  $commitee_floor,
+                    'field_5a61f5744032d' =>  $vote->yesVotes,
+                    'field_5a61f58b4032e' =>  $vote->noVotes,
+                    'field_5a61f5934032f' =>  $vote->otherVotes
+                );
+        
+                $i = add_row('field_5a5f6d320ae19', $row, $wp_bill->ID );
+                unset($row);
+                unset($vote_id);
+                unset($vote_date);
+                unset($commitee_floor);
+            }
+        }           
+    }
+    unset($voting_history_arr);
+    update_field("last_update_success_ts", time(), $wp_bill->ID);
+
+    wp_send_json_success($updatedVotes . 'votes updated');
 }
 add_action('wp_ajax_update_bill', __NAMESPACE__ .'\\update_bill' );
 add_action('wp_ajax_nopriv_update_bill', __NAMESPACE__ .'\\update_bill' );
@@ -1125,7 +1123,7 @@ function get_reps_to_update(){
     $response = array();
 
     $nowts = time();
-    $limitts = $nowts - 60*60; //-1 hours
+    $limitts = $nowts - 10*60; //-1 hours
 
     foreach($all_people as $person){
         $a_ts = get_field("last_update_attempt_ts", $person->ID);
@@ -1267,7 +1265,7 @@ function update_votes($scorecardID){
     }
 
     $response = [
-        "votes" => count($votes),
+        "votes" => $votes,
         "updated" => $votesUpdated,
         "created" => $votesCreated,
     ];
