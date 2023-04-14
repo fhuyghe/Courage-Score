@@ -432,8 +432,9 @@ function create_vote_topics_taxonomies()
 function getLegislator($body, $district){
     $args = array(
         'post_type'     => 'people',
-        'post_status'        => 'publish',
-        'showposts' => 1,
+        'post_status'   => 'publish',
+        'showposts'     => 1,
+        'category__not_in' => 63, // Not "Out of office"
         'meta_query'	=> array(
             'relation'		=> 'AND',
             array(
