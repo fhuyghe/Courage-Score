@@ -14,7 +14,7 @@
     <td class="party">
         {{ get_field('party')[0] }}
     </td>
-    <td>
+    <td class="score">
         @include('partials.score-display')
     </td>
     <td class="grade">

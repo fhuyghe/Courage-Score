@@ -86,7 +86,9 @@ $year = $allYears[0];
           
           <div>
             <h5>Score</h5>
-            @include('partials.score-display')
+            <div class="score">
+              @include('partials.score-display')
+            </div>
           </div>
       </div>
       </div>

@@ -12,6 +12,7 @@ let table = $('#representativesTable').DataTable({
       { visible: false, targets: 0 },
       { responsivePriority: 1, targets: 1 },
       { responsivePriority: 2, targets: -1 },
+      { type: 'num' },
     ],
   });
 

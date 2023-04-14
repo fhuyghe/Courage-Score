@@ -23,6 +23,10 @@ img{
     height: auto;
 }
 
+.hidden{
+    display: none;
+}
+
 // Typography
 p{
     font-family: $lato;
@@ -225,9 +229,12 @@ table{
     }
 
     .sorting{
-        &:after{
-            content: '▼';
-            opacity: .3;
+        &::before{
+            display: none!important;
+        }
+        
+        &::after{
+            transform: translateY(-50%);
             padding-left: 5px;
             font-size: .7em;
         }
