@@ -323,6 +323,14 @@
         }
     }
 
+    #legislators .row{
+        --bs-gutter-x: 3rem;
+
+        .rep-block{
+            margin-bottom: 3rem;
+        }
+    }
+
     #dishonorableMentions,
     #honorableMentions{
         margin-top: $grid-gutter * 2;
@@ -492,6 +500,7 @@
 
 //Legislator Blocks
 .rep-block{
+    position: relative;
     background-color: $grey;
     padding: calc($grid-gutter / 2);
     margin-bottom: $grid-gutter;

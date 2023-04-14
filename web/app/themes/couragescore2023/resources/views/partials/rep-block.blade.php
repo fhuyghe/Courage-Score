@@ -14,6 +14,7 @@
       </div>
     </div>
   </div>
+  @include('partials.badge')
   @php 
     $hallOfShameList = $getHallOfShame;
     $allStarList = $getAllStars; 
