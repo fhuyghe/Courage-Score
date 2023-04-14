@@ -624,3 +624,20 @@ div.grade{
 .signup-success{
     color: $blue;
 }
+
+
+// Print
+@media print {
+    footer.content-info,
+    .banner{
+        display: none;
+    }
+
+    .single{
+        #mapContainer,
+        #contact, 
+        #submenu{
+            display: none;
+        }
+    }
+}
