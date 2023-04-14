@@ -87,7 +87,7 @@
   @endif
 
   {{-- Custom Scorecard --}}
-  @if($scorecardBanner)
+  @if($scorecardBanner && $scorecardBanner['show_banner'] )
   <section id="scorecardBanner">
     <div class="container">
       <div class="row">
