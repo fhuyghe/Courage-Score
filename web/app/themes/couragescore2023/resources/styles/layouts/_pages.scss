@@ -327,7 +327,11 @@
         --bs-gutter-x: 3rem;
 
         .rep-block{
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
+            
+            @include media-breakpoint-up(md){
+                margin-bottom: 3rem;
+            }
         }
     }
 
