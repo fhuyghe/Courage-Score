@@ -101,6 +101,7 @@ if(searchSelect){
 
     var getDistrict = function (address) {
         // Get the reps here
+        $('#searchError').removeClass('active');
       $('#address-input').attr('disabled', true);
       $('.search-container.address').addClass('loading');
 
@@ -112,16 +113,20 @@ if(searchSelect){
           address,
         },
         success: function (response) {
+          console.log(response)
           let searchResults = document.getElementById('searchResults');
+
 
           //Populate address
           $('#address').html(address);
 
           // Populate Assembly
-          $('#assemblyRep').html(response.data[0]);
+          $('#assemblyNum').html('Assembly district ' + response.data.assemblyNum);
+          $('#assemblyRep').html(response.data.assemblyView);
           
           // Populate Senate
-          $('#senateRep').html(response.data[1]);
+          $('#senateNum').html('Senate district ' + response.data.senateNum);
+          $('#senateRep').html(response.data.senateView);
           
           searchResults.classList.add('active');
           searchResults.scrollIntoView({ block: 'start', behavior: 'smooth' });
@@ -130,5 +135,15 @@ if(searchSelect){
           $('#address-input').attr('disabled', false);
           $('.search-container.address').removeClass('loading');
         },
+        error: function (response){
+          console.log('Error: ', response)
+
+          $('#searchError').addClass('active');
+          searchResults.classList.remove('active');
+
+          //Remove Loading Status
+          $('#address-input').attr('disabled', false);
+          $('.search-container.address').removeClass('loading');
+        }
       });
     }

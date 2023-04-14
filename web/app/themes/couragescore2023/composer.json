@@ -39,7 +39,8 @@
     }
   },
   "require": {
-    "php": "^8.0"
+    "php": "^8.0",
+    "geocodio/geocodio-library-php": "^1.5"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "3.7.1"

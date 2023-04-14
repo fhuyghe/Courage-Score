@@ -79,6 +79,15 @@
         }
     }
 
+    #searchError{
+        color: $red;
+        display: none;
+
+        &.active{
+            display: block;
+        }
+    }
+
     #searchResults{
         display: none;
         

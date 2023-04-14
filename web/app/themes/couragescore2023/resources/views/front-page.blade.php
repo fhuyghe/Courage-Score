@@ -10,9 +10,11 @@
       <h5 id="address"></h5>
       <div class="row">
         <div class="col-md-6">
+          <h3 id="assemblyNum"></h3>
           <div id="assemblyRep"></div>
         </div>
         <div class="col-md-6">
+          <h3 id="senateNum"></h3>
           <div id="senateRep"></div>
         </div>
       </div>

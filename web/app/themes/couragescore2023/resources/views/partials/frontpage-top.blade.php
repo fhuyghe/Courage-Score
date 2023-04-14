@@ -7,5 +7,6 @@
       <p>{{ $top['paragraph'] }}</p>
       @include('partials.search')
       <a href="/all-representatives">See all representatives</a>
+      <div id="searchError">Invalid address. Please check the input above.</div>
     </div>
   </section>
