@@ -37,7 +37,7 @@ if (carousels.length > 0) {
   });
 }
 
-/*****************/
+    /*****************/
     // All Stars Carousel
     /*****************/
     $('#starList').slick({

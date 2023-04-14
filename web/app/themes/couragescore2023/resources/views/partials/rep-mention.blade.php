@@ -41,7 +41,9 @@
   
   <div class="portrait">
       <div class="portrait-wrap">
+        <a href="{{ get_permalink($repObject) }}">
          <img src="{{ $rep['photo']['url'] }}"/>
+        </a>
       </div>
   </div>
   <div class="rep-name-title">

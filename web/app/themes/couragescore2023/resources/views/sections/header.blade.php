@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col" id="logo">
         <a class="brand" href="{{ home_url('/') }}">
-          <img src="@asset('images/couragescore-logo_300.png')" />
+          <img src="@asset('../../images/couragescore-logo_300.png')" />
         </a>
       </div> 
       {{-- <div class="col" id="bannerSearch">

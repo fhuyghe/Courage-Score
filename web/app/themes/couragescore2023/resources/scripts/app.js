@@ -3,7 +3,6 @@ import domReady from '@roots/sage/client/dom-ready';
 
 //import './modules/popper.js'
 import './modules/datatables.js'
-import './modules/carousels.js'
 import './modules/search.js'
 
 /**
@@ -23,6 +22,11 @@ domReady(async () => {
      }, 1000)
     
   })
+
+  //Carousels
+  if($('.home').length > 0){
+    import('./modules/carousels.js')
+  }
 
   //Hamburger
   $('.hamburger').on('click', function () {

@@ -101,8 +101,12 @@
             max-width: 800px;
 
             .intro{
-                font-size: 1.3em;
+                font-size: 1.1em;
                 margin-bottom: $grid-gutter * 2;
+                
+                @include media-breakpoint-up(md){
+                    font-size: 1.3em;
+                }
             }
 
             .wp-block-columns{

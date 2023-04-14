@@ -62,10 +62,13 @@ a{
 }
 
 a.button,
-.wp-block-button__link.no-border-radius{
+.wp-block-button__link,
+.wp-block-button.has-custom-font-size a,
+.wp-block-button.has-medium-font-size a{
     display: inline-block;
-    font-size: 1em;
-    border: 1px solid $black;
+    font-size: 1rem!important;
+    border: 1px solid $black!important;
+    border-radius: 0;
     padding: 5px 20px;
     transition: .25s;
 

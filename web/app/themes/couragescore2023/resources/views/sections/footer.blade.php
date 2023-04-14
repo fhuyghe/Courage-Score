@@ -4,7 +4,7 @@
       <div class="col-md-8">
         <div class="logo">
           <a class="brand" href="{{ home_url('/') }}">
-            <img src="@asset('images/couragescore-logo_300.png')" />
+            <img src="@asset('../../images/couragescore-logo_300.png')" />
           </a> 
         </div>
         @include('partials.contact-links')

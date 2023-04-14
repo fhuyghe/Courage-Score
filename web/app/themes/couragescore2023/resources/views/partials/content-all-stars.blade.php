@@ -24,7 +24,7 @@
       @foreach($allStars as $post)
       @php setup_postdata( $post ) @endphp
 
-      <div class="col-md-6">
+      <div class="col-md-6 col-xl-4">
         @include('partials.rep-block')
       </div>
       
@@ -43,7 +43,7 @@
       </div>
         <div id="honorableWrap" class="row">
         @foreach ($honorableMentions['representatives'] as $rep)
-          <div class="col-md-6">
+        <div class="col-md-6 col-xl-4">
             @include('partials.rep-mention')
           </div>
         @endforeach
