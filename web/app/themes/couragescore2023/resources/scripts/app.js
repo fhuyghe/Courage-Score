@@ -28,6 +28,11 @@ domReady(async () => {
     import('./modules/carousels.js')
   }
 
+  // All Bills page
+  if($('.page.bills').length > 0){
+    import('./routes/bills.js')
+  }
+
   //Hamburger
   $('.hamburger').on('click', function () {
     $(this).toggleClass('is-active');

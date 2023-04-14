@@ -7,6 +7,7 @@ use WP_Query;
 
 class PageBills extends Composer
 {
+
     public static function bills($year) {
         $start_date = $year . '0000';
         $finish_year = $year+1;

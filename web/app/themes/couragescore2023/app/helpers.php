@@ -42,7 +42,7 @@ add_action('wp_ajax_nopriv_get_votes_per_year', __NAMESPACE__ .'\\get_votes_per_
 // Get Bills per year
 function get_bills_per_year() {
     $year = $_REQUEST['year'];
-    $bills = \PageBills::bills($year);
+    $bills = \App\View\Composers\PageBills::bills($year);
 
     $new_rows = [];
     foreach($bills as $bill){
