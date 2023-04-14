@@ -288,7 +288,7 @@ function People_custom_init()
     'not_found' =>  __('No People found'),
     'not_found_in_trash' => __('No People found in Trash'), 
     'parent_item_colon' => '',
-    'menu_name' => 'People'
+    'menu_name' => 'Legislators'
   );
   
   $args = array(
@@ -304,7 +304,7 @@ function People_custom_init()
     'hierarchical' => false,
     'menu_position' => null,
     'supports' => array('title','editor','thumbnail','custom-fields'),
-    'taxonomies' => array('title', 'district')
+    'taxonomies' => array('title', 'district', 'category')
   ); 
   register_post_type('people',$args);
 }

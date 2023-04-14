@@ -35,6 +35,7 @@ class PageAllRepresentatives extends Composer
             'orderby' => 'title',
 		    'order' => 'ASC',
             'showposts' => -1,
+            'category__not_in' => 63, // Not "Out of office"
 	    );
 	    $the_query = new WP_Query( $args );
 	    return $the_query->posts;
