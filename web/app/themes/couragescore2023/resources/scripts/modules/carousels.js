@@ -46,7 +46,8 @@ if (carousels.length > 0) {
         infinite: true,
         centerMode: true,
         slidesToShow: 1,
-        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 5000,
         responsive: [
           {
             breakpoint: 900,
@@ -55,8 +56,16 @@ if (carousels.length > 0) {
             },
           },
           {
+            breakpoint: 1100,
+            settings: {
+              slidesToShow: 4,
+            },
+          },
+          {
             breakpoint: 99999,
-            settings: 'unslick',
+            settings: {
+              slidesToShow: 6,
+            },
           },
         ],
       });
