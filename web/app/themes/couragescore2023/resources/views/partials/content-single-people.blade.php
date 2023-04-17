@@ -92,7 +92,11 @@ $year = $allYears[0];
           </div>
       </div>
       </div>
+
+      {{-- If the legislator is in office --}}
+      @if(!has_category(63))
       <div id="mapContainer"></div>
+      @endif
     </section>
 
     @if($score !== 'na')
@@ -189,6 +193,7 @@ $year = $allYears[0];
   @if($partnersScores)
     <section id="partnersScores">
       <h2>{{ $titles['partners_scores_title'] }}</h2>
+      <p>2022 coming soon.</p>
       <table id="partnersScoresTable">
         <thead>
         <tr>

@@ -35,7 +35,11 @@ domReady(async () => {
 
     //Add their layer to the map
     //let districtUrl = 'https://map.dfg.ca.gov/arcgis/rest/services/Political/boundaries/MapServer/' + senateAssembly + '/query?where=district%3D' + districtNumber + '&f=geojson';
-    let districtUrl = 'https://services3.arcgis.com/fdvHcZVgB2QSRNkL/ArcGIS/rest/services/Legislative/FeatureServer/' + senateAssembly + '/query?where=OBJECTID=' + districtNumber + '&f=geojson';
+    // let districtUrl = 'https://services3.arcgis.com/fdvHcZVgB2QSRNkL/ArcGIS/rest/services/Legislative/FeatureServer/' + senateAssembly + '/query?where=OBJECTID=' + districtNumber + '&f=geojson';
+
+    let districtUrl = $('.body').html() == 'assembly' 
+        ? 'https://services3.arcgis.com/fdvHcZVgB2QSRNkL/arcgis/rest/services/Legislative/FeatureServer/0/query?outFields=*&where=OBJECTID=' + districtNumber + '&f=geojson'
+        : 'https://services3.arcgis.com/uknczv4rpevve42E/arcgis/rest/services/California_State_Senate_Districts_Map_2020/FeatureServer/0/query?where=ID=' + districtNumber + '&f=geojson'
         
         // $.ajax({
         //     url : '../../app/themes/couragescore2021/resources/assets/geo/assembly/district-1.txt',
