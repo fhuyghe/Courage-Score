@@ -37,10 +37,14 @@ domReady(async () => {
     //let districtUrl = 'https://map.dfg.ca.gov/arcgis/rest/services/Political/boundaries/MapServer/' + senateAssembly + '/query?where=district%3D' + districtNumber + '&f=geojson';
     // let districtUrl = 'https://services3.arcgis.com/fdvHcZVgB2QSRNkL/ArcGIS/rest/services/Legislative/FeatureServer/' + senateAssembly + '/query?where=OBJECTID=' + districtNumber + '&f=geojson';
 
-    let districtUrl = $('.body').html() == 'assembly' 
+
+    // IF ODD, use the 2011 map
+     let districtUrl = $('.body').html() == 'assembly' 
         ? 'https://services3.arcgis.com/fdvHcZVgB2QSRNkL/arcgis/rest/services/Legislative/FeatureServer/0/query?outFields=*&where=OBJECTID=' + districtNumber + '&f=geojson'
-        : 'https://services3.arcgis.com/uknczv4rpevve42E/ArcGIS/rest/services/CA_Senate_Districts/FeatureServer/0/query?where=DISTRICT=' + districtNumber + '&f=geojson'
-        
+        : districtNumber % 2 == 0 
+            ? 'https://services3.arcgis.com/fdvHcZVgB2QSRNkL/arcgis/rest/services/Legislative/FeatureServer/1/query?outFields=*&where=OBJECTID=' + districtNumber + '&f=geojson'
+            : 'https://services5.arcgis.com/0CGHmi5SBMvfD65u/arcgis/rest/services/AD_SD_2011_2021_SDRulesAssign/FeatureServer/5/query?where=SD_2011=' + districtNumber + '&f=geojson'
+
         // $.ajax({
         //     url : '../../app/themes/couragescore2021/resources/assets/geo/assembly/district-1.txt',
         //     dataType: 'text',
