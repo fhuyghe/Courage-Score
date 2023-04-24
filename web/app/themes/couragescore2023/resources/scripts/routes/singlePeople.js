@@ -39,7 +39,7 @@ domReady(async () => {
 
     let districtUrl = $('.body').html() == 'assembly' 
         ? 'https://services3.arcgis.com/fdvHcZVgB2QSRNkL/arcgis/rest/services/Legislative/FeatureServer/0/query?outFields=*&where=OBJECTID=' + districtNumber + '&f=geojson'
-        : 'https://services3.arcgis.com/uknczv4rpevve42E/arcgis/rest/services/California_State_Senate_Districts_Map_2020/FeatureServer/0/query?where=ID=' + districtNumber + '&f=geojson'
+        : 'https://services3.arcgis.com/uknczv4rpevve42E/ArcGIS/rest/services/CA_Senate_Districts/FeatureServer/0/query?where=DISTRICT=' + districtNumber + '&f=geojson'
         
         // $.ajax({
         //     url : '../../app/themes/couragescore2021/resources/assets/geo/assembly/district-1.txt',
