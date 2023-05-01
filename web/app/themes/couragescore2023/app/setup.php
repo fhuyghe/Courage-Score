@@ -458,61 +458,33 @@ function getDistrict(){
     // example address 1228 O St , Sacramento, CA, 95814
 
     // GOOGLE CIVICS API
-    $url = "https://www.googleapis.com/civicinfo/v2/representatives?address=" . urlencode($_REQUEST['address']) . "&key=" . GOOGLEMAPS_API;
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-    $response = curl_exec($ch);
-    curl_close($ch);
-    $response_a = json_decode($response);
-    $offices = $response_a->offices;
-    if($offices){
-        foreach ($offices as $office){
-            $pos = strrpos($office->divisionId, '/');
-            $divisionIds = $pos === false ? $office : substr($office->divisionId, $pos + 1);
-            list( $district_type, $district_number ) = explode(":", $divisionIds);
-            $divisions[$district_type] = $district_number;
-        }
-    }
-    $assemblyRep = array_key_exists('sldl', $divisions) ? getLegislator('assembly', $divisions['sldl']) : null;
-    $senateRep = array_key_exists('sldu', $divisions) ? getLegislator('senate', $divisions['sldu']) : null;
+    // $url = "https://www.googleapis.com/civicinfo/v2/representatives?address=" . urlencode($_REQUEST['address']) . "&key=" . GOOGLEMAPS_API;
+    // $ch = curl_init();
+    // curl_setopt($ch, CURLOPT_URL, $url);
+    // curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    // curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    // curl_setopt($ch, CURLOPT_PROXYPORT, 3128);
+    // curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    // $response = curl_exec($ch);
+    // curl_close($ch);
+    // $response_a = json_decode($response);
+    // $offices = $response_a->offices;
+    // if($offices){
+    //     foreach ($offices as $office){
+    //         $pos = strrpos($office->divisionId, '/');
+    //         $divisionIds = $pos === false ? $office : substr($office->divisionId, $pos + 1);
+    //         list( $district_type, $district_number ) = explode(":", $divisionIds);
+    //         $divisions[$district_type] = $district_number;
+    //     }
+    // }
+    // $assemblyRep = array_key_exists('sldl', $divisions) ? getLegislator('assembly', $divisions['sldl']) : null;
+    // $senateRep = array_key_exists('sldu', $divisions) ? getLegislator('senate', $divisions['sldu']) : null;
 
-    // //Assembly result
-    $district_info = [
-        'assemblyNum' => array_key_exists('sldl', $divisions) ? $divisions['sldl'] : null,
-        'senateNum' => array_key_exists('sldu', $divisions) ? $divisions['sldu'] : null,
-        'assemblyView' => $assemblyRep 
-            ? view('partials.rep-block', ['post' => $assemblyRep])->render() 
-            : '<div class="norep"><i class="fal fa-exclamation-circle"></i> No representative found for this assembly district.</div>',
-        'senateView' => $senateRep 
-            ? view('partials.rep-block', ['post' => $senateRep])->render() 
-            : '<div class="norep"><i class="fal fa-exclamation-circle"></i> No representative found for this senate district.</div>'
-    ];
-
-
-
-    // GEOCOD.IO
-    // $geocoder = new Geocodio\Geocodio();
-    // $geocoder->setApiKey(GEOCODIO_API);
-    // $response = $geocoder->geocode($_REQUEST['address'], ['stateleg']);
-
-    // $offices = $response->results[0]->fields->state_legislative_districts;
-    // $assemblyNum = $offices->house[0]->district_number;
-    // $senateNum = $offices->senate[0]->district_number;
-    
-    // $assemblyRep = $assemblyNum ? getLegislator('assembly', $assemblyNum) : null;
-    // $senateRep = $senateNum ? getLegislator('senate', $senateNum) : null;
-
-    
-
-    // //Assembly result
+    // // //Assembly result
     // $district_info = [
-    //     'assemblyNum' => $assemblyNum,
-    //     'senateNum' => $senateNum,
+    //     'assemblyNum' => array_key_exists('sldl', $divisions) ? $divisions['sldl'] : null,
+    //     'senateNum' => array_key_exists('sldu', $divisions) ? $divisions['sldu'] : null,
     //     'assemblyView' => $assemblyRep 
     //         ? view('partials.rep-block', ['post' => $assemblyRep])->render() 
     //         : '<div class="norep"><i class="fal fa-exclamation-circle"></i> No representative found for this assembly district.</div>',
@@ -520,6 +492,34 @@ function getDistrict(){
     //         ? view('partials.rep-block', ['post' => $senateRep])->render() 
     //         : '<div class="norep"><i class="fal fa-exclamation-circle"></i> No representative found for this senate district.</div>'
     // ];
+
+
+
+    // GEOCOD.IO
+    $geocoder = new Geocodio\Geocodio();
+    $geocoder->setApiKey(GEOCODIO_API);
+    $response = $geocoder->geocode($_REQUEST['address'], ['stateleg']);
+
+    $offices = $response->results[0]->fields->state_legislative_districts;
+    $assemblyNum = $offices->house[0]->district_number;
+    $senateNum = $offices->senate[0]->district_number;
+    
+    $assemblyRep = $assemblyNum ? getLegislator('assembly', $assemblyNum) : null;
+    $senateRep = $senateNum ? getLegislator('senate', $senateNum) : null;
+
+    
+
+    //Assembly result
+    $district_info = [
+        'assemblyNum' => $assemblyNum,
+        'senateNum' => $senateNum,
+        'assemblyView' => $assemblyRep 
+            ? view('partials.rep-block', ['post' => $assemblyRep])->render() 
+            : '<div class="norep"><i class="fal fa-exclamation-circle"></i> No representative found for this assembly district.</div>',
+        'senateView' => $senateRep 
+            ? view('partials.rep-block', ['post' => $senateRep])->render() 
+            : '<div class="norep"><i class="fal fa-exclamation-circle"></i> No representative found for this senate district.</div>'
+    ];
     return( $district_info );
 }
 

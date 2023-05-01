@@ -95,8 +95,12 @@
             display: block;
         }
 
+        .districtNum{
+            margin-bottom: $grid-gutter * 1.5;
+        }
+
         #address{
-            margin-bottom: $grid-gutter * 2;
+            margin-bottom: $grid-gutter;
         }
 
         .norep{
