@@ -483,8 +483,8 @@ function getDistrict(){
 
     // //Assembly result
     $district_info = [
-        'assemblyNum' => $divisions['sldl'],
-        'senateNum' => $divisions['sldu'],
+        'assemblyNum' => array_key_exists('sldl', $divisions) ? $divisions['sldl'] : null,
+        'senateNum' => array_key_exists('sldu', $divisions) ? $divisions['sldu'] : null,
         'assemblyView' => $assemblyRep 
             ? view('partials.rep-block', ['post' => $assemblyRep])->render() 
             : '<div class="norep"><i class="fal fa-exclamation-circle"></i> No representative found for this assembly district.</div>',

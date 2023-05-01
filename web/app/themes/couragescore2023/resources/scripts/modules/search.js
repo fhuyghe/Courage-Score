@@ -121,11 +121,11 @@ if(searchSelect){
           $('#address').html(address);
 
           // Populate Assembly
-          $('#assemblyNum').html('Assembly district ' + response.data.assemblyNum);
+          $('#assemblyNum').html('Assembly district ' + (response.data.assemblyNum || ''));
           $('#assemblyRep').html(response.data.assemblyView);
           
           // Populate Senate
-          $('#senateNum').html('Senate district ' + response.data.senateNum);
+          $('#senateNum').html('Senate district ' + (response.data.senateNum || ''));
           $('#senateRep').html(response.data.senateView);
           
           searchResults.classList.add('active');
