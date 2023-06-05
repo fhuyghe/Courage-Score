@@ -193,7 +193,6 @@ $year = $allYears[0];
   @if($partnersScores)
     <section id="partnersScores">
       <h2>{{ $titles['partners_scores_title'] }}</h2>
-      <p>2022 coming soon.</p>
       <table id="partnersScoresTable">
         <thead>
         <tr>
