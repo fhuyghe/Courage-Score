@@ -210,7 +210,11 @@ $year = $allYears[0];
             </td>
             <td >
               <div class="grade {{ App\get_color($p_score['score']) }}">
-                {{ $p_score['score'] }}
+                @if ($p_score['show_letter'])
+                  {{ App\get_letter($p_score['score']) }}
+                @else
+                  {{ $p_score['score'] }}
+                @endif
               </div>
             </td>
           </tr>

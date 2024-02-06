@@ -40,13 +40,19 @@
       <div class="section-footer">
         <a class="button" href="{{ $allStars['link'] }}">All Stars</a>
       </div>
-      <div id="starList" class="row">
+    </div>
+      <div id="starList">
+      <div class="row">
       @php $allStarList = $getAllStars @endphp
     @foreach ($allStarList as $post)
       @php setup_postdata( $post ) @endphp
       @include('partials.rep-block-vertical')
       @php wp_reset_postdata() @endphp
     @endforeach
+      </div>
+    <div class="arrows">
+      <div class="arrow prevArrow"><i class="fas fa-caret-left"></i></div>
+      <div class="arrow nextArrow"><i class="fas fa-caret-right"></i></div>
     </div>
     </div>
   </section>
@@ -69,6 +75,7 @@
         </div>
         <div class="col-md-6">
           <div id="carousel">
+            <div class="row">
             @php $hallOfShameList = $getHallOfShame @endphp
             @foreach ($hallOfShameList as $post)
             @php setup_postdata( $post ) @endphp
@@ -76,9 +83,10 @@
               @php wp_reset_postdata() @endphp
             @endforeach
           </div>
-          <div class="arrows">
-            <div class="arrow prevArrow"><i class="fas fa-caret-left"></i></div>
-            <div class="arrow nextArrow"><i class="fas fa-caret-right"></i></div>
+            <div class="arrows">
+              <div class="arrow prevArrow"><i class="fas fa-caret-left"></i></div>
+              <div class="arrow nextArrow"><i class="fas fa-caret-right"></i></div>
+            </div>
           </div>
         </div>
     </div>
