@@ -7,7 +7,6 @@
         $color = 'grey';
     }
 @endphp
-
 <div class="grade {{ $color }}">
     @if($letter == 'NA')
         N/A

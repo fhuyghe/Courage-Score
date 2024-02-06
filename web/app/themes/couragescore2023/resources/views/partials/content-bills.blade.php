@@ -11,7 +11,7 @@
     </tr>
   </thead>
   <tbody>
-    @php $bills = App\View\Composers\PageBills::bills(2021); @endphp
+    @php $bills = App\View\Composers\PageBills::bills(2023); @endphp
     @foreach($bills as $post)
     @php setup_postdata( $post ) @endphp
     @include('partials.bill-row')
